@@ -1,0 +1,92 @@
+[
+  {
+    "flyer_id": "flyer_001",
+    "path": "data/flyers/5Rivers.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_002",
+    "path": "data/flyers/AAPP.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_003",
+    "path": "data/flyers/AccessPoint.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_004",
+    "path": "data/flyers/ActuariesAtUGA.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_005",
+    "path": "data/flyers/AdilInstitute.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_006",
+    "path": "data/flyers/AFS.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_007",
+    "path": "data/flyers/APhA.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_008",
+    "path": "data/flyers/ArabUGA1.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_009",
+    "path": "data/flyers/ArabUGA2.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_010",
+    "path": "data/flyers/ArabUGA3.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_011",
+    "path": "data/flyers/ArabUGA4.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_012",
+    "path": "data/flyers/ASCE.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_013",
+    "path": "data/flyers/ASM.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_014",
+    "path": "data/flyers/ASU1.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_015",
+    "path": "data/flyers/ASU2.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_016",
+    "path": "data/flyers/Aviation.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_017",
+    "path": "data/flyers/BackpackAthens.png",
+    "year": 2026
+  },
+  {
+    "flyer_id": "flyer_018",
+    "path": "data/flyers/Badminton.png",
+    "year": 2026
+  }
+]

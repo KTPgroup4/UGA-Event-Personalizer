@@ -1,0 +1,23 @@
+# Install everything with:  pip install -r requirements.txt
+# Needs Python 3.10 or newer (we recommend 3.12).
+
+# --- Backend API ---
+fastapi>=0.110
+uvicorn>=0.29
+
+# --- Data shapes and validation (we use Pydantic v2) ---
+pydantic>=2.5
+
+# --- Reading settings and secrets from the .env file ---
+python-dotenv>=1.0
+
+# --- Flyer reader ---
+requests>=2.31   # talks to the OCR.space service
+pillow>=10.0     # opens and shrinks flyer images
+
+# --- Testing and formatting ---
+pytest>=8.0
+black>=24.0
+
+# --- Added later, once the team picks one ---
+# (the AI package for event tagging and explanations goes here)
