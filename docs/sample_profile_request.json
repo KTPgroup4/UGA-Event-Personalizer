@@ -1,0 +1,33 @@
+{
+  "week_start": "2026-11-09",
+  "majors": [
+    "computer-science"
+  ],
+  "interests": [
+    "technology-coding:ai",
+    "music",
+    "career-leadership"
+  ],
+  "busy": [
+    {
+      "day": "mon",
+      "start": "09:00",
+      "end": "09:50"
+    },
+    {
+      "day": "wed",
+      "start": "09:00",
+      "end": "09:50"
+    },
+    {
+      "day": "fri",
+      "start": "09:00",
+      "end": "09:50"
+    },
+    {
+      "day": "tue",
+      "start": "16:00",
+      "end": "20:00"
+    }
+  ]
+}

@@ -1,0 +1,2218 @@
+{
+  "interests": [
+    {
+      "id": "technology-coding",
+      "name": "Technology & Coding",
+      "children": [
+        {
+          "id": "technology-coding:programming",
+          "name": "Programming"
+        },
+        {
+          "id": "technology-coding:computer-science",
+          "name": "Computer Science"
+        },
+        {
+          "id": "technology-coding:software",
+          "name": "Software"
+        },
+        {
+          "id": "technology-coding:web-development",
+          "name": "Web Development"
+        },
+        {
+          "id": "technology-coding:ai",
+          "name": "AI"
+        },
+        {
+          "id": "technology-coding:cybersecurity",
+          "name": "Cybersecurity"
+        },
+        {
+          "id": "technology-coding:hackathons",
+          "name": "Hackathons"
+        }
+      ]
+    },
+    {
+      "id": "engineering-making",
+      "name": "Engineering & Making",
+      "children": [
+        {
+          "id": "engineering-making:mechanical",
+          "name": "Mechanical"
+        },
+        {
+          "id": "engineering-making:electrical",
+          "name": "Electrical"
+        },
+        {
+          "id": "engineering-making:computer",
+          "name": "Computer"
+        },
+        {
+          "id": "engineering-making:aerospace",
+          "name": "Aerospace"
+        },
+        {
+          "id": "engineering-making:civil",
+          "name": "Civil"
+        },
+        {
+          "id": "engineering-making:biomedical",
+          "name": "Biomedical"
+        },
+        {
+          "id": "engineering-making:environmental",
+          "name": "Environmental"
+        },
+        {
+          "id": "engineering-making:robotics",
+          "name": "Robotics"
+        },
+        {
+          "id": "engineering-making:cad",
+          "name": "CAD"
+        },
+        {
+          "id": "engineering-making:fabrication",
+          "name": "Fabrication"
+        }
+      ]
+    },
+    {
+      "id": "science-research",
+      "name": "Science & Research",
+      "children": [
+        {
+          "id": "science-research:biology",
+          "name": "Biology"
+        },
+        {
+          "id": "science-research:chemistry",
+          "name": "Chemistry"
+        },
+        {
+          "id": "science-research:physics",
+          "name": "Physics"
+        },
+        {
+          "id": "science-research:research",
+          "name": "Research"
+        },
+        {
+          "id": "science-research:lab",
+          "name": "Lab"
+        },
+        {
+          "id": "science-research:science",
+          "name": "Science"
+        }
+      ]
+    },
+    {
+      "id": "business-entrepreneurship",
+      "name": "Business & Entrepreneurship",
+      "children": [
+        {
+          "id": "business-entrepreneurship:startups",
+          "name": "Startups"
+        },
+        {
+          "id": "business-entrepreneurship:entrepreneurship",
+          "name": "Entrepreneurship"
+        },
+        {
+          "id": "business-entrepreneurship:marketing",
+          "name": "Marketing"
+        },
+        {
+          "id": "business-entrepreneurship:business",
+          "name": "Business"
+        },
+        {
+          "id": "business-entrepreneurship:pitch-competitions",
+          "name": "Pitch Competitions"
+        }
+      ]
+    },
+    {
+      "id": "finance-investing",
+      "name": "Finance & Investing",
+      "children": [
+        {
+          "id": "finance-investing:investing",
+          "name": "Investing"
+        },
+        {
+          "id": "finance-investing:finance",
+          "name": "Finance"
+        },
+        {
+          "id": "finance-investing:budgeting",
+          "name": "Budgeting"
+        },
+        {
+          "id": "finance-investing:markets",
+          "name": "Markets"
+        }
+      ]
+    },
+    {
+      "id": "healthcare-medicine",
+      "name": "Healthcare & Medicine",
+      "children": [
+        {
+          "id": "healthcare-medicine:medicine",
+          "name": "Medicine"
+        },
+        {
+          "id": "healthcare-medicine:healthcare",
+          "name": "Healthcare"
+        },
+        {
+          "id": "healthcare-medicine:pre-med",
+          "name": "Pre-Med"
+        },
+        {
+          "id": "healthcare-medicine:public-health",
+          "name": "Public Health"
+        },
+        {
+          "id": "healthcare-medicine:clinical-volunteering",
+          "name": "Clinical Volunteering"
+        }
+      ]
+    },
+    {
+      "id": "law-government-policy",
+      "name": "Law, Government & Public Policy",
+      "children": [
+        {
+          "id": "law-government-policy:law",
+          "name": "Law"
+        },
+        {
+          "id": "law-government-policy:government",
+          "name": "Government"
+        },
+        {
+          "id": "law-government-policy:politics",
+          "name": "Politics"
+        },
+        {
+          "id": "law-government-policy:public-policy",
+          "name": "Public Policy"
+        },
+        {
+          "id": "law-government-policy:mock-trial",
+          "name": "Mock Trial"
+        }
+      ]
+    },
+    {
+      "id": "education-mentoring",
+      "name": "Education & Mentoring",
+      "children": [
+        {
+          "id": "education-mentoring:teaching",
+          "name": "Teaching"
+        },
+        {
+          "id": "education-mentoring:tutoring",
+          "name": "Tutoring"
+        },
+        {
+          "id": "education-mentoring:mentoring",
+          "name": "Mentoring"
+        },
+        {
+          "id": "education-mentoring:education",
+          "name": "Education"
+        }
+      ]
+    },
+    {
+      "id": "environment-sustainability",
+      "name": "Environment & Sustainability",
+      "children": [
+        {
+          "id": "environment-sustainability:environment",
+          "name": "Environment"
+        },
+        {
+          "id": "environment-sustainability:sustainability",
+          "name": "Sustainability"
+        },
+        {
+          "id": "environment-sustainability:conservation",
+          "name": "Conservation"
+        },
+        {
+          "id": "environment-sustainability:climate",
+          "name": "Climate"
+        },
+        {
+          "id": "environment-sustainability:cleanup",
+          "name": "Cleanup"
+        }
+      ]
+    },
+    {
+      "id": "psychology-human-behavior",
+      "name": "Psychology & Human Behavior",
+      "children": [
+        {
+          "id": "psychology-human-behavior:psychology",
+          "name": "Psychology"
+        },
+        {
+          "id": "psychology-human-behavior:behavior",
+          "name": "Behavior"
+        },
+        {
+          "id": "psychology-human-behavior:counseling",
+          "name": "Counseling"
+        },
+        {
+          "id": "psychology-human-behavior:human-behavior",
+          "name": "Human Behavior"
+        }
+      ]
+    },
+    {
+      "id": "writing-literature",
+      "name": "Writing & Literature",
+      "children": [
+        {
+          "id": "writing-literature:writing",
+          "name": "Writing"
+        },
+        {
+          "id": "writing-literature:books",
+          "name": "Books"
+        },
+        {
+          "id": "writing-literature:poetry",
+          "name": "Poetry"
+        },
+        {
+          "id": "writing-literature:literature",
+          "name": "Literature"
+        },
+        {
+          "id": "writing-literature:creative-writing",
+          "name": "Creative Writing"
+        },
+        {
+          "id": "writing-literature:book-clubs",
+          "name": "Book Clubs"
+        },
+        {
+          "id": "writing-literature:journaling",
+          "name": "Journaling"
+        }
+      ]
+    },
+    {
+      "id": "languages-global-cultures",
+      "name": "Languages & Global Cultures",
+      "children": [
+        {
+          "id": "languages-global-cultures:languages",
+          "name": "Languages"
+        },
+        {
+          "id": "languages-global-cultures:spanish",
+          "name": "Spanish"
+        },
+        {
+          "id": "languages-global-cultures:french",
+          "name": "French"
+        },
+        {
+          "id": "languages-global-cultures:culture",
+          "name": "Culture"
+        },
+        {
+          "id": "languages-global-cultures:international",
+          "name": "International"
+        },
+        {
+          "id": "languages-global-cultures:language-exchange",
+          "name": "Language Exchange"
+        },
+        {
+          "id": "languages-global-cultures:korean",
+          "name": "Korean"
+        },
+        {
+          "id": "languages-global-cultures:japanese",
+          "name": "Japanese"
+        },
+        {
+          "id": "languages-global-cultures:mandarin-chinese",
+          "name": "Mandarin Chinese"
+        },
+        {
+          "id": "languages-global-cultures:arabic",
+          "name": "Arabic"
+        },
+        {
+          "id": "languages-global-cultures:portuguese",
+          "name": "Portuguese"
+        },
+        {
+          "id": "languages-global-cultures:german",
+          "name": "German"
+        },
+        {
+          "id": "languages-global-cultures:hindi",
+          "name": "Hindi"
+        },
+        {
+          "id": "languages-global-cultures:turkish",
+          "name": "Turkish"
+        },
+        {
+          "id": "languages-global-cultures:american-sign-language",
+          "name": "American Sign Language"
+        },
+        {
+          "id": "languages-global-cultures:yoruba",
+          "name": "Yoruba"
+        }
+      ]
+    },
+    {
+      "id": "visual-art-design",
+      "name": "Visual Art & Design",
+      "children": [
+        {
+          "id": "visual-art-design:art",
+          "name": "Art"
+        },
+        {
+          "id": "visual-art-design:drawing",
+          "name": "Drawing"
+        },
+        {
+          "id": "visual-art-design:graphic-design",
+          "name": "Graphic Design"
+        },
+        {
+          "id": "visual-art-design:painting",
+          "name": "Painting"
+        },
+        {
+          "id": "visual-art-design:illustration",
+          "name": "Illustration"
+        },
+        {
+          "id": "visual-art-design:pottery",
+          "name": "Pottery"
+        },
+        {
+          "id": "visual-art-design:sculpture",
+          "name": "Sculpture"
+        },
+        {
+          "id": "visual-art-design:crafts",
+          "name": "Crafts"
+        },
+        {
+          "id": "visual-art-design:watercolor",
+          "name": "Watercolor"
+        },
+        {
+          "id": "visual-art-design:digital-art",
+          "name": "Digital Art"
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "children": [
+        {
+          "id": "music:music",
+          "name": "Music"
+        },
+        {
+          "id": "music:concerts",
+          "name": "Concerts"
+        },
+        {
+          "id": "music:singing",
+          "name": "Singing"
+        },
+        {
+          "id": "music:instrument",
+          "name": "Instrument"
+        },
+        {
+          "id": "music:jam-sessions",
+          "name": "Jam Sessions"
+        },
+        {
+          "id": "music:guitar",
+          "name": "Guitar"
+        },
+        {
+          "id": "music:piano",
+          "name": "Piano"
+        },
+        {
+          "id": "music:songwriting",
+          "name": "Songwriting"
+        },
+        {
+          "id": "music:live-music",
+          "name": "Live Music"
+        }
+      ]
+    },
+    {
+      "id": "dance-performing-arts",
+      "name": "Dance & Performing Arts",
+      "children": [
+        {
+          "id": "dance-performing-arts:dance",
+          "name": "Dance"
+        },
+        {
+          "id": "dance-performing-arts:theater",
+          "name": "Theater"
+        },
+        {
+          "id": "dance-performing-arts:acting",
+          "name": "Acting"
+        },
+        {
+          "id": "dance-performing-arts:improv",
+          "name": "Improv"
+        },
+        {
+          "id": "dance-performing-arts:performing-arts",
+          "name": "Performing Arts"
+        }
+      ]
+    },
+    {
+      "id": "film-photography",
+      "name": "Film & Photography",
+      "children": [
+        {
+          "id": "film-photography:film",
+          "name": "Film"
+        },
+        {
+          "id": "film-photography:photography",
+          "name": "Photography"
+        },
+        {
+          "id": "film-photography:video",
+          "name": "Video"
+        },
+        {
+          "id": "film-photography:editing",
+          "name": "Editing"
+        },
+        {
+          "id": "film-photography:screenings",
+          "name": "Screenings"
+        },
+        {
+          "id": "film-photography:nature-photography",
+          "name": "Nature Photography"
+        },
+        {
+          "id": "film-photography:movie-nights",
+          "name": "Movie Nights"
+        }
+      ]
+    },
+    {
+      "id": "gaming-esports",
+      "name": "Gaming & Esports",
+      "children": [
+        {
+          "id": "gaming-esports:gaming",
+          "name": "Gaming"
+        },
+        {
+          "id": "gaming-esports:video-games",
+          "name": "Video Games"
+        },
+        {
+          "id": "gaming-esports:esports",
+          "name": "Esports"
+        },
+        {
+          "id": "gaming-esports:tournaments",
+          "name": "Tournaments"
+        }
+      ]
+    },
+    {
+      "id": "board-games-tabletop-rpgs",
+      "name": "Board Games & Tabletop RPGs",
+      "children": [
+        {
+          "id": "board-games-tabletop-rpgs:board-games",
+          "name": "Board Games"
+        },
+        {
+          "id": "board-games-tabletop-rpgs:dungeons-and-dragons",
+          "name": "Dungeons & Dragons"
+        },
+        {
+          "id": "board-games-tabletop-rpgs:tabletop",
+          "name": "Tabletop"
+        },
+        {
+          "id": "board-games-tabletop-rpgs:rpg",
+          "name": "RPG"
+        },
+        {
+          "id": "board-games-tabletop-rpgs:chess",
+          "name": "Chess"
+        },
+        {
+          "id": "board-games-tabletop-rpgs:card-games",
+          "name": "Card Games"
+        }
+      ]
+    },
+    {
+      "id": "sports-recreation",
+      "name": "Sports & Recreation",
+      "children": [
+        {
+          "id": "sports-recreation:sports",
+          "name": "Sports"
+        },
+        {
+          "id": "sports-recreation:intramurals",
+          "name": "Intramurals"
+        },
+        {
+          "id": "sports-recreation:pickup-games",
+          "name": "Pickup Games"
+        },
+        {
+          "id": "sports-recreation:recreation",
+          "name": "Recreation"
+        },
+        {
+          "id": "sports-recreation:basketball",
+          "name": "Basketball"
+        },
+        {
+          "id": "sports-recreation:soccer",
+          "name": "Soccer"
+        },
+        {
+          "id": "sports-recreation:volleyball",
+          "name": "Volleyball"
+        },
+        {
+          "id": "sports-recreation:tennis",
+          "name": "Tennis"
+        },
+        {
+          "id": "sports-recreation:pickleball",
+          "name": "Pickleball"
+        },
+        {
+          "id": "sports-recreation:badminton",
+          "name": "Badminton"
+        },
+        {
+          "id": "sports-recreation:ultimate-frisbee",
+          "name": "Ultimate Frisbee"
+        },
+        {
+          "id": "sports-recreation:running",
+          "name": "Running"
+        },
+        {
+          "id": "sports-recreation:swimming",
+          "name": "Swimming"
+        }
+      ]
+    },
+    {
+      "id": "fitness-wellness",
+      "name": "Fitness & Wellness",
+      "children": [
+        {
+          "id": "fitness-wellness:fitness",
+          "name": "Fitness"
+        },
+        {
+          "id": "fitness-wellness:workouts",
+          "name": "Workouts"
+        },
+        {
+          "id": "fitness-wellness:yoga",
+          "name": "Yoga"
+        },
+        {
+          "id": "fitness-wellness:wellness",
+          "name": "Wellness"
+        },
+        {
+          "id": "fitness-wellness:pilates",
+          "name": "Pilates"
+        },
+        {
+          "id": "fitness-wellness:weightlifting",
+          "name": "Weightlifting"
+        },
+        {
+          "id": "fitness-wellness:meditation",
+          "name": "Meditation"
+        },
+        {
+          "id": "fitness-wellness:cycling",
+          "name": "Cycling"
+        }
+      ]
+    },
+    {
+      "id": "outdoors-adventure",
+      "name": "Outdoors & Adventure",
+      "children": [
+        {
+          "id": "outdoors-adventure:hiking",
+          "name": "Hiking"
+        },
+        {
+          "id": "outdoors-adventure:camping",
+          "name": "Camping"
+        },
+        {
+          "id": "outdoors-adventure:climbing",
+          "name": "Climbing"
+        },
+        {
+          "id": "outdoors-adventure:kayaking",
+          "name": "Kayaking"
+        },
+        {
+          "id": "outdoors-adventure:outdoors",
+          "name": "Outdoors"
+        },
+        {
+          "id": "outdoors-adventure:backpacking",
+          "name": "Backpacking"
+        },
+        {
+          "id": "outdoors-adventure:outdoor-skills",
+          "name": "Outdoor Skills"
+        },
+        {
+          "id": "outdoors-adventure:trail-walking",
+          "name": "Trail Walking"
+        }
+      ]
+    },
+    {
+      "id": "food-cooking",
+      "name": "Food & Cooking",
+      "children": [
+        {
+          "id": "food-cooking:cooking",
+          "name": "Cooking"
+        },
+        {
+          "id": "food-cooking:food",
+          "name": "Food"
+        },
+        {
+          "id": "food-cooking:baking",
+          "name": "Baking"
+        },
+        {
+          "id": "food-cooking:culinary",
+          "name": "Culinary"
+        },
+        {
+          "id": "food-cooking:vegetarian-cooking",
+          "name": "Vegetarian Cooking"
+        },
+        {
+          "id": "food-cooking:international-food",
+          "name": "International Food"
+        },
+        {
+          "id": "food-cooking:cake-decorating",
+          "name": "Cake Decorating"
+        }
+      ]
+    },
+    {
+      "id": "fashion-personal-style",
+      "name": "Fashion & Personal Style",
+      "children": [
+        {
+          "id": "fashion-personal-style:fashion",
+          "name": "Fashion"
+        },
+        {
+          "id": "fashion-personal-style:style",
+          "name": "Style"
+        },
+        {
+          "id": "fashion-personal-style:clothing",
+          "name": "Clothing"
+        },
+        {
+          "id": "fashion-personal-style:design",
+          "name": "Design"
+        }
+      ]
+    },
+    {
+      "id": "community-service",
+      "name": "Community Service",
+      "children": [
+        {
+          "id": "community-service:volunteering",
+          "name": "Volunteering"
+        },
+        {
+          "id": "community-service:service",
+          "name": "Service"
+        },
+        {
+          "id": "community-service:fundraising",
+          "name": "Fundraising"
+        },
+        {
+          "id": "community-service:community",
+          "name": "Community"
+        }
+      ]
+    },
+    {
+      "id": "social-justice-advocacy",
+      "name": "Social Justice & Advocacy",
+      "children": [
+        {
+          "id": "social-justice-advocacy:advocacy",
+          "name": "Advocacy"
+        },
+        {
+          "id": "social-justice-advocacy:social-justice",
+          "name": "Social Justice"
+        },
+        {
+          "id": "social-justice-advocacy:awareness",
+          "name": "Awareness"
+        },
+        {
+          "id": "social-justice-advocacy:human-rights",
+          "name": "Human Rights"
+        }
+      ]
+    },
+    {
+      "id": "nature-wildlife",
+      "name": "Nature & Wildlife",
+      "children": [
+        {
+          "id": "nature-wildlife:birdwatching",
+          "name": "Birdwatching"
+        },
+        {
+          "id": "nature-wildlife:plant-identification",
+          "name": "Plant Identification"
+        },
+        {
+          "id": "nature-wildlife:wildlife",
+          "name": "Wildlife"
+        },
+        {
+          "id": "nature-wildlife:pollinators",
+          "name": "Pollinators"
+        },
+        {
+          "id": "nature-wildlife:ecology",
+          "name": "Ecology"
+        },
+        {
+          "id": "nature-wildlife:nature-walks",
+          "name": "Nature Walks"
+        }
+      ]
+    },
+    {
+      "id": "gardening-plants",
+      "name": "Gardening & Plants",
+      "children": [
+        {
+          "id": "gardening-plants:gardening",
+          "name": "Gardening"
+        },
+        {
+          "id": "gardening-plants:houseplants",
+          "name": "Houseplants"
+        },
+        {
+          "id": "gardening-plants:native-plants",
+          "name": "Native Plants"
+        },
+        {
+          "id": "gardening-plants:composting",
+          "name": "Composting"
+        },
+        {
+          "id": "gardening-plants:seed-starting",
+          "name": "Seed Starting"
+        }
+      ]
+    },
+    {
+      "id": "animals-pets",
+      "name": "Animals & Pets",
+      "children": [
+        {
+          "id": "animals-pets:animal-welfare",
+          "name": "Animal Welfare"
+        },
+        {
+          "id": "animals-pets:pet-care",
+          "name": "Pet Care"
+        },
+        {
+          "id": "animals-pets:therapy-animals",
+          "name": "Therapy Animals"
+        }
+      ]
+    },
+    {
+      "id": "social-campus-life",
+      "name": "Social & Campus Life",
+      "children": [
+        {
+          "id": "social-campus-life:meeting-people",
+          "name": "Meeting People"
+        },
+        {
+          "id": "social-campus-life:trivia",
+          "name": "Trivia"
+        },
+        {
+          "id": "social-campus-life:karaoke",
+          "name": "Karaoke"
+        },
+        {
+          "id": "social-campus-life:campus-traditions",
+          "name": "Campus Traditions"
+        },
+        {
+          "id": "social-campus-life:social-games",
+          "name": "Social Games"
+        }
+      ]
+    },
+    {
+      "id": "diy-crafts",
+      "name": "DIY & Crafts",
+      "children": [
+        {
+          "id": "diy-crafts:knitting",
+          "name": "Knitting"
+        },
+        {
+          "id": "diy-crafts:crochet",
+          "name": "Crochet"
+        },
+        {
+          "id": "diy-crafts:sewing",
+          "name": "Sewing"
+        },
+        {
+          "id": "diy-crafts:woodworking",
+          "name": "Woodworking"
+        },
+        {
+          "id": "diy-crafts:jewelry-making",
+          "name": "Jewelry Making"
+        },
+        {
+          "id": "diy-crafts:origami",
+          "name": "Origami"
+        }
+      ]
+    },
+    {
+      "id": "astronomy-space",
+      "name": "Astronomy & Space",
+      "children": [
+        {
+          "id": "astronomy-space:stargazing",
+          "name": "Stargazing"
+        },
+        {
+          "id": "astronomy-space:telescopes",
+          "name": "Telescopes"
+        },
+        {
+          "id": "astronomy-space:space-exploration",
+          "name": "Space Exploration"
+        }
+      ]
+    },
+    {
+      "id": "travel-exploration",
+      "name": "Travel & Exploration",
+      "children": [
+        {
+          "id": "travel-exploration:travel-planning",
+          "name": "Travel Planning"
+        },
+        {
+          "id": "travel-exploration:study-abroad",
+          "name": "Study Abroad"
+        },
+        {
+          "id": "travel-exploration:cultural-exchange",
+          "name": "Cultural Exchange"
+        }
+      ]
+    },
+    {
+      "id": "collecting-puzzles",
+      "name": "Collecting & Puzzles",
+      "children": [
+        {
+          "id": "collecting-puzzles:jigsaw-puzzles",
+          "name": "Jigsaw Puzzles"
+        },
+        {
+          "id": "collecting-puzzles:logic-puzzles",
+          "name": "Logic Puzzles"
+        },
+        {
+          "id": "collecting-puzzles:trading-cards",
+          "name": "Trading Cards"
+        },
+        {
+          "id": "collecting-puzzles:collecting",
+          "name": "Collecting"
+        }
+      ]
+    },
+    {
+      "id": "east-asian-cultures",
+      "name": "East Asian Cultures",
+      "children": [
+        {
+          "id": "east-asian-cultures:chinese-culture",
+          "name": "Chinese Culture"
+        },
+        {
+          "id": "east-asian-cultures:korean-culture",
+          "name": "Korean Culture"
+        },
+        {
+          "id": "east-asian-cultures:japanese-culture",
+          "name": "Japanese Culture"
+        },
+        {
+          "id": "east-asian-cultures:taiwanese-culture",
+          "name": "Taiwanese Culture"
+        },
+        {
+          "id": "east-asian-cultures:mongolian-culture",
+          "name": "Mongolian Culture"
+        }
+      ]
+    },
+    {
+      "id": "southeast-asian-cultures",
+      "name": "Southeast Asian Cultures",
+      "children": [
+        {
+          "id": "southeast-asian-cultures:filipino-culture",
+          "name": "Filipino Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:vietnamese-culture",
+          "name": "Vietnamese Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:thai-culture",
+          "name": "Thai Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:indonesian-culture",
+          "name": "Indonesian Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:malaysian-culture",
+          "name": "Malaysian Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:cambodian-culture",
+          "name": "Cambodian Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:lao-culture",
+          "name": "Lao Culture"
+        },
+        {
+          "id": "southeast-asian-cultures:hmong-culture",
+          "name": "Hmong Culture"
+        }
+      ]
+    },
+    {
+      "id": "south-asian-cultures",
+      "name": "South Asian Cultures",
+      "children": [
+        {
+          "id": "south-asian-cultures:indian-culture",
+          "name": "Indian Culture"
+        },
+        {
+          "id": "south-asian-cultures:pakistani-culture",
+          "name": "Pakistani Culture"
+        },
+        {
+          "id": "south-asian-cultures:bangladeshi-culture",
+          "name": "Bangladeshi Culture"
+        },
+        {
+          "id": "south-asian-cultures:nepali-culture",
+          "name": "Nepali Culture"
+        },
+        {
+          "id": "south-asian-cultures:sri-lankan-culture",
+          "name": "Sri Lankan Culture"
+        },
+        {
+          "id": "south-asian-cultures:bhutanese-culture",
+          "name": "Bhutanese Culture"
+        }
+      ]
+    },
+    {
+      "id": "middle-east-north-africa",
+      "name": "Middle Eastern & North African Cultures",
+      "children": [
+        {
+          "id": "middle-east-north-africa:arab-culture",
+          "name": "Arab Culture"
+        },
+        {
+          "id": "middle-east-north-africa:turkish-culture",
+          "name": "Turkish Culture"
+        },
+        {
+          "id": "middle-east-north-africa:persian-culture",
+          "name": "Persian Culture"
+        },
+        {
+          "id": "middle-east-north-africa:kurdish-culture",
+          "name": "Kurdish Culture"
+        },
+        {
+          "id": "middle-east-north-africa:israeli-culture",
+          "name": "Israeli Culture"
+        },
+        {
+          "id": "middle-east-north-africa:palestinian-culture",
+          "name": "Palestinian Culture"
+        },
+        {
+          "id": "middle-east-north-africa:north-african-cultures",
+          "name": "North African Cultures"
+        }
+      ]
+    },
+    {
+      "id": "african-cultures",
+      "name": "African Cultures",
+      "children": [
+        {
+          "id": "african-cultures:west-african-cultures",
+          "name": "West African Cultures"
+        },
+        {
+          "id": "african-cultures:east-african-cultures",
+          "name": "East African Cultures"
+        },
+        {
+          "id": "african-cultures:central-african-cultures",
+          "name": "Central African Cultures"
+        },
+        {
+          "id": "african-cultures:southern-african-cultures",
+          "name": "Southern African Cultures"
+        },
+        {
+          "id": "african-cultures:nigerian-culture",
+          "name": "Nigerian Culture"
+        },
+        {
+          "id": "african-cultures:ghanaian-culture",
+          "name": "Ghanaian Culture"
+        },
+        {
+          "id": "african-cultures:ethiopian-culture",
+          "name": "Ethiopian Culture"
+        },
+        {
+          "id": "african-cultures:yoruba-culture",
+          "name": "Yoruba Culture"
+        }
+      ]
+    },
+    {
+      "id": "black-diaspora",
+      "name": "Black & African Diaspora Cultures",
+      "children": [
+        {
+          "id": "black-diaspora:african-american-culture",
+          "name": "African American Culture"
+        },
+        {
+          "id": "black-diaspora:black-history",
+          "name": "Black History"
+        },
+        {
+          "id": "black-diaspora:african-diaspora-arts",
+          "name": "African Diaspora Arts"
+        },
+        {
+          "id": "black-diaspora:black-literature",
+          "name": "Black Literature"
+        },
+        {
+          "id": "black-diaspora:black-student-community-events",
+          "name": "Black Student Community Events"
+        }
+      ]
+    },
+    {
+      "id": "latin-caribbean-cultures",
+      "name": "Latino, Hispanic & Caribbean Cultures",
+      "children": [
+        {
+          "id": "latin-caribbean-cultures:mexican-culture",
+          "name": "Mexican Culture"
+        },
+        {
+          "id": "latin-caribbean-cultures:puerto-rican-culture",
+          "name": "Puerto Rican Culture"
+        },
+        {
+          "id": "latin-caribbean-cultures:cuban-culture",
+          "name": "Cuban Culture"
+        },
+        {
+          "id": "latin-caribbean-cultures:dominican-culture",
+          "name": "Dominican Culture"
+        },
+        {
+          "id": "latin-caribbean-cultures:central-american-cultures",
+          "name": "Central American Cultures"
+        },
+        {
+          "id": "latin-caribbean-cultures:south-american-cultures",
+          "name": "South American Cultures"
+        },
+        {
+          "id": "latin-caribbean-cultures:brazilian-culture",
+          "name": "Brazilian Culture"
+        },
+        {
+          "id": "latin-caribbean-cultures:caribbean-cultures",
+          "name": "Caribbean Cultures"
+        },
+        {
+          "id": "latin-caribbean-cultures:hispanic-heritage",
+          "name": "Hispanic Heritage"
+        }
+      ]
+    },
+    {
+      "id": "indigenous-cultures",
+      "name": "Indigenous Cultures & Heritage",
+      "children": [
+        {
+          "id": "indigenous-cultures:native-american-cultures",
+          "name": "Native American Cultures"
+        },
+        {
+          "id": "indigenous-cultures:cherokee-history-and-culture",
+          "name": "Cherokee History and Culture"
+        },
+        {
+          "id": "indigenous-cultures:indigenous-languages",
+          "name": "Indigenous Languages"
+        },
+        {
+          "id": "indigenous-cultures:tribal-sovereignty",
+          "name": "Tribal Sovereignty"
+        },
+        {
+          "id": "indigenous-cultures:indigenous-arts",
+          "name": "Indigenous Arts"
+        }
+      ]
+    },
+    {
+      "id": "pacific-cultures",
+      "name": "Pacific Islander & Oceanian Cultures",
+      "children": [
+        {
+          "id": "pacific-cultures:pacific-islander-cultures",
+          "name": "Pacific Islander Cultures"
+        },
+        {
+          "id": "pacific-cultures:native-hawaiian-culture",
+          "name": "Native Hawaiian Culture"
+        },
+        {
+          "id": "pacific-cultures:polynesian-cultures",
+          "name": "Polynesian Cultures"
+        },
+        {
+          "id": "pacific-cultures:micronesian-cultures",
+          "name": "Micronesian Cultures"
+        },
+        {
+          "id": "pacific-cultures:melanesian-cultures",
+          "name": "Melanesian Cultures"
+        },
+        {
+          "id": "pacific-cultures:maori-culture",
+          "name": "Maori Culture"
+        }
+      ]
+    },
+    {
+      "id": "european-cultures",
+      "name": "European Cultures",
+      "children": [
+        {
+          "id": "european-cultures:french-culture",
+          "name": "French Culture"
+        },
+        {
+          "id": "european-cultures:german-culture",
+          "name": "German Culture"
+        },
+        {
+          "id": "european-cultures:italian-culture",
+          "name": "Italian Culture"
+        },
+        {
+          "id": "european-cultures:spanish-culture",
+          "name": "Spanish Culture"
+        },
+        {
+          "id": "european-cultures:greek-culture",
+          "name": "Greek Culture"
+        },
+        {
+          "id": "european-cultures:irish-culture",
+          "name": "Irish Culture"
+        },
+        {
+          "id": "european-cultures:british-culture",
+          "name": "British Culture"
+        },
+        {
+          "id": "european-cultures:eastern-european-cultures",
+          "name": "Eastern European Cultures"
+        }
+      ]
+    },
+    {
+      "id": "cultural-exchange",
+      "name": "Cultural Exchange & Celebrations",
+      "children": [
+        {
+          "id": "cultural-exchange:international-coffee-hours",
+          "name": "International Coffee Hours"
+        },
+        {
+          "id": "cultural-exchange:cultural-festivals",
+          "name": "Cultural Festivals"
+        },
+        {
+          "id": "cultural-exchange:heritage-celebrations",
+          "name": "Heritage Celebrations"
+        },
+        {
+          "id": "cultural-exchange:cultural-food",
+          "name": "Cultural Food"
+        },
+        {
+          "id": "cultural-exchange:traditional-dance",
+          "name": "Traditional Dance"
+        },
+        {
+          "id": "cultural-exchange:traditional-music",
+          "name": "Traditional Music"
+        },
+        {
+          "id": "cultural-exchange:cultural-fashion",
+          "name": "Cultural Fashion"
+        },
+        {
+          "id": "cultural-exchange:storytelling",
+          "name": "Storytelling"
+        },
+        {
+          "id": "cultural-exchange:intercultural-dialogue",
+          "name": "Intercultural Dialogue"
+        },
+        {
+          "id": "cultural-exchange:international-student-connections",
+          "name": "International Student Connections"
+        }
+      ]
+    },
+    {
+      "id": "faith-spirituality",
+      "name": "Faith, Spirituality & Interfaith Activities",
+      "children": [
+        {
+          "id": "faith-spirituality:christian-traditions",
+          "name": "Christian Traditions"
+        },
+        {
+          "id": "faith-spirituality:muslim-traditions",
+          "name": "Muslim Traditions"
+        },
+        {
+          "id": "faith-spirituality:jewish-traditions",
+          "name": "Jewish Traditions"
+        },
+        {
+          "id": "faith-spirituality:hindu-traditions",
+          "name": "Hindu Traditions"
+        },
+        {
+          "id": "faith-spirituality:buddhist-traditions",
+          "name": "Buddhist Traditions"
+        },
+        {
+          "id": "faith-spirituality:sikh-traditions",
+          "name": "Sikh Traditions"
+        },
+        {
+          "id": "faith-spirituality:interfaith-dialogue",
+          "name": "Interfaith Dialogue"
+        },
+        {
+          "id": "faith-spirituality:secular-and-humanist-discussions",
+          "name": "Secular and Humanist Discussions"
+        },
+        {
+          "id": "faith-spirituality:religious-holiday-learning",
+          "name": "Religious Holiday Learning"
+        }
+      ]
+    },
+    {
+      "id": "history-humanities",
+      "name": "History & Humanities",
+      "children": [
+        {
+          "id": "history-humanities:history",
+          "name": "History"
+        },
+        {
+          "id": "history-humanities:philosophy",
+          "name": "Philosophy"
+        },
+        {
+          "id": "history-humanities:archaeology",
+          "name": "Archaeology"
+        },
+        {
+          "id": "history-humanities:museum-exhibitions",
+          "name": "Museum Exhibitions"
+        },
+        {
+          "id": "history-humanities:public-lectures",
+          "name": "Public Lectures"
+        },
+        {
+          "id": "history-humanities:folklore",
+          "name": "Folklore"
+        }
+      ]
+    },
+    {
+      "id": "career-leadership",
+      "name": "Career Development & Leadership",
+      "children": [
+        {
+          "id": "career-leadership:career-fairs",
+          "name": "Career Fairs"
+        },
+        {
+          "id": "career-leadership:internships",
+          "name": "Internships"
+        },
+        {
+          "id": "career-leadership:resume-workshops",
+          "name": "Resume Workshops"
+        },
+        {
+          "id": "career-leadership:networking",
+          "name": "Networking"
+        },
+        {
+          "id": "career-leadership:student-leadership",
+          "name": "Student Leadership"
+        },
+        {
+          "id": "career-leadership:public-speaking",
+          "name": "Public Speaking"
+        },
+        {
+          "id": "career-leadership:graduate-school-preparation",
+          "name": "Graduate School Preparation"
+        }
+      ]
+    },
+    {
+      "id": "spectator-sports",
+      "name": "Watching Sports & School Spirit",
+      "children": [
+        {
+          "id": "spectator-sports:uga-football",
+          "name": "UGA Football"
+        },
+        {
+          "id": "spectator-sports:uga-basketball",
+          "name": "UGA Basketball"
+        },
+        {
+          "id": "spectator-sports:uga-volleyball",
+          "name": "UGA Volleyball"
+        },
+        {
+          "id": "spectator-sports:uga-gymnastics",
+          "name": "UGA Gymnastics"
+        },
+        {
+          "id": "spectator-sports:uga-baseball",
+          "name": "UGA Baseball"
+        },
+        {
+          "id": "spectator-sports:uga-soccer",
+          "name": "UGA Soccer"
+        },
+        {
+          "id": "spectator-sports:watch-parties",
+          "name": "Watch Parties"
+        },
+        {
+          "id": "spectator-sports:school-spirit",
+          "name": "School Spirit"
+        }
+      ]
+    }
+  ],
+  "colleges": [
+    {
+      "id": "caes",
+      "name": "College of Agricultural and Environmental Sciences",
+      "majors": [
+        {
+          "id": "agribusiness",
+          "name": "Agribusiness"
+        },
+        {
+          "id": "agricultural-and-applied-economics",
+          "name": "Agricultural and Applied Economics"
+        },
+        {
+          "id": "agricultural-and-environmental-science-communication",
+          "name": "Agricultural and Environmental Science Communication"
+        },
+        {
+          "id": "agricultural-education",
+          "name": "Agricultural Education"
+        },
+        {
+          "id": "agriscience-and-environmental-systems",
+          "name": "Agriscience and Environmental Systems"
+        },
+        {
+          "id": "animal-and-dairy-science",
+          "name": "Animal and Dairy Science"
+        },
+        {
+          "id": "animal-biosciences",
+          "name": "Animal Biosciences"
+        },
+        {
+          "id": "animal-health",
+          "name": "Animal Health"
+        },
+        {
+          "id": "applied-biotechnology",
+          "name": "Applied Biotechnology"
+        },
+        {
+          "id": "avian-biology",
+          "name": "Avian Biology"
+        },
+        {
+          "id": "biological-science",
+          "name": "Biological Science"
+        },
+        {
+          "id": "entomology",
+          "name": "Entomology"
+        },
+        {
+          "id": "environmental-economics-and-management",
+          "name": "Environmental Economics and Management"
+        },
+        {
+          "id": "environmental-resource-science",
+          "name": "Environmental Resource Science"
+        },
+        {
+          "id": "food-science",
+          "name": "Food Science"
+        },
+        {
+          "id": "horticulture",
+          "name": "Horticulture"
+        },
+        {
+          "id": "hospitality-and-food-industry-management",
+          "name": "Hospitality and Food Industry Management"
+        },
+        {
+          "id": "poultry-science",
+          "name": "Poultry Science"
+        },
+        {
+          "id": "regenerative-bioscience",
+          "name": "Regenerative Bioscience"
+        },
+        {
+          "id": "turfgrass-management",
+          "name": "Turfgrass Management"
+        },
+        {
+          "id": "water-and-soil-resources",
+          "name": "Water and Soil Resources"
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "College of Engineering",
+      "majors": [
+        {
+          "id": "agricultural-engineering",
+          "name": "Agricultural Engineering"
+        },
+        {
+          "id": "biochemical-engineering",
+          "name": "Biochemical Engineering"
+        },
+        {
+          "id": "biological-engineering",
+          "name": "Biological Engineering"
+        },
+        {
+          "id": "civil-engineering",
+          "name": "Civil Engineering"
+        },
+        {
+          "id": "computer-systems-engineering",
+          "name": "Computer Systems Engineering"
+        },
+        {
+          "id": "electrical-and-electronics-engineering",
+          "name": "Electrical and Electronics Engineering"
+        },
+        {
+          "id": "environmental-engineering",
+          "name": "Environmental Engineering"
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering"
+        }
+      ]
+    },
+    {
+      "id": "environment-and-design",
+      "name": "College of Environment and Design",
+      "majors": [
+        {
+          "id": "landscape-architecture",
+          "name": "Landscape Architecture"
+        }
+      ]
+    },
+    {
+      "id": "family-and-consumer-sciences",
+      "name": "College of Family and Consumer Sciences",
+      "majors": [
+        {
+          "id": "consumer-economics",
+          "name": "Consumer Economics"
+        },
+        {
+          "id": "culinary-science-and-nutrition",
+          "name": "Culinary Science and Nutrition"
+        },
+        {
+          "id": "dietetics",
+          "name": "Dietetics"
+        },
+        {
+          "id": "family-and-consumer-sciences-education",
+          "name": "Family & Consumer Sciences Education"
+        },
+        {
+          "id": "fashion-merchandising",
+          "name": "Fashion Merchandising"
+        },
+        {
+          "id": "financial-planning",
+          "name": "Financial Planning"
+        },
+        {
+          "id": "furnishings-and-interiors",
+          "name": "Furnishings and Interiors"
+        },
+        {
+          "id": "housing-management-and-policy",
+          "name": "Housing Management and Policy"
+        },
+        {
+          "id": "human-development-and-family-science",
+          "name": "Human Development and Family Science"
+        },
+        {
+          "id": "nutritional-sciences",
+          "name": "Nutritional Sciences"
+        },
+        {
+          "id": "social-entrepreneurship-for-consumer-well-being",
+          "name": "Social Entrepreneurship for Consumer Well-Being"
+        }
+      ]
+    },
+    {
+      "id": "pharmacy",
+      "name": "College of Pharmacy",
+      "majors": [
+        {
+          "id": "pharmaceutical-and-biomedical-sciences",
+          "name": "Pharmaceutical and Biomedical Sciences"
+        }
+      ]
+    },
+    {
+      "id": "public-health",
+      "name": "College of Public Health",
+      "majors": [
+        {
+          "id": "environmental-health",
+          "name": "Environmental Health"
+        },
+        {
+          "id": "health-promotion",
+          "name": "Health Promotion"
+        }
+      ]
+    },
+    {
+      "id": "veterinary-medicine",
+      "name": "College of Veterinary Medicine",
+      "majors": [
+        {
+          "id": "biomedical-physiology",
+          "name": "Biomedical Physiology"
+        }
+      ]
+    },
+    {
+      "id": "franklin",
+      "name": "Franklin College of Arts and Sciences",
+      "majors": [
+        {
+          "id": "african-american-studies",
+          "name": "African American Studies"
+        },
+        {
+          "id": "anthropology",
+          "name": "Anthropology"
+        },
+        {
+          "id": "arabic",
+          "name": "Arabic"
+        },
+        {
+          "id": "art-animation",
+          "name": "Art - Animation"
+        },
+        {
+          "id": "art-ceramics",
+          "name": "Art - Ceramics"
+        },
+        {
+          "id": "art-drawing-and-painting",
+          "name": "Art - Drawing and Painting"
+        },
+        {
+          "id": "art-fabric-design",
+          "name": "Art - Fabric Design"
+        },
+        {
+          "id": "art-graphic-design",
+          "name": "Art - Graphic Design"
+        },
+        {
+          "id": "art-interior-design",
+          "name": "Art - Interior Design"
+        },
+        {
+          "id": "art-jewelry-and-metalwork",
+          "name": "Art - Jewelry and Metalwork"
+        },
+        {
+          "id": "art-photography-and-expanded-media",
+          "name": "Art - Photography and Expanded Media"
+        },
+        {
+          "id": "art-printmaking",
+          "name": "Art - Printmaking"
+        },
+        {
+          "id": "art-scientific-illustration",
+          "name": "Art - Scientific Illustration"
+        },
+        {
+          "id": "art-sculpture-and-technology",
+          "name": "Art - Sculpture and Technology"
+        },
+        {
+          "id": "art-education",
+          "name": "Art Education"
+        },
+        {
+          "id": "art-history",
+          "name": "Art History"
+        },
+        {
+          "id": "art-interdisciplinary-art",
+          "name": "Art: Interdisciplinary Art"
+        },
+        {
+          "id": "asian-languages-and-literature",
+          "name": "Asian Languages and Literature"
+        },
+        {
+          "id": "astrophysics",
+          "name": "Astrophysics"
+        },
+        {
+          "id": "atmospheric-sciences",
+          "name": "Atmospheric Sciences"
+        },
+        {
+          "id": "biochemistry-and-molecular-biology",
+          "name": "Biochemistry and Molecular Biology"
+        },
+        {
+          "id": "biology",
+          "name": "Biology"
+        },
+        {
+          "id": "cellular-biology",
+          "name": "Cellular Biology"
+        },
+        {
+          "id": "chemistry",
+          "name": "Chemistry"
+        },
+        {
+          "id": "classics",
+          "name": "Classics"
+        },
+        {
+          "id": "cognitive-science",
+          "name": "Cognitive Science"
+        },
+        {
+          "id": "communication-studies",
+          "name": "Communication Studies"
+        },
+        {
+          "id": "comparative-literature-and-intercultural-studies",
+          "name": "Comparative Literature and Intercultural Studies"
+        },
+        {
+          "id": "dance",
+          "name": "Dance"
+        },
+        {
+          "id": "english",
+          "name": "English"
+        },
+        {
+          "id": "film",
+          "name": "Film"
+        },
+        {
+          "id": "french",
+          "name": "French"
+        },
+        {
+          "id": "genetics",
+          "name": "Genetics"
+        },
+        {
+          "id": "geography",
+          "name": "Geography"
+        },
+        {
+          "id": "geology",
+          "name": "Geology"
+        },
+        {
+          "id": "german",
+          "name": "German"
+        },
+        {
+          "id": "history",
+          "name": "History"
+        },
+        {
+          "id": "latin-american-and-caribbean-studies",
+          "name": "Latin American and Caribbean Studies"
+        },
+        {
+          "id": "linguistics",
+          "name": "Linguistics"
+        },
+        {
+          "id": "mathematics",
+          "name": "Mathematics"
+        },
+        {
+          "id": "microbiology",
+          "name": "Microbiology"
+        },
+        {
+          "id": "music-major",
+          "name": "Music"
+        },
+        {
+          "id": "music-composition",
+          "name": "Music Composition"
+        },
+        {
+          "id": "music-education",
+          "name": "Music Education"
+        },
+        {
+          "id": "music-performance",
+          "name": "Music Performance"
+        },
+        {
+          "id": "music-theory",
+          "name": "Music Theory"
+        },
+        {
+          "id": "music-therapy",
+          "name": "Music Therapy"
+        },
+        {
+          "id": "neuroscience",
+          "name": "Neuroscience"
+        },
+        {
+          "id": "ocean-science",
+          "name": "Ocean Science"
+        },
+        {
+          "id": "philosophy",
+          "name": "Philosophy"
+        },
+        {
+          "id": "physics",
+          "name": "Physics"
+        },
+        {
+          "id": "plant-biology",
+          "name": "Plant Biology"
+        },
+        {
+          "id": "psychology",
+          "name": "Psychology"
+        },
+        {
+          "id": "religion",
+          "name": "Religion"
+        },
+        {
+          "id": "romance-languages",
+          "name": "Romance Languages"
+        },
+        {
+          "id": "russian",
+          "name": "Russian"
+        },
+        {
+          "id": "sociology",
+          "name": "Sociology"
+        },
+        {
+          "id": "spanish",
+          "name": "Spanish"
+        },
+        {
+          "id": "statistics",
+          "name": "Statistics"
+        },
+        {
+          "id": "theatre",
+          "name": "Theatre"
+        },
+        {
+          "id": "womens-and-gender-studies",
+          "name": "Women's and Gender Studies"
+        }
+      ]
+    },
+    {
+      "id": "grady",
+      "name": "Grady College of Journalism and Mass Communication",
+      "majors": [
+        {
+          "id": "advertising",
+          "name": "Advertising"
+        },
+        {
+          "id": "entertainment-and-media-studies",
+          "name": "Entertainment and Media Studies"
+        },
+        {
+          "id": "journalism",
+          "name": "Journalism"
+        },
+        {
+          "id": "public-relations",
+          "name": "Public Relations"
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Mary Frances Early College of Education",
+      "majors": [
+        {
+          "id": "communication-sciences-and-disorders",
+          "name": "Communication Sciences and Disorders"
+        },
+        {
+          "id": "elementary-education",
+          "name": "Elementary Education"
+        },
+        {
+          "id": "english-education",
+          "name": "English Education"
+        },
+        {
+          "id": "exercise-and-sport-science",
+          "name": "Exercise and Sport Science"
+        },
+        {
+          "id": "health-and-physical-education",
+          "name": "Health and Physical Education"
+        },
+        {
+          "id": "mathematics-education",
+          "name": "Mathematics Education"
+        },
+        {
+          "id": "middle-grades-education",
+          "name": "Middle Grades Education"
+        },
+        {
+          "id": "science-education",
+          "name": "Science Education"
+        },
+        {
+          "id": "social-studies-education",
+          "name": "Social Studies Education"
+        },
+        {
+          "id": "special-education",
+          "name": "Special Education"
+        },
+        {
+          "id": "sport-management",
+          "name": "Sport Management"
+        },
+        {
+          "id": "tesol-and-world-language-education",
+          "name": "TESOL and World Language Education"
+        },
+        {
+          "id": "workforce-education",
+          "name": "Workforce Education"
+        }
+      ]
+    },
+    {
+      "id": "odum",
+      "name": "Odum School of Ecology",
+      "majors": [
+        {
+          "id": "ecology",
+          "name": "Ecology"
+        }
+      ]
+    },
+    {
+      "id": "computing",
+      "name": "School of Computing",
+      "majors": [
+        {
+          "id": "computer-science",
+          "name": "Computer Science"
+        },
+        {
+          "id": "data-science",
+          "name": "Data Science"
+        }
+      ]
+    },
+    {
+      "id": "public-and-international-affairs",
+      "name": "School of Public and International Affairs",
+      "majors": [
+        {
+          "id": "criminal-justice",
+          "name": "Criminal Justice"
+        },
+        {
+          "id": "international-affairs",
+          "name": "International Affairs"
+        },
+        {
+          "id": "political-science",
+          "name": "Political Science"
+        }
+      ]
+    },
+    {
+      "id": "school-of-social-work",
+      "name": "School of Social Work",
+      "majors": [
+        {
+          "id": "social-work",
+          "name": "Social Work"
+        }
+      ]
+    },
+    {
+      "id": "terry",
+      "name": "Terry College of Business",
+      "majors": [
+        {
+          "id": "accounting",
+          "name": "Accounting"
+        },
+        {
+          "id": "economics",
+          "name": "Economics"
+        },
+        {
+          "id": "finance",
+          "name": "Finance"
+        },
+        {
+          "id": "international-business",
+          "name": "International Business (Co-Major)"
+        },
+        {
+          "id": "management",
+          "name": "Management"
+        },
+        {
+          "id": "management-information-systems",
+          "name": "Management Information Systems"
+        },
+        {
+          "id": "marketing",
+          "name": "Marketing"
+        },
+        {
+          "id": "real-estate",
+          "name": "Real Estate"
+        },
+        {
+          "id": "risk-management-and-insurance",
+          "name": "Risk Management and Insurance"
+        }
+      ]
+    },
+    {
+      "id": "warnell",
+      "name": "Warnell School of Forestry and Natural Resources",
+      "majors": [
+        {
+          "id": "fisheries-and-wildlife",
+          "name": "Fisheries and Wildlife"
+        },
+        {
+          "id": "forestry",
+          "name": "Forestry"
+        },
+        {
+          "id": "natural-resource-management-and-sustainability",
+          "name": "Natural Resource Management and Sustainability"
+        },
+        {
+          "id": "parks-recreation-and-tourism-management",
+          "name": "Parks, Recreation, & Tourism Management"
+        }
+      ]
+    }
+  ],
+  "special_majors": [
+    {
+      "id": "undecided",
+      "name": "Undecided"
+    },
+    {
+      "id": "other",
+      "name": "Other / not listed"
+    }
+  ],
+  "major_rules": {
+    "min": 1,
+    "max": 2,
+    "co_major_ids": [
+      "international-business"
+    ],
+    "exclusive_ids": [
+      "undecided"
+    ]
+  }
+}
