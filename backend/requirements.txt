@@ -11,13 +11,14 @@ pydantic>=2.5
 # --- Reading settings and secrets from the .env file ---
 python-dotenv>=1.0
 
-# --- Flyer reader ---
-requests>=2.31   # talks to the OCR.space service
+# --- Flyer reader and AI calls (web requests) ---
+requests>=2.31   # talks to OCR.space and the AI services
 pillow>=10.0     # opens and shrinks flyer images
+
+# --- Time zones (Windows has no built-in time zone database) ---
+tzdata>=2024.1
 
 # --- Testing and formatting ---
 pytest>=8.0
+httpx>=0.27      # needed by FastAPI's test client
 black>=24.0
-
-# --- Added later, once the team picks one ---
-# (the AI package for event tagging and explanations goes here)
