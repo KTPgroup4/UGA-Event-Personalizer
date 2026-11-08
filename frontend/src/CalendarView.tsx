@@ -30,20 +30,6 @@ const monthNames = [
   "November",
   "December",
 ]
-const monthLookup: Record<string, number> = {
-  Jan: 0,
-  Feb: 1,
-  Mar: 2,
-  Apr: 3,
-  May: 4,
-  Jun: 5,
-  Jul: 6,
-  Aug: 7,
-  Sep: 8,
-  Oct: 9,
-  Nov: 10,
-  Dec: 11,
-}
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 function toDateKey(year: number, month: number, day: number) {
@@ -57,7 +43,7 @@ export default function CalendarView({
   interests,
   onBack,
 }: CalendarViewProps) {
-  const [displayDate, setDisplayDate] = useState(new Date(2026, 9, 1))
+  const [displayDate, setDisplayDate] = useState(new Date())
   const [mode, setMode] = useState<"month" | "list">("month")
   const [showForm, setShowForm] = useState(false)
   const [personalEvents, setPersonalEvents] = useState<PersonalEvent[]>(() => {
@@ -80,11 +66,10 @@ export default function CalendarView({
   const savedCampusEvents = useMemo(
     () =>
       selectedEvents.map((event) => {
-        const [monthName, day] = event.date.split(" ")
         return {
           id: `campus-${event.id}`,
           title: event.title,
-          date: toDateKey(2026, monthLookup[monthName] ?? 9, Number(day)),
+          date: event.dateKey,
           time: event.time,
           type: "campus" as const,
         }
