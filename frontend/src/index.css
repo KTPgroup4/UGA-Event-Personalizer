@@ -2532,3 +2532,57 @@ footer {
     min-height: 90px;
   }
 }
+
+/* Keep the swipe card at a fixed height */
+.swipe-stage {
+  height: min(650px, 75vh);
+  min-height: 420px;
+}
+
+/* Arrange the card into sections */
+.swipe-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Keep the category and date visible */
+.swipe-card-top,
+.swipe-date {
+  flex-shrink: 0;
+}
+
+/* Scroll the event details inside the card */
+.swipe-card-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px;
+  padding-bottom: 35px;
+  scrollbar-width: thin;
+  scrollbar-color: #c8102e #f1f1f1;
+}
+
+/* Show a scrollbar in Chrome and Safari */
+.swipe-card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.swipe-card-body::-webkit-scrollbar-thumb {
+  background: #c8102e;
+  border-radius: 10px;
+}
+
+/* Prevent long titles and tags from overflowing */
+.swipe-card-body h2 {
+  overflow-wrap: anywhere;
+}
+
+.swipe-card-body .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
