@@ -224,3 +224,13 @@ def test_pruned_manifest_still_loads_with_the_reader(tmp_path):
 
 def test_get_today_returns_a_date():
     assert isinstance(fdf.get_today(), date)
+
+
+def test_dated_leaves_out_flyers_with_no_date():
+    flyers = [
+        make_flyer("Join us Dec 20, 2099!", flyer_id="future"),
+        make_flyer("Weekly meetings every Tuesday!", flyer_id="undated"),
+    ]
+    outcome = fdf.filter_past_flyers(flyers, today=TODAY)
+    assert [f.flyer_id for f in outcome.dated] == ["future"]
+    assert [f.flyer_id for f in outcome.kept] == ["future", "undated"]  # kept is unchanged

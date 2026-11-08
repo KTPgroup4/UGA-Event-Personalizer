@@ -3,11 +3,14 @@
 This is the agreement between the frontend and backend. If either side needs to
 change something here, change this file in a pull request first.
 
-Status: **DRAFT**. The request side is final. The response side has two open
+Status: **DRAFT**. The request side is final. The response side has open
 decisions, listed at the bottom.
 
-- Base URL while developing: the frontend dev server proxies `/api` to the backend, so the
-  frontend just calls `/api/...` (see `vite.config.ts` for the backend port).
+- While developing, the frontend dev server (port 5173) proxies `/api` to the backend on
+  **port 3000** (see `vite.config.ts`), so the frontend just calls `/api/...`.
+  Start the backend from the `backend` folder with:
+  `python -m uvicorn app.main:app --reload --port 3000`
+  and try every endpoint at <http://localhost:3000/docs>.
 - Everything is JSON.
 - The backend stores nothing about users. Every request carries the full profile.
 - Do **not** send names or any personal details. Unknown fields are rejected (422).
@@ -91,7 +94,7 @@ Example file: [`sample_profile_request.json`](sample_profile_request.json)
 |---|---|
 | `week_start` | `YYYY-MM-DD`, must be a **Monday**. This is the week to plan. |
 | `majors` | Major IDs from `/api/options`. 1 or 2. See `major_rules`. |
-| `interests` | Interest IDs (category or `category:specialty`). 1 to 40. If a specialty and its category are both sent, the category is dropped. |
+| `interests` | Interest IDs (category or `category:specialty`). 1 to 15 (most students pick 2 to 7). If a specialty and its category are both sent, the category is dropped. |
 | `busy` | Optional. Up to 100 weekly blocks the student is NOT free. |
 | `busy[].day` | `mon` `tue` `wed` `thu` `fri` `sat` `sun` (lowercase, Sunday included). |
 | `busy[].start` / `end` | Local Athens clock time, 24-hour `HH:MM`, no timezone. `end` must be after `start`. A block that runs past midnight must be sent as two blocks. |
@@ -100,11 +103,12 @@ The backend turns each recurring block into real date and time ranges for `week_
 week in America/New_York, so a 9:00 class stays 9:00 on the clock when daylight saving
 changes. Overlapping or touching blocks are merged.
 
-### Response (200)  **DRAFT**
+### Response (200)  **DRAFT (proposed: swipe deck)**
 
 ```json
 {
   "week_start": "2026-11-09",
+  "target_picks": 5,
   "events": [
     {
       "id": "flyer-101",
@@ -116,21 +120,34 @@ changes. Overlapping or touching blocks are merged.
       "organizer": "AI Club",
       "url": null,
       "interest_tags": ["technology-coding:ai"],
-      "match_percent": 85,
-      "reasons": ["Matches your interest in AI", "Relevant to the School of Computing"]
+      "match_kind": "interest",
+      "reason": "Matches your interest in Technology & Coding / AI",
+      "conflicts_with": ["flyer-104"]
     }
-  ],
-  "schedules": [
-    {"label": "Best match", "event_ids": ["flyer-101"]}
   ]
 }
 ```
 
-- `events` is ranked best first (at most 10). `schedules` lists the same events by `id`, grouped into versions that don't overlap each other.
-- All times are ISO 8601 **with a UTC offset**. The frontend formats them for display (for example with `Intl.DateTimeFormat` and `timeZone: "America/New_York"`) and must not parse "Oct 24" style strings.
+`events` is the **swipe deck**: about 15 events, already in the order to show them.
+
+- **Order and variety.** The backend orders the deck so the first cards cover different
+  interests instead of 5 events about one topic. Show the cards in the order given.
+- **Clashes.** `conflicts_with` lists the ids of *other cards in this deck* that overlap in time.
+  When the student swipes right on a card, hide every card whose id is in its
+  `conflicts_with`. They can't attend both. The frontend needs no time maths for this.
+- **Stopping.** Stop the swipe step after `target_picks` right swipes, or when the deck runs out.
+  Build the calendar from the cards they kept. Nothing needs to go back to the backend.
+- **`reason`** is one plain sentence to show on the card. The frontend must not compute its own
+  match score or reason.
+- **`match_kind`** is why the event is in the deck: `interest` (inside something they picked),
+  `related` (same area as a specialty they picked), `major`, `college`, or `none` (a "something
+  different" filler, only used when too few events match). Use it for a badge or styling if you like.
+- All times are ISO 8601 **with a UTC offset**. The frontend formats them for display (for example
+  with `Intl.DateTimeFormat` and `timeZone: "America/New_York"`) and must not parse "Oct 24" style strings.
 - `end_is_estimated` is `true` when the flyer showed no end time and a default length was used.
-- `match_percent` and `reasons` come from the backend. The frontend must not compute its own match score.
-- If nothing matches, `events` and `schedules` are empty lists (still a 200).
+- Events during the student's busy blocks, events that are already over, and events limited to
+  other colleges are never in the deck.
+- If no events exist at all, `events` is an empty list (still a 200).
 
 ### Errors
 
@@ -140,12 +157,54 @@ Invalid input returns **422** with FastAPI's standard body:
 {"detail": [{"loc": ["body", "majors"], "msg": "Value error, Choose at most 2 majors.", "type": "value_error"}]}
 ```
 
-`loc` says which field is wrong and `msg` is written to be readable. Server problems
+`loc` says which field is wrong and `msg` is written to be readable. If the weekly job has not run yet (no saved events), the response is **503** with
+`{"detail": "No events yet. Run: python -m scripts.build_events"}`. Other server problems
 return **500** with `{"detail": "..."}` and never include the profile.
+
+---
+
+## 3. Development helpers (temporary)
+
+These exist so the frontend has real data to work with before the matcher is built. They are
+not part of the final product flow and may be removed.
+
+- `GET /api/health` returns `{"status": "ok"}`.
+- `GET /api/flyers` returns the flyers we have:
+
+```json
+{
+  "count": 1,
+  "flyers": [
+    {
+      "flyer_id": "flyer-101",
+      "year": 2026,
+      "image_url": "/api/flyer-images/APhA.png",
+      "status": "ok",
+      "text": "Join us ...",
+      "date_status": "upcoming"
+    }
+  ]
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `image_url` | Load the picture from this URL (`<img src=...>`). `null` if there is no picture. |
+| `status` | `ok` (text was read), `not_read` (picture exists, run `python -m app.ingestion.flyer_reader` to read it), or `missing_image` (listed in the manifest but the file isn't there). |
+| `text` | The text read from the flyer. Empty unless `status` is `ok`. |
+| `date_status` | `upcoming`, `past` or `unknown`, from the dates printed on the flyer. |
+
+The text comes from a local cache on the machine running the backend, so each person sees
+text only for flyers they have read themselves. This endpoint never calls the OCR service.
+
+- `GET /api/flyer-images/<filename>` serves the pictures in `backend/data/flyers/`.
 
 ---
 
 ## Open decisions (settle before building the response)
 
-1. **Swipe deck or schedule versions?** The current frontend lets the user swipe through events and builds the calendar from what they keep. The response above also returns ready-made `schedules`. Either the frontend uses `events` for the swipe deck and ignores `schedules`, or the swipe step is replaced by showing the versions.
+1. **Swipe deck or schedule versions?** This draft assumes the **swipe deck** (the current frontend flow),
+   so the old `schedules` and `match_percent` fields are gone. If the team prefers showing ready-made
+   schedule versions instead, the response gets a `schedules` list back and the swipe step goes away.
 2. **Default event length** when a flyer has no end time (proposed: 1 hour, flagged by `end_is_estimated`).
+3. **Deck size** (proposed: about 15) and **`target_picks`** (proposed: 5). Both are single numbers on the backend.

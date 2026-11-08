@@ -166,6 +166,13 @@ class FilterResult:
     dropped: list[DroppedFlyer] = field(default_factory=list)  # events already over
     undated: list[FlyerText] = field(default_factory=list)  # kept, but no date was found
 
+    @property
+    def dated(self) -> list[FlyerText]:
+        """Kept flyers that DO show a date. Events need a start time, so use this when
+        building events; the undated ones need a person to add the date first."""
+        undated_ids = {f.flyer_id for f in self.undated}
+        return [f for f in self.kept if f.flyer_id not in undated_ids]
+
 
 def filter_past_flyers(results: list[FlyerText], today: date | None = None) -> FilterResult:
     """Split flyers into the ones to keep and the ones whose events already happened.

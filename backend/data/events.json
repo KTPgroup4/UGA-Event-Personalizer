@@ -1,0 +1,515 @@
+{
+  "built_at": "2026-11-08T16:17:24.147638+00:00",
+  "events": [
+    {
+      "id": "flyer_029",
+      "title": "Double Feature Weekend",
+      "description": "MINIONSSONICS smonsters PRESENTED BY UNIVERSITY UNION DOUBLE FEATURE WEEKEND DOUBLE SCREENING ON 11/6 at LEGION FIELD 11/8 at TATE THEATRE SHOW TIMES minions ® 6 PM SONIC O 9 PM OFFERING FREE* FOOD PRIZES STUDER *FREE FOR UGA- NS STUDENT ACTIVITY FEE-PAID STUDENTS",
+      "start": "2026-11-08T18:00:00-05:00",
+      "end": null,
+      "location": "Legion Field / Tate Theatre",
+      "organizer": "University Union",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_029",
+      "interest_tags": [
+        "film-photography:film",
+        "film-photography:movie-nights",
+        "film-photography:screenings",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_026",
+      "title": "Conversation Table",
+      "description": "CCC 9. 83 uga_ccc 力田馥甄•小幸運（電影《我的少女時代... Follow 1/2 This week's Conversation Table topic: 你最喜欢的 电影是什么？ What's your favorite movie? Monday, 11/9, 4-5pm Main Library's Einstein Bros. Bagels",
+      "start": "2026-11-09T16:00:00-05:00",
+      "end": "2026-11-09T17:00:00-05:00",
+      "location": "Main Library's Einstein Bros. Bagels",
+      "organizer": "CCC",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_026",
+      "interest_tags": [
+        "languages-global-cultures:mandarin-chinese",
+        "languages-global-cultures:languages",
+        "languages-global-cultures:language-exchange",
+        "east-asian-cultures:chinese-culture",
+        "cultural-exchange"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_025",
+      "title": "Moneyball Pickleball Tournament",
+      "description": "MONEYBALL PICKLEBALL mi TOURNAMENT SATE IN TICS CUS EST. OUGA CLED MONDAY 11/9 AT 6 PM UGA IM COURTS COMPETITIVE & RECREACTIONAL BRACKETS $15/PERSON CLICK THE LINK COMP WINNERS GET CASH PRIZE IN BIO TO REC WINNERS GET CRBN GEAR REGISTER!!",
+      "start": "2026-11-09T18:00:00-05:00",
+      "end": null,
+      "location": "UGA IM Courts",
+      "organizer": "",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_025",
+      "interest_tags": [
+        "sports-recreation:pickleball",
+        "sports-recreation:sports",
+        "sports-recreation:recreation"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_031",
+      "title": "Happy Lemon Night",
+      "description": "DELTA PHI LAMBDA'S Happy Lemon % NGHT 11/10 TUESDAY, NOV 10TH | 3-9PM Pull up to grab some boba and support DPhiL!!",
+      "start": "2026-11-10T15:00:00-05:00",
+      "end": "2026-11-10T21:00:00-05:00",
+      "location": "Happy Lemon",
+      "organizer": "Delta Phi Lambda",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_031",
+      "interest_tags": [
+        "food-cooking:food",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_002",
+      "title": "Perspectives on Homelessness",
+      "description": "Perspectives on Homelessness at CINE Cost a barrier? Scan to request a free ticket. Join The Backpack Project of Athens for a screening of No Place to Grow Old, followed by a panel discussion with local homeless service providers. Tuesday, November 10 5:30-7:30 PM | Ciné Tickets: athenscine.com NO PLACE TO GROW OLI IN ASSOSATION WITH MATCHLIGHT A OAVO VIL COERNER dig 1",
+      "start": "2026-11-10T17:30:00-05:00",
+      "end": "2026-11-10T19:30:00-05:00",
+      "location": "Ciné",
+      "organizer": "The Backpack Project of Athens",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_002",
+      "interest_tags": [
+        "film-photography:film",
+        "film-photography:screenings",
+        "social-justice-advocacy:awareness",
+        "social-justice-advocacy:social-justice",
+        "community-service"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_032",
+      "title": "Like It's 2000",
+      "description": "LIKE IT'S 2000 nOV 10TH 2026 ม ARTY ORD- InC DOORS OPEN AT 7 $5 TICKETS 8Pm • NUÇIS SPACE Music Business Program Terry College of Business UNIVERSITY OF GEORGIA",
+      "start": "2026-11-10T20:00:00-05:00",
+      "end": null,
+      "location": "Nuçi's Space",
+      "organizer": "Music Business Program",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_032",
+      "interest_tags": [
+        "music:music",
+        "music:concerts",
+        "music:live-music",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_018",
+      "title": "Intro to Figma",
+      "description": "1/2 03 // workshop Intro to Figma collab w/ girls.code() Wednesday • Nov 11th 6-7 PM • Boyd 222 Your ideas deserve a design. Learn figma w/ ux.c & girls.code(). All skills welcome!",
+      "start": "2026-11-11T18:00:00-05:00",
+      "end": "2026-11-11T19:00:00-05:00",
+      "location": "Boyd 222",
+      "organizer": "ux.c & girls.code()",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_018",
+      "interest_tags": [
+        "visual-art-design:graphic-design",
+        "visual-art-design:digital-art",
+        "technology-coding"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_027",
+      "title": "Stargazing",
+      "description": "THE VIETNAMESE STUDENT ASSOCIATION AT UGA®PRESENTS SIARGAZING socior NOVEMBER 11. 2026 APPROX. 10:00 PM IRON HORSE 7861 ATHENS HWY WATKINSVILLE, CA PENDING WEATHER Hot chocolate & marshmallows provided!! RSVP through the link in our bio!! Stay updated on GroupMe",
+      "start": "2026-11-11T22:00:00-05:00",
+      "end": null,
+      "location": "Iron Horse 7861 Athens Hwy Watkinsville, GA",
+      "organizer": "The Vietnamese Student Association at UGA",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_027",
+      "interest_tags": [
+        "astronomy-space:stargazing",
+        "southeast-asian-cultures:vietnamese-culture",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_007",
+      "title": "Dissertation Defense: A Landscape Co-Ecology of Human-Primate Coexistence",
+      "description": "- DISSERTATION DEFENSE A Landscape Co-Ecology of Human-Primate Coexistence Sympatric Langurs in Sri Lanka's Changing Dry Zone Alexandra Nicole Hofner Under the direction of Dr. Roberta Salmi Integrative Conservation and Anthropology • University of Georgia Thursday, November 12 2026 8:00 AM ET Held via Zoom Meeting ID: 993 6047 0187 Passcode: 758400 Scan to join",
+      "start": "2026-11-12T08:00:00-05:00",
+      "end": null,
+      "location": "Zoom",
+      "organizer": "Integrative Conservation and Anthropology",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_007",
+      "interest_tags": [
+        "nature-wildlife:ecology",
+        "nature-wildlife:wildlife",
+        "environment-sustainability:conservation",
+        "science-research:research"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_009",
+      "title": "ROML Alumni Panel",
+      "description": "ROML Alumni Panel November 12, 2026 Gilbert Hall 118 9:55 a.m. Rosalie Vendrell",
+      "start": "2026-11-12T09:55:00-05:00",
+      "end": null,
+      "location": "Gilbert Hall 118",
+      "organizer": "",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_009",
+      "interest_tags": [
+        "career-leadership",
+        "languages-global-cultures"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_015",
+      "title": "Athens, GA: Inside/Out 40th Anniversary Restoration",
+      "description": "ATHENS, GA: INSIDE/OUT 40TH ANNIVERSARY RESTORATION FREE Public Screening Thursday, November 12th 4:30pm UGA Special Collections Auditorium 300 South Hull Street UNIVERSITY OF GEORGIA University Libraries",
+      "start": "2026-11-12T16:30:00-05:00",
+      "end": null,
+      "location": "UGA Special Collections Auditorium 300 South Hull Street",
+      "organizer": "University of Georgia University Libraries",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_015",
+      "interest_tags": [
+        "film-photography:film",
+        "film-photography:screenings",
+        "music:music",
+        "history-humanities"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_016",
+      "title": "Comics Workshop",
+      "description": "The Portuguese Program invites you to a COMICS WORKSHOP EXPLORE THE FASCINATING WORLD OF BRAZILIAN COMICS AND THEIR IMPACT ON CULTURE AND SOCIETY! CREATE YOUR OWN COMICS! JOIN US TO UNLEASH YOUR CREATIVITY! November 12 ￾ 5:30 PM Gilbert Hall • Room 113 PLEASE USE THE BACK DOOR BY THE PARKING LOT INSTEAD OF THE ONE BY THE FOUNTAIN). GEORGIA Department of Romance Languages UNIVERSITY OF GEORGIA PORTUGUESE",
+      "start": "2026-11-12T17:30:00-05:00",
+      "end": null,
+      "location": "Gilbert Hall • Room 113",
+      "organizer": "The Portuguese Program / Department of Romance Languages",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_016",
+      "interest_tags": [
+        "latin-caribbean-cultures:brazilian-culture",
+        "languages-global-cultures:portuguese",
+        "visual-art-design:art",
+        "visual-art-design:drawing"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_017",
+      "title": "WEEKLY MEETING",
+      "description": "WEEKLY MEETING November 12 | 6:00-7:30 PM | CORRELL 222 WIJH EY Ş WIA",
+      "start": "2026-11-12T18:00:00-05:00",
+      "end": "2026-11-12T19:30:00-05:00",
+      "location": "CORRELL 222",
+      "organizer": "WIA",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_017",
+      "interest_tags": [
+        "business-entrepreneurship",
+        "career-leadership",
+        "finance-investing"
+      ],
+      "relevant_colleges": [
+        "terry"
+      ],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_019",
+      "title": "Bollywood Bash",
+      "description": "UGA PSA Presents BOLLYWOOD ® BASH जब वी मेट JAB WE MET NOVEMBER 12. 2026 6:00PM-10:00PM MEMORIAL HALL THREE PIES A night of food, music, and performances...",
+      "start": "2026-11-12T18:00:00-05:00",
+      "end": "2026-11-12T22:00:00-05:00",
+      "location": "Memorial Hall",
+      "organizer": "UGA PSA",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_019",
+      "interest_tags": [
+        "south-asian-cultures:indian-culture",
+        "music:music",
+        "dance-performing-arts:performing-arts"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_021",
+      "title": "Freebie Craft and Trade Night",
+      "description": "UGA K-Pop Club's Freebie Craft and Trade Night NOVEMBER 12TH doct DAWSON 208 6-8 PM Join us to create freebies for our favorite K-Pop groups! Meet new people and trade freebies with each other! Supplies will be provided @kpopclubuga ugakpopclub@gmail.co",
+      "start": "2026-11-12T18:00:00-05:00",
+      "end": "2026-11-12T20:00:00-05:00",
+      "location": "Dawson 208",
+      "organizer": "UGA K-Pop Club",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_021",
+      "interest_tags": [
+        "east-asian-cultures:korean-culture",
+        "music:music",
+        "diy-crafts"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_022",
+      "title": "Friendsgiving",
+      "description": "Join us for Friendsgiving Let's recognize our international students on campus by enjoying delicious food and participating in fun activities! RHA November 12th 6 pm - 8 pm Rooker Fireside in ECV We look forward to seeing you there! Georgia m Alpha Chapter A HONORARY",
+      "start": "2026-11-12T18:00:00-05:00",
+      "end": "2026-11-12T20:00:00-05:00",
+      "location": "Rooker Fireside in ECV",
+      "organizer": "RHA",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_022",
+      "interest_tags": [
+        "cultural-exchange:international-student-connections",
+        "food-cooking:food",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_030",
+      "title": "Ritmos y Raíces: How Reggae Transformed to Reggaeton",
+      "description": "RITMOS Y RAÍCES: How Reggae Transformed TO Reggaeton November 12 7-8 PM MLC 148 LUGA UNIVERSITY OF GEORGIA Latin American and Caribbean Studies Institute Franklin College of Arts and Sciences",
+      "start": "2026-11-12T19:00:00-05:00",
+      "end": "2026-11-12T20:00:00-05:00",
+      "location": "MLC 148",
+      "organizer": "Latin American and Caribbean Studies Institute",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_030",
+      "interest_tags": [
+        "latin-caribbean-cultures:caribbean-cultures",
+        "music:music",
+        "history-humanities:history"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_023",
+      "title": "Holiday Party",
+      "description": "·QŠTOŃE × HOLIDAY PARTY Thursday. November 12 Pride Center Lounge, Opm-8 pm Hot Chocolate Gingerbread Houses Holiday Festivities",
+      "start": "2026-11-12T20:00:00-05:00",
+      "end": null,
+      "location": "Pride Center Lounge",
+      "organizer": "QStone",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_023",
+      "interest_tags": [
+        "food-cooking:food",
+        "social-campus-life",
+        "diy-crafts"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_001",
+      "title": "Raffle! Silent Auction! Dessert Competition!",
+      "description": "SUPPORT THE UGA SUBUNIT OF THE AMERICAN FISHERIES SOCIETY RAFFLE! SILENT AUCTION! DESSERT COMPETITION! PRESALE TICKETS NOV 2n8, 3rd, , and 9th FROM 11-2 FORESTRY RESOURCES, BLDG 2 LOBBY SUBUNIT MEMBERS: $8 NON MEMBERS: $10 ICKETS AT THE DOOR FLAT FEE: $12 FRIDAY, NOV 13 6 PM FLINCHUM'S TISH FRO PHOENIX 650 Phoenix Rd, Athens, GA 30605 UNIVERSITY OF GEORGIA Warnell School of Forestry & Natural Resources KES",
+      "start": "2026-11-13T18:00:00-05:00",
+      "end": null,
+      "location": "Flinchum's Phoenix, 650 Phoenix Rd, Athens, GA 30605",
+      "organizer": "UGA Subunit of the American Fisheries Society",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_001",
+      "interest_tags": [
+        "nature-wildlife",
+        "animals-pets",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [
+        "warnell"
+      ],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_020",
+      "title": "Mehmoonf Mixer",
+      "description": "UGA x KSU x GT MEHMOONF MIXER dancing, music, appetizers, chai, and more! Friday, November 13th 7-10 pm The Connections Clubhouse, 255 The Preserve Drive Athens GA, 30606",
+      "start": "2026-11-13T19:00:00-05:00",
+      "end": "2026-11-13T22:00:00-05:00",
+      "location": "The Connections Clubhouse, 255 The Preserve Drive Athens GA, 30606",
+      "organizer": "UGA x KSU x GT",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_020",
+      "interest_tags": [
+        "dance-performing-arts:dance",
+        "music:music",
+        "social-campus-life:meeting-people"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_024",
+      "title": "Drag Night",
+      "description": "UGA OSTEM PRESENTS DRAG NIGHT WITH SPECIAL GUEST HOST TINA. NOV. 13TH 8-10 PM VKW Ballroom in Memorial Hall @tinaperiod SIGN UPS STILL OPEN @tinaperiod",
+      "start": "2026-11-13T20:00:00-05:00",
+      "end": "2026-11-13T22:00:00-05:00",
+      "location": "VKW Ballroom in Memorial Hall",
+      "organizer": "UGA oSTEM",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_024",
+      "interest_tags": [
+        "dance-performing-arts:performing-arts",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_033",
+      "title": "Block and Bridle Semi-Formal",
+      "description": "BLOCK AND BRIDLE SEMI-FORMAL NOVEMBER 13 | 8:30 PM @ The Pit SIGN UP HERE!! Snacks Provided, Bring your own beverages:",
+      "start": "2026-11-13T20:30:00-05:00",
+      "end": null,
+      "location": "The Pit",
+      "organizer": "Block and Bridle",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_033",
+      "interest_tags": [
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_005",
+      "title": "Engineering in Practice Luncheon: The Importance of Character and Ethics in an AI World",
+      "description": "College of Engineering UNIVERSITY OF GEORGIA Advancement and Community Development Dr. Jenna Carpenter ENGINEERING IN PRACTICE LUNCHEON: THE IMPORTANCE OF CHARACTER AND ETHICS IN AN AI WORLD Tuesday, November 17 Driftmier 1240 11:45AM-12:45PM *Approved as first year Odyssey Credit RSVP HERE For more information contact the ACD team at soniagarcia@uga.edu or grm22212@uga.edu. • O>",
+      "start": "2026-11-17T11:45:00-05:00",
+      "end": "2026-11-17T12:45:00-05:00",
+      "location": "Driftmier 1240",
+      "organizer": "College of Engineering Advancement and Community Development",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_005",
+      "interest_tags": [
+        "technology-coding:ai",
+        "engineering-making",
+        "career-leadership"
+      ],
+      "relevant_colleges": [
+        "engineering"
+      ],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_012",
+      "title": "2026 Election Recap",
+      "description": "2026 Election Recap Maya Prabhu PeachPol Trey Hood University of Georgia Karen Owen University of West Georgia Keith Gaddie Texas Christian University Moderated by Bill Crane (WSB-TV) Remarks by Dr. Charles Bullock (UGA) thursday 11:30 AM November 19, 2026 Richard B. Russell Library for Political Research and Studies UNIVERSITY OF GEORGIA",
+      "start": "2026-11-19T11:30:00-05:00",
+      "end": null,
+      "location": "Richard B. Russell Library for Political Research and Studies",
+      "organizer": "University of Georgia",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_012",
+      "interest_tags": [
+        "law-government-policy:politics",
+        "history-humanities:public-lectures",
+        "law-government-policy:government"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "flyer_011",
+      "title": "Philosophy Cafe",
+      "description": "JOIN US AT THE PHILOSOPHY WITH UGA PHILOSPHY AT ATHENTIC BREWING CO. 108 PARK AVE, ATHENS, GA 30601 SUNDAY DECEMBER 13 6:30-8:00 PM CAFE",
+      "start": "2026-12-13T18:30:00-05:00",
+      "end": "2026-12-13T20:00:00-05:00",
+      "location": "Athentic Brewing Co. 108 Park Ave, Athens, GA 30601",
+      "organizer": "UGA Philosophy",
+      "url": null,
+      "source": "flyer",
+      "flyer_id": "flyer_011",
+      "interest_tags": [
+        "history-humanities:philosophy",
+        "social-campus-life"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    }
+  ],
+  "needs_review": [
+    {
+      "flyer_id": "flyer_004",
+      "reason": "no start time was found on the flyer"
+    },
+    {
+      "flyer_id": "flyer_006",
+      "reason": "no date was found on the flyer"
+    },
+    {
+      "flyer_id": "flyer_010",
+      "reason": "no start time was found on the flyer"
+    },
+    {
+      "flyer_id": "flyer_013",
+      "reason": "no date was found on the flyer"
+    },
+    {
+      "flyer_id": "flyer_014",
+      "reason": "no start time was found on the flyer"
+    },
+    {
+      "flyer_id": "flyer_028",
+      "reason": "no date was found on the flyer"
+    }
+  ]
+}

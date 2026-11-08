@@ -13,7 +13,7 @@ from pydantic import BaseModel, ConfigDict, field_validator
 from app import taxonomy
 from app.schemas.busy_block import BusyBlock, BusyBlockInput, expand_busy_blocks
 
-MAX_INTERESTS = 40  # generous; stops absurdly large requests
+MAX_INTERESTS = 15  # students pick about 2-7; this stops absurdly large requests
 MAX_BUSY_BLOCKS = 100
 
 

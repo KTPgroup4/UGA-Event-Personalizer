@@ -192,7 +192,7 @@ def test_a_category_is_dropped_when_its_specialty_is_also_chosen():
 
 def test_too_many_interests_or_busy_blocks_are_rejected():
     everything = list(taxonomy.LABELS)
-    with pytest.raises(ValidationError, match="at most 40"):
+    with pytest.raises(ValidationError, match="at most 15"):
         profile(interests=everything)
     many = [{"day": "mon", "start": "09:00", "end": "10:00"}] * 101
     with pytest.raises(ValidationError, match="At most 100"):
