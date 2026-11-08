@@ -67,6 +67,14 @@ PROFILE = {
 }
 
 
+def isolate_events(tmp_path, monkeypatch):
+    """Point the API at files in tmp_path and ignore .env, so the result doesn't depend on the
+    developer's own settings (for example INCLUDE_DEMO_EVENTS=true or a real data/events.json)."""
+    monkeypatch.setattr(event_store, "EVENTS_PATH", tmp_path / "events.json")
+    monkeypatch.setattr(event_store, "DEMO_EVENTS_PATH", tmp_path / "demo_events.json")
+    monkeypatch.setenv("INCLUDE_DEMO_EVENTS", "false")
+
+
 def save_one_event(tmp_path, monkeypatch):
     from datetime import datetime
 
@@ -74,13 +82,12 @@ def save_one_event(tmp_path, monkeypatch):
 
     event = Event(id="e1", title="AI Club Kickoff", start=datetime.fromisoformat("2999-01-08T18:00:00-05:00"),
                   interest_tags=["technology-coding:ai"])
-    path = tmp_path / "events.json"
-    event_store.save_events([event], path=path)
-    monkeypatch.setattr(event_store, "EVENTS_PATH", path)
+    isolate_events(tmp_path, monkeypatch)
+    event_store.save_events([event], path=tmp_path / "events.json")
 
 
 def test_schedules_says_so_when_the_weekly_job_has_not_run(tmp_path, monkeypatch):
-    monkeypatch.setattr(event_store, "EVENTS_PATH", tmp_path / "missing.json")
+    isolate_events(tmp_path, monkeypatch)  # nothing saved in tmp_path
     response = client.post("/api/schedules", json=PROFILE)
     assert response.status_code == 503
     assert "scripts.build_events" in response.json()["detail"]
@@ -103,3 +110,20 @@ def test_schedules_rejects_a_bad_profile_with_422(tmp_path, monkeypatch):
     response = client.post("/api/schedules", json={**PROFILE, "majors": ["not-a-major"]})
     assert response.status_code == 422
     assert client.post("/api/schedules", json={**PROFILE, "name": "Alex"}).status_code == 422
+
+
+def test_schedules_can_use_the_demo_events_when_switched_on(tmp_path, monkeypatch):
+    from datetime import datetime
+
+    from app.schemas.event import Event
+
+    isolate_events(tmp_path, monkeypatch)
+    demo = Event(id="fake_01", title="Demo event", start=datetime.fromisoformat("2999-01-08T18:00:00-05:00"),
+                 interest_tags=["technology-coding:ai"])
+    event_store.save_events([demo], path=tmp_path / "demo_events.json")
+    body = {**PROFILE, "week_start": "2999-01-07"}
+    assert client.post("/api/schedules", json=body).status_code == 503  # off by default: no real events yet
+    monkeypatch.setenv("INCLUDE_DEMO_EVENTS", "true")
+    response = client.post("/api/schedules", json=body)
+    assert response.status_code == 200
+    assert [e["id"] for e in response.json()["events"]] == ["fake_01"]

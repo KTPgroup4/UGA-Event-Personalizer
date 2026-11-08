@@ -115,7 +115,10 @@ def test_a_cs_student_gets_a_matching_deck(tmp_path):
     _result, path = weekly_job(tmp_path)
     events = event_store.load_events(path)
     body = build_response(student(["computer-science"], ["technology-coding:ai", "music"]), events, now=NOW)
-    assert ids(body) == ["ai-club", "guitar-jam"]  # the Terry-only fair is not for a Computing student
+    # The two matches come first. The career fair names Terry College but is open to everyone,
+    # so it is still there: it only fills out the short deck, with no match behind it.
+    assert ids(body) == ["ai-club", "guitar-jam", "career-fair"]
+    assert body["events"][2]["match_kind"] == "none"
     first = body["events"][0]
     assert first["match_kind"] == "interest" and first["reason"] == "Matches your interest in Technology & Coding / AI"
     assert first["start"] == "2026-11-12T18:00:00-05:00" and first["location"] == "Boyd 328"
@@ -127,16 +130,16 @@ def test_busy_time_removes_the_event_that_clashes(tmp_path):
     thursday_evening = [{"day": "thu", "start": "17:30", "end": "19:00"}]
     body = build_response(student(["computer-science"], ["technology-coding:ai", "music"], thursday_evening),
                           event_store.load_events(path), now=NOW)
-    assert ids(body) == ["guitar-jam"]
+    assert ids(body) == ["guitar-jam", "career-fair"]  # no AI Club (clashes); the fair only fills out the deck
 
 
-def test_an_undecided_student_still_sees_college_limited_events(tmp_path):
+def test_an_undecided_student_gets_the_career_fair_too(tmp_path):
     _result, path = weekly_job(tmp_path)
     body = build_response(student(["undecided"], ["career-leadership"]), event_store.load_events(path), now=NOW)
     assert ids(body)[0] == "career-fair"
 
 
-def test_a_terry_student_gets_the_terry_fair(tmp_path):
+def test_a_terry_student_gets_the_terry_fair_ranked_by_their_interest(tmp_path):
     _result, path = weekly_job(tmp_path)
     body = build_response(student(["finance"], ["career-leadership"]), event_store.load_events(path), now=NOW)
     assert "career-fair" in ids(body)

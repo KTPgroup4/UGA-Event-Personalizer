@@ -33,7 +33,7 @@ class Event(BaseModel):
     flyer_id: str | None = None  # which flyer this came from, if any
 
     interest_tags: list[str] = []  # IDs from taxonomy.INTERESTS (categories and/or specialties)
-    relevant_colleges: list[str] = []  # IDs from taxonomy.COLLEGES; empty = open to everyone
+    relevant_colleges: list[str] = []  # IDs from taxonomy.COLLEGES named on the flyer; only nudges ranking, never hides the event (every event is open to everyone)
     event_type: str = "other"  # one of taxonomy.EVENT_TYPES
 
     # ---- checks ----

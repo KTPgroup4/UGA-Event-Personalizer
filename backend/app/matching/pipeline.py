@@ -2,7 +2,7 @@
 
     events + profile  ->  drop events outside the planning week or already started
                       ->  drop events that clash with busy blocks
-                      ->  drop events limited to other colleges and score the rest
+                      ->  score the rest (colleges on flyers only nudge the ranking)
                       ->  build the varied swipe deck
 
 It never talks to the AI or the internet: the events arrive already tagged.
@@ -29,7 +29,6 @@ class Recommendation:
     out_of_week: list[Event] = field(default_factory=list)  # not in the planning week
     already_started: list[Event] = field(default_factory=list)  # began before "now"
     busy: list[Event] = field(default_factory=list)  # clash with a busy block
-    other_college: list[Event] = field(default_factory=list)  # limited to other colleges
     not_chosen: int = 0  # scored fine but didn't make the deck
 
 
@@ -61,14 +60,13 @@ def recommend(
         (started if event.start.astimezone(timezone.utc) <= now.astimezone(timezone.utc) else upcoming).append(event)
 
     availability = filter_free_events(upcoming, profile.busy_ranges())
-    scoring = score_events(availability.free, profile)
-    deck = build_deck(scoring.scored, profile, deck_size)
+    scored = score_events(availability.free, profile)
+    deck = build_deck(scored, profile, deck_size)
 
     return Recommendation(
         deck=deck,
         out_of_week=out_of_week,
         already_started=started,
         busy=availability.blocked,
-        other_college=scoring.excluded,
-        not_chosen=len(scoring.scored) - len(deck),
+        not_chosen=len(scored) - len(deck),
     )

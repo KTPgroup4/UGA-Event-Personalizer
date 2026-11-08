@@ -22,90 +22,93 @@ WEEK = "2026-11-09"  # a Monday; standard time (daylight saving ended Nov 1)
 NOW = datetime.fromisoformat("2026-11-08T09:00:00-05:00")
 
 
-"""Try the AI tagger on your real flyers and look at the answers yourself.
-
-Run from the backend folder (the AI in your .env must be reachable;
-check with `python -m scripts.check_ai` first):
-
-    python -m scripts.try_tagging --limit 10
-
-It reads the flyers the same way the flyer reader does (saved text is reused, and
-flyers whose text isn't saved yet are read with OCR.space), skips flyers whose
-event is already over, and prints what the AI decided for each one.
-Look at the answers: do the tags make sense for each flyer?
-
-Save this file as: scripts/try_tagging.py   (and keep an empty scripts/__init__.py next to it)
-"""
-
-import argparse
-import hashlib
-import logging
-import sys
-import time
-
-from app import taxonomy
-from app.ai.llm_client import LLMUnavailable, get_client
-from app.ingestion import flyer_date_filter, flyer_reader
-from app.tagging.tagger import TagInput, Tagger
-
-COLLEGE_NAMES = {c["id"]: c["name"] for c in taxonomy.COLLEGES}
+def when(day: int, clock: str) -> str:
+    return f"2026-11-{day:02d}T{clock}:00-05:00"
 
 
-def first_line(text: str, width: int = 70) -> str:
-    line = " ".join(text.split())
-    return line if len(line) <= width else line[: width - 3] + "..."
+# (id, title, day, start, end or None, tags, colleges)
+RAW = [
+    ("e01", "AI Club Kickoff", 9, "18:00", "19:30", ["technology-coding:ai"], []),
+    ("e02", "Intro to Web Development Workshop", 9, "12:00", None, ["technology-coding:web-development"], []),
+    ("e03", "Resume and Career Night", 10, "17:00", "18:30", ["career-leadership"], []),
+    ("e04", "Acoustic Open Mic", 10, "19:00", "21:00", ["music:live-music"], []),
+    ("e05", "Cybersecurity CTF Practice", 10, "18:00", "19:30", ["technology-coding:cybersecurity"], []),
+    ("e06", "Cooking Demo: Quick Dorm Meals", 11, "12:30", "13:30", ["food-cooking"], []),
+    ("e07", "Hackathon Info Session", 11, "18:00", "20:00", ["technology-coding:hackathons"], []),
+    ("e08", "Intramural Volleyball Sign-up", 11, "18:30", "19:30", ["sports-recreation"], []),
+    ("e09", "Startup Pitch Night", 12, "17:30", "19:00", ["business-entrepreneurship:startups"], []),
+    ("e10", "Yoga on the Lawn", 12, "18:00", "19:00", ["fitness-wellness"], []),
+    ("e11", "Campus Symphony Concert", 12, "19:00", "21:00", ["music:concerts"], []),
+    ("e12", "Investing Club: Intro to Stocks", 12, "18:00", "20:00", ["finance-investing:investing"], []),
+    ("e13", "Terry Career Fair", 13, "12:00", "13:00", ["career-leadership", "finance-investing"], ["terry"]),
+    ("e14", "School of Computing Industry Panel", 13, "14:00", "15:00", ["technology-coding", "career-leadership"], ["computing"]),
+    ("e15", "Movie Night on the Quad", 13, "19:00", None, ["film-photography"], []),
+    ("e16", "Community Cleanup Day", 14, "10:00", "14:00", ["community-service", "environment-sustainability:cleanup"], []),
+    ("e17", "Football Watch Party", 14, "14:00", "17:00", ["spectator-sports"], []),
+    ("e18", "Stargazing Night", 14, "19:30", None, ["astronomy-space"], []),
+    ("e19", "Python for Beginners", 15, "13:00", "15:00", ["technology-coding:programming"], []),
+    ("e20", "Poetry Reading", 15, "16:00", None, ["writing-literature"], []),
+    ("e21", "Early Morning Run Club", 9, "09:00", "10:00", ["fitness-wellness"], []),
+    ("e22", "Last Week's Game Night", 6, "19:00", None, ["sports-recreation"], []),  # before the planning week
+]
+
+STUDENTS = {
+    "Alex: CS major, loves AI, music and careers; has class Mon 9-9:50 and Tue 16-20": dict(
+        majors=["computer-science"],
+        interests=["technology-coding:ai", "music", "career-leadership"],
+        busy=[{"day": "mon", "start": "09:00", "end": "09:50"}, {"day": "tue", "start": "16:00", "end": "20:00"}],
+    ),
+    "Sam: Undecided, into food and wellness, free all week": dict(
+        majors=["undecided"],
+        interests=["food-cooking", "fitness-wellness"],
+        busy=[],
+    ),
+    "Jordan: Finance major, picks only Tech (a whole category) and Investing": dict(
+        majors=["finance"],
+        interests=["technology-coding", "finance-investing:investing"],
+        busy=[{"day": "wed", "start": "08:00", "end": "11:00"}],
+    ),
+    "Riley: Music major, picks only Music (watch the filler cards)": dict(
+        majors=["music-major"],
+        interests=["music"],
+        busy=[],
+    ),
+}
+
+
+def load_events() -> list[Event]:
+    events = []
+    for event_id, title, day, start, end, tags, colleges in RAW:
+        event = Event(
+            id=event_id, title=title, start=when(day, start), end=when(day, end) if end else None,
+            interest_tags=tags, relevant_colleges=colleges,
+        )
+        assert event.interest_tags == tags, f"{event_id} has a tag that is not in the taxonomy"
+        events.append(event)
+    return events
 
 
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # flyers contain odd characters
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    events = load_events()
+    titles = {e.id: e.title for e in events}
+    print(f"{len(events)} events. Pretend today is {NOW:%a %b %d %Y}.")
 
-    parser = argparse.ArgumentParser(description="Try the AI tagger on real flyers.")
-    parser.add_argument("--limit", type=int, default=10, help="how many flyers to tag (default 10)")
-    parser.add_argument("--no-cache", action="store_true", help="ignore saved answers and ask the AI again")
-    parser.add_argument(
-        "--include-past",
-        action="store_true",
-        help="also tag flyers whose event is already over (handy for testing on more flyers)",
-    )
-    args = parser.parse_args()
-
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
-
-    results = flyer_reader.read_all_flyers()
-    flyers = results if args.include_past else flyer_date_filter.filter_past_flyers(results).kept
-    readable = [f for f in flyers if f.status == "ok"]
-    items = [TagInput(f.flyer_id, f.text) for f in readable][: args.limit]
-    if not items:
-        print("No flyers with readable text were found. Run the flyer reader first.")
-        return
-
-    client = get_client()
-    print(f"Tagging {len(items)} flyers with {type(client).__name__.replace('Client', '')} model '{client.model}'...")
-    start = time.time()
-    try:
-        outcome = Tagger(client).tag(items, use_cache=not args.no_cache)
-    except LLMUnavailable as exc:
-        print(f"\n{exc}")
-        return
-
-    for item in items:
-        saved = "saved answer" if item.id in outcome.cached_ids else "asked the AI"
-        text_id = hashlib.sha1(" ".join(item.text.split()).encode()).hexdigest()[:8]
-        print(f"\n{item.id} [{saved}, text {text_id}]: {first_line(item.text)}")
-        if item.id in outcome.failed:
-            print(f"  FAILED: {outcome.failed[item.id]}")
-            continue
-        result = outcome.tags[item.id]
-        tags = ", ".join(taxonomy.LABELS[t] for t in result.interest_tags) or "(none)"
-        colleges = ", ".join(COLLEGE_NAMES[c] for c in result.relevant_colleges) or "(open to everyone)"
-        print(f"  interests: {tags}")
-        print(f"  colleges:  {colleges}")
-
-    print(
-        f"\nDone in {time.time() - start:.0f} seconds: {len(outcome.tags)} tagged "
-        f"({outcome.from_cache} from the saved answers), {len(outcome.failed)} failed."
-    )
+    for label, answers in STUDENTS.items():
+        profile = UserProfile(week_start=WEEK, **answers)
+        rec = recommend(profile, events, NOW)
+        print(f"\n=== {label}")
+        print(
+            f"    left out: {len(rec.out_of_week)} not this week, {len(rec.already_started)} already started, "
+            f"{len(rec.busy)} during busy time, "
+            f"{rec.not_chosen} left over"
+        )
+        for number, card in enumerate(rec.deck, start=1):
+            s = card.scored
+            clash = "  clashes with: " + ", ".join(titles[i] for i in card.conflicts_with) if card.conflicts_with else ""
+            print(f"  {number:>2}. {s.event.start:%a %H:%M}  {s.event.title}  [{s.kind} {s.score:g}]")
+            print(f"        {s.reason or '-'}{clash}")
 
 
 if __name__ == "__main__":

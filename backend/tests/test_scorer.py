@@ -14,7 +14,6 @@ from app.matching.scorer import (
     MAJOR_CATEGORY_POINTS,
     MAJOR_SPECIALTY_POINTS,
     RELATED_POINTS,
-    meant_for_other_colleges,
     score_event,
     score_events,
 )
@@ -122,7 +121,7 @@ def test_undecided_and_other_get_no_major_boost():
 def test_an_event_for_the_students_college_gets_a_small_boost():
     s = score_event(event(colleges=["computing"]), student(["music"], ["computer-science"]))
     assert (s.score, s.kind) == (COLLEGE_POINTS, "college")
-    assert s.reason == "Hosted for School of Computing students"
+    assert s.reason == "Connected to your college, School of Computing"
 
 
 def test_a_pick_beats_a_college_match():
@@ -130,27 +129,19 @@ def test_a_pick_beats_a_college_match():
     assert s.kind == "interest"
 
 
-def test_events_limited_to_other_colleges_are_dropped():
+def test_a_college_on_the_flyer_never_hides_the_event():
+    # Every event is open to everyone, whatever college the flyer names.
     cs = student(["music"], ["computer-science"])
-    terry_only = event("terry", tags=["music"], colleges=["terry"])
-    open_event = event("open", tags=["music"])
-    mine = event("mine", tags=["music"], colleges=["computing", "terry"])
-    result = score_events([terry_only, open_event, mine], cs)
-    assert [e.id for e in result.excluded] == ["terry"]
-    assert {s.event.id for s in result.scored} == {"open", "mine"}
+    events = [event("terry", tags=["music"], colleges=["terry"]), event("open", tags=["music"]),
+              event("mine", tags=["music"], colleges=["computing", "terry"])]
+    assert {s.event.id for s in score_events(events, cs)} == {"terry", "open", "mine"}
 
 
-def test_undecided_students_keep_college_limited_events():
-    # We don't know their college, so we don't hide anything from them.
-    result = score_events([event("terry", tags=["music"], colleges=["terry"])], student(["music"], ["undecided"]))
-    assert result.excluded == [] and len(result.scored) == 1
-
-
-def test_college_check_helper():
-    assert not meant_for_other_colleges(event(), {"terry"})
-    assert not meant_for_other_colleges(event(colleges=["terry"]), set())
-    assert not meant_for_other_colleges(event(colleges=["terry"]), {"terry"})
-    assert meant_for_other_colleges(event(colleges=["terry"]), {"computing"})
+def test_a_college_on_the_flyer_only_matters_to_students_in_that_college():
+    terry_only = event("terry", colleges=["terry"])
+    assert score_event(terry_only, student(["music"], ["computer-science"])).score == 0  # no match, but not hidden
+    assert score_event(terry_only, student(["music"], ["finance"])).score == COLLEGE_POINTS
+    assert score_event(terry_only, student(["music"], ["undecided"])).score == 0
 
 
 # ---- ordering ----
@@ -164,7 +155,7 @@ def test_events_come_back_best_first_with_ties_broken_by_time_then_id():
         event("b", tags=["music"], hours=1),
         event("a", tags=["music"], hours=1),
     ]
-    order = [x.event.id for x in score_events(events, s).scored]
+    order = [x.event.id for x in score_events(events, s)]
     assert order == ["a", "b", "late", "zero"]
 
 
