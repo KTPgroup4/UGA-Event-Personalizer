@@ -32,7 +32,7 @@ class FakeLLM:
             if step is not None:
                 return step
         fields = schema["properties"]["results"]["items"]["properties"]
-        defaults = {"title": "", "location": "", "organizer": "", "start_time": "none", "end_time": "none"}
+        defaults = {"title": "", "description": "", "location": "", "organizer": "", "start_time": "none", "end_time": "none"}
         results = [{"id": i, **defaults, **self.plan.get(i, {})} for i in fields["id"]["enum"]]
         return json.dumps({"results": results})
 
@@ -136,6 +136,41 @@ def test_with_several_dates_the_first_one_that_is_not_past_is_used(tmp_path):
 def test_a_blank_ai_title_falls_back_to_the_first_line_of_the_flyer(tmp_path):
     event = parser(FakeLLM(), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
     assert event.title == "AI Club Kickoff"
+
+
+def test_the_ai_writes_a_clean_title_and_description(tmp_path):
+    plan = {"f1": {"title": "AI Club Kickoff", "description": "Meet the club and see this semester's projects."}}
+    event = parser(FakeLLM(plan), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
+    assert event.title == "AI Club Kickoff"
+    assert event.description == "Meet the club and see this semester's projects."
+
+
+def test_the_raw_flyer_text_is_never_used_as_the_description(tmp_path):
+    event = parser(FakeLLM(), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
+    assert event.description == ""
+    failed = parser(FakeLLM(script=[LLMError("slow")]), tmp_path / "other").parse([flyer("f1", AI_KICKOFF)], TODAY)
+    assert failed.events[0].description == ""
+
+
+def test_a_long_description_is_cut_short(tmp_path):
+    plan = {"f1": {"description": "word " * 200}}
+    event = parser(FakeLLM(plan), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
+    assert len(event.description) <= 300
+
+
+def test_an_override_can_replace_the_title_and_description(tmp_path):
+    (tmp_path / "overrides.json").write_text(json.dumps({"f1": {"title": "Better Title", "description": "Written by hand."}}))
+    plan = {"f1": {"title": "Ugly OCR Tittle", "description": "AI wording"}}
+    event = parser(FakeLLM(plan), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
+    assert (event.title, event.description) == ("Better Title", "Written by hand.")
+
+
+def test_the_description_is_saved_with_the_answer_so_it_is_only_written_once(tmp_path):
+    plan = {"f1": {"title": "Kickoff", "description": "Meet the club."}}
+    parser(FakeLLM(plan), tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY)
+    second = FakeLLM()
+    event = parser(second, tmp_path).parse([flyer("f1", AI_KICKOFF)], TODAY).events[0]
+    assert second.calls == [] and event.description == "Meet the club."
 
 
 # ---- when the AI doesn't help ----

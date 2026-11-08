@@ -81,7 +81,7 @@ def fake_events(week_start: date = FIRST_MONDAY) -> list[Event]:
             return datetime(base.year, base.month, base.day, int(hour), int(minute), tzinfo=CAMPUS_TZ)
 
         event = Event(
-            id=f"{PREFIX}{number:02d}", title=title, description="Made-up test event.",
+            id=f"{PREFIX}{number:02d}", title=title, description=f"Hosted by {organizer}.",
             start=at(start), end=at(end) if end else None,
             location=location, organizer=organizer,
             interest_tags=tags, relevant_colleges=colleges, source="fake",

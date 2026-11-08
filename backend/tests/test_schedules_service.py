@@ -12,7 +12,7 @@ from app.schemas.event import Event
 from app.schemas.user_profile import UserProfile
 
 NOW = datetime.fromisoformat("2026-11-08T09:00:00-05:00")
-KEYS = {"id", "title", "start", "end", "end_is_estimated", "location", "organizer", "url",
+KEYS = {"id", "title", "description", "start", "end", "end_is_estimated", "location", "organizer", "url",
         "interest_tags", "match_kind", "reason", "conflicts_with"}
 
 
