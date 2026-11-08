@@ -1,137 +1,73 @@
-import { useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useState, type ReactNode } from "react"
 import CalendarView from "./CalendarView"
+import { getOptions, getSchedules, type OptionsResponse, type RecommendedEvent } from "./api"
 
 type IconName = "arrow" | "book" | "calendar" | "check" | "chevron" | "clock" | "heart" | "location" | "people" | "search" | "spark" | "star" | "user"
 
 export type CampusEvent = {
-  id: number
+  id: string
   title: string
   organizer: string
   day: string
   date: string
+  dateKey: string
   time: string
   period: "Morning" | "Afternoon" | "Evening"
   location: string
   category: string
   tags: string[]
   majors: string[]
-  attendees: number
+  attendees: number | null
   tone: string
+  match: number
+  reasons: string[]
+  endIsEstimated: boolean
 }
 
-const interests = [
-  "Technology",
-  "Business",
-  "Arts & Culture",
-  "Sports",
-  "Community Service",
-  "Career",
-  "Wellness",
-  "Social",
-]
+const athensDate = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
+})
+function mondayOfCurrentWeek() {
+  const parts = athensDate.formatToParts(new Date())
+  const year = Number(parts.find(p => p.type === "year")?.value)
+  const month = Number(parts.find(p => p.type === "month")?.value)
+  const day = Number(parts.find(p => p.type === "day")?.value)
+  const date = new Date(Date.UTC(year, month - 1, day))
+  const offset = (date.getUTCDay() + 6) % 7
+  date.setUTCDate(date.getUTCDate() - offset)
+  return date.toISOString().slice(0, 10)
+}
+function isMonday(value: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    new Date(`${value}T12:00:00Z`).getUTCDay() === 1
+}
+const formatAthens = (value: string, options: Intl.DateTimeFormatOptions) =>
+  new Intl.DateTimeFormat("en-US", { ...options, timeZone: "America/New_York" }).format(new Date(value))
 
-const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-]
-const periods = ["Morning", "Afternoon", "Evening"] as const
-
-const events: CampusEvent[] = [
-  {
-    id: 1,
-    title: "AI & The Future of Work",
-    organizer: "UGA Society for Cyber Security",
-    day: "Thursday",
-    date: "Oct 24",
-    time: "5:30 PM",
-    period: "Evening",
-    location: "Boyd Graduate Studies, 328",
-    category: "Technology",
-    tags: ["Technology", "Career"],
-    majors: ["Computer Science", "Data Science", "Business"],
-    attendees: 84,
-    tone: "violet",
-  },
-  {
-    id: 2,
-    title: "Creative Portfolio Night",
-    organizer: "Lamar Dodd School of Art",
-    day: "Friday",
-    date: "Oct 25",
-    time: "6:00 PM",
-    period: "Evening",
-    location: "Lamar Dodd, Atrium",
-    category: "Arts & Culture",
-    tags: ["Arts & Culture", "Career", "Social"],
-    majors: ["Graphic Design", "Fine Arts", "Marketing"],
-    attendees: 46,
-    tone: "coral",
-  },
-  {
-    id: 3,
-    title: "Campus Community Garden",
-    organizer: "UGArden Club",
-    day: "Saturday",
-    date: "Oct 26",
-    time: "10:00 AM",
-    period: "Morning",
-    location: "UGArden, South Milledge",
-    category: "Community Service",
-    tags: ["Community Service", "Wellness"],
-    majors: ["Environmental Science", "Biology", "Public Health"],
-    attendees: 31,
-    tone: "green",
-  },
-  {
-    id: 4,
-    title: "Founder Fireside Chat",
-    organizer: "UGA Entrepreneurship Program",
-    day: "Wednesday",
-    date: "Oct 23",
-    time: "3:30 PM",
-    period: "Afternoon",
-    location: "Terry Studio, E-101",
-    category: "Business",
-    tags: ["Business", "Career", "Technology"],
-    majors: ["Business", "Marketing", "Computer Science"],
-    attendees: 112,
-    tone: "amber",
-  },
-  {
-    id: 5,
-    title: "Sunset Yoga at Herty Field",
-    organizer: "UGA Recreational Sports",
-    day: "Tuesday",
-    date: "Oct 22",
-    time: "5:00 PM",
-    period: "Evening",
-    location: "Herty Field",
-    category: "Wellness",
-    tags: ["Wellness", "Sports", "Social"],
+function toCampusEvent(event: RecommendedEvent): CampusEvent {
+  const hour = Number(formatAthens(event.start, { hour: "numeric", hourCycle: "h23" }))
+  const dateParts = athensDate.formatToParts(new Date(event.start))
+  const dateKey = `${dateParts.find(p => p.type === "year")?.value}-${dateParts.find(p => p.type === "month")?.value}-${dateParts.find(p => p.type === "day")?.value}`
+  return {
+    id: event.id,
+    title: event.title,
+    organizer: event.organizer ?? "Event organizer",
+    day: formatAthens(event.start, { weekday: "long" }),
+    date: formatAthens(event.start, { month: "short", day: "numeric" }),
+    dateKey,
+    time: formatAthens(event.start, { hour: "numeric", minute: "2-digit" }),
+    period: hour < 12 ? "Morning" : hour < 17 ? "Afternoon" : "Evening",
+    location: event.location ?? "Location not provided",
+    category: event.interest_tags[0]?.split(":")[0] ?? "Campus",
+    tags: event.interest_tags,
     majors: [],
-    attendees: 58,
-    tone: "blue",
-  },
-  {
-    id: 6,
-    title: "Product Design Sprint",
-    organizer: "UGA Design Club",
-    day: "Monday",
-    date: "Oct 21",
-    time: "2:00 PM",
-    period: "Afternoon",
-    location: "Miller Learning Center, 250",
-    category: "Technology",
-    tags: ["Technology", "Arts & Culture", "Career"],
-    majors: ["Computer Science", "Graphic Design", "Business"],
-    attendees: 39,
-    tone: "pink",
-  },
-]
+    attendees: null,
+    tone: "violet",
+    match: event.match_percent,
+    reasons: event.reasons,
+    endIsEstimated: event.end_is_estimated,
+  }
+}
 
 function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
@@ -215,60 +151,96 @@ function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
 }
 
 export default function App() {
-  const [name, setName] = useState("Alex Morgan")
-  const [major, setMajor] = useState("Computer Science")
-  const [selectedInterests, setSelectedInterests] = useState([
-    "Technology",
-    "Career",
-    "Social",
-  ])
-  const [selectedDays, setSelectedDays] = useState([
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ])
-  const [selectedPeriods, setSelectedPeriods] = useState<string[]>(["Evening"])
-  const [favorites, setFavorites] = useState<number[]>([])
+  // Name is display-only and is never included in an API request.
+  const [name, setName] = useState("")
+  const [options, setOptions] = useState<OptionsResponse | null>(null)
+  const [selectedMajors, setSelectedMajors] = useState<string[]>([])
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+  const [expandedInterests, setExpandedInterests] = useState<string[]>([])
+  const [weekStart, setWeekStart] = useState(mondayOfCurrentWeek)
+  const [events, setEvents] = useState<CampusEvent[]>([])
+  const [error, setError] = useState("")
+  const [loadingOptions, setLoadingOptions] = useState(true)
+  const [loadingSchedules, setLoadingSchedules] = useState(false)
+  const [favorites, setFavorites] = useState<string[]>([])
   const [updated, setUpdated] = useState(false)
   const [started, setStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(
-    null,
-  )
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null)
   const [dragStart, setDragStart] = useState<number | null>(null)
   const [view, setView] = useState<"discover" | "calendar">("discover")
 
-  const recommendations = useMemo(() => {
-    return events
-      .map((event) => {
-        const interestMatches = event.tags.filter((tag) =>
-          selectedInterests.includes(tag),
-        ).length
-        const majorMatch = event.majors.includes(major)
-        const dayMatch = selectedDays.includes(event.day)
-        const periodMatch = selectedPeriods.includes(event.period)
-        const score =
-          interestMatches * 25 +
-          (majorMatch ? 20 : 0) +
-          (dayMatch ? 15 : 0) +
-          (periodMatch ? 15 : 0)
-        const match = Math.min(98, Math.max(62, 58 + score / 2))
-        return { ...event, match: Math.round(match) }
-      })
-      .sort((a, b) => b.match - a.match)
-  }, [major, selectedDays, selectedInterests, selectedPeriods])
+  useEffect(() => {
+    getOptions().then(setOptions).catch(err => setError(err.message))
+      .finally(() => setLoadingOptions(false))
+  }, [])
 
-  const toggle = (
-    value: string,
-    list: string[],
-    setList: (items: string[]) => void,
-  ) => {
+  const recommendations = useMemo(() => events, [events])
+  const majorChoices = [
+    ...(options?.colleges.flatMap(college => college.majors) ?? []),
+    ...(options?.special_majors ?? []),
+  ]
+  const majorName = selectedMajors.map(id =>
+    majorChoices.find(major => major.id === id)?.name ?? id
+  ).join(", ")
+
+  const toggleMajor = (id: string) => {
+    if (!options) return
+    const rules = options.major_rules
+    let next = selectedMajors.includes(id)
+      ? selectedMajors.filter(item => item !== id)
+      : [...selectedMajors, id]
+    if (rules.exclusive_ids.includes(id)) next = [id]
+    else next = next.filter(item => !rules.exclusive_ids.includes(item))
+    if (next.length > rules.max) return
+    setSelectedMajors(next)
     setUpdated(false)
-    setList(
-      list.includes(value)
-        ? list.filter((item) => item !== value)
-        : [...list, value],
-    )
+  }
+
+  const toggleInterest = (id: string) => {
+    const next = selectedInterests.includes(id)
+      ? selectedInterests.filter(item => item !== id)
+      : [...selectedInterests, id]
+    if (next.length > 40) return
+    setSelectedInterests(next)
+    setUpdated(false)
+  }
+
+  const loadRecommendations = async () => {
+    if (!options || loadingSchedules) return
+    const rules = options.major_rules
+    if (selectedMajors.length < rules.min || selectedMajors.length > rules.max ||
+        selectedMajors.some(id => rules.co_major_ids.includes(id)) && selectedMajors.length < 2) {
+      setError(`Choose ${rules.min} to ${rules.max} valid majors (co-majors need a second major).`)
+      return
+    }
+    if (selectedInterests.length < 1 || selectedInterests.length > 40) {
+      setError("Choose between 1 and 40 interests.")
+      return
+    }
+    if (!isMonday(weekStart)) {
+      setError("The selected week must start on a Monday.")
+      return
+    }
+    setLoadingSchedules(true)
+    setError("")
+    try {
+      const result = await getSchedules({
+        week_start: weekStart,
+        majors: selectedMajors,
+        interests: selectedInterests,
+        busy: [], // No busy-time editor yet; do not misrepresent free days as busy blocks.
+      })
+      setEvents(result.events.map(toCampusEvent))
+      setCurrentIndex(0)
+      setFavorites([])
+      setStarted(true)
+      setUpdated(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to load recommendations.")
+    } finally {
+      setLoadingSchedules(false)
+    }
   }
 
   const currentEvent = recommendations[currentIndex]
@@ -340,7 +312,7 @@ export default function App() {
             favorites.includes(event.id),
           )}
           name={name}
-          major={major}
+          major={majorName}
           interests={selectedInterests}
           onBack={() => {
             setView("discover")
@@ -367,125 +339,93 @@ export default function App() {
                 <p>Pick anything that sounds like you.</p>
               </div>
 
+              {loadingOptions && <p>Loading interests and majors...</p>}
+              {error && <p role="alert" style={{ color: "#b42318" }}>{error}</p>}
               <div className="form-section">
                 <div className="label-row">
-                  <span className="field-label">
-                    Interests <small>(pick any)</small>
-                  </span>
-                  <span className="selection-count">
-                    {selectedInterests.length} selected
-                  </span>
+                  <span className="field-label">Interests <small>(1–40)</small></span>
+                  <span className="selection-count">{selectedInterests.length} selected</span>
                 </div>
                 <div className="chip-grid">
-                  {interests.map((interest) => (
-                    <button
-                      className={`choice-chip ${
-                        selectedInterests.includes(interest) ? "selected" : ""
-                      }`}
-                      key={interest}
-                      type="button"
-                      onClick={() =>
-                        toggle(
-                          interest,
-                          selectedInterests,
-                          setSelectedInterests,
-                        )
-                      }
-                    >
-                      {selectedInterests.includes(interest) && (
-                        <Icon name="check" size={14} />
+                  {options?.interests.map(category => (
+                    <div key={category.id}>
+                      <button className={`choice-chip ${selectedInterests.includes(category.id) ? "selected" : ""}`}
+                        type="button" onClick={() => toggleInterest(category.id)}>
+                        {selectedInterests.includes(category.id) && <Icon name="check" size={14}/>}
+                        {category.name}
+                      </button>
+                      {category.children.length > 0 && (
+                        <button type="button" className="skip-button"
+                          onClick={() => setExpandedInterests(previous =>
+                            previous.includes(category.id) ? previous.filter(id => id !== category.id) : [...previous, category.id])}>
+                          {expandedInterests.includes(category.id) ? "Hide specialties" : "Show specialties"}
+                        </button>
                       )}
-                      {interest}
+                      {expandedInterests.includes(category.id) && (
+                        <div className="chip-grid">
+                          {category.children.map(child => (
+                            <button key={child.id} type="button"
+                              className={`choice-chip ${selectedInterests.includes(child.id) ? "selected" : ""}`}
+                              onClick={() => toggleInterest(child.id)}>
+                              {selectedInterests.includes(child.id) && <Icon name="check" size={14}/>}
+                              {child.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="form-section">
+                <span className="field-label">Majors <small>({options?.major_rules.min ?? 1}–{options?.major_rules.max ?? 2})</small></span>
+                {options?.colleges.map(college => (
+                  <div key={college.id}>
+                    <p>{college.name}</p>
+                    <div className="chip-grid">
+                      {college.majors.map(major => (
+                        <button key={major.id} type="button"
+                          className={`choice-chip ${selectedMajors.includes(major.id) ? "selected" : ""}`}
+                          onClick={() => toggleMajor(major.id)}>
+                          {selectedMajors.includes(major.id) && <Icon name="check" size={14}/>}
+                          {major.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div className="chip-grid">
+                  {options?.special_majors.map(major => (
+                    <button key={major.id} type="button"
+                      className={`choice-chip ${selectedMajors.includes(major.id) ? "selected" : ""}`}
+                      onClick={() => toggleMajor(major.id)}>
+                      {major.name}
                     </button>
                   ))}
                 </div>
               </div>
-
               <div className="form-section identity-grid">
                 <label>
-                  <span>Your name</span>
-                  <input
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value)
-                      setUpdated(false)
-                    }}
-                    placeholder="e.g. Alex Morgan"
-                  />
+                  <span>Display name (optional, never sent to backend)</span>
+                  <input value={name} onChange={event => setName(event.target.value)}
+                    placeholder="Your name" />
                 </label>
                 <label>
-                  <span>Your major</span>
-                  <select
-                    value={major}
-                    onChange={(e) => {
-                      setMajor(e.target.value)
-                      setUpdated(false)
-                    }}
-                  >
-                    <option>Computer Science</option>
-                    <option>Business</option>
-                    <option>Graphic Design</option>
-                    <option>Environmental Science</option>
-                    <option>Biology</option>
-                    <option>Marketing</option>
-                    <option>Public Health</option>
-                  </select>
+                  <span>Week starting Monday</span>
+                  <input type="date" value={weekStart}
+                    onChange={event => setWeekStart(event.target.value)} />
                 </label>
               </div>
-
               <div className="form-section">
-                <span className="field-label">Days you’re usually free</span>
-                <div className="day-picker" aria-label="Available days">
-                  {days.map((day) => (
-                    <button
-                      className={selectedDays.includes(day) ? "selected" : ""}
-                      type="button"
-                      key={day}
-                      onClick={() => toggle(day, selectedDays, setSelectedDays)}
-                    >
-                      <span>{day.slice(0, 3)}</span>
-                      <small>{day.slice(0, 1)}</small>
-                    </button>
-                  ))}
-                </div>
-                <span className="field-label time-label">Best time of day</span>
-                <div className="period-picker">
-                  {periods.map((period) => (
-                    <button
-                      className={
-                        selectedPeriods.includes(period) ? "selected" : ""
-                      }
-                      type="button"
-                      key={period}
-                      onClick={() =>
-                        toggle(period, selectedPeriods, setSelectedPeriods)
-                      }
-                    >
-                      <Icon name="clock" size={15} /> {period}
-                    </button>
-                  ))}
-                </div>
+                <p>Busy-time scheduling is not yet available in this screen. Recommendations currently assume no busy blocks.</p>
               </div>
 
               <div className="question-actions">
-                <button
-                  className="skip-button"
-                  type="button"
-                  onClick={() => setStarted(true)}
-                >
-                  Skip for now
-                </button>
-                <button
-                  className={`primary-button ${updated ? "success" : ""}`}
-                  type="button"
-                  onClick={() => {
-                    setUpdated(true)
-                    setStarted(true)
-                    setCurrentIndex(0)
-                    setFavorites([])
-                  }}
-                >
-                  Continue <Icon name="arrow" size={17} />
+                <button className="primary-button" type="button"
+                  disabled={loadingOptions || loadingSchedules || !options}
+                  onClick={loadRecommendations}>
+                  {loadingSchedules ? "Finding events..." : "Find my events"}
+                  <Icon name="arrow" size={17}/>
                 </button>
               </div>
             </aside>
@@ -512,7 +452,7 @@ export default function App() {
                   <span
                     style={{
                       width: `${Math.min(
-                        (currentIndex / recommendations.length) * 100,
+                        (currentIndex / Math.max(recommendations.length, 1)) * 100,
                         100,
                       )}%`,
                     }}
@@ -570,12 +510,12 @@ export default function App() {
                               <span key={tag}>{tag}</span>
                             ))}
                           </div>
-                          <div className="swipe-attendance">
-                            <Icon name="people" size={17} />
-                            <span>
-                              {currentEvent.attendees} UGA students are going
-                            </span>
-                          </div>
+                          {currentEvent.reasons.length > 0 && (
+                            <div className="tag-row">
+                              {currentEvent.reasons.map((reason, index) => <span key={index}>{reason}</span>)}
+                            </div>
+                          )}
+                          {currentEvent.endIsEstimated && <small>End time estimated</small>}
                         </div>
                         <span className="swipe-stamp pass-stamp">PASS</span>
                         <span className="swipe-stamp save-stamp">ADD IT</span>
@@ -653,7 +593,7 @@ export default function App() {
 
           <footer>
             <span>Built for better days at the University of Georgia.</span>
-            <span>Personalized from {events.length} upcoming events</span>
+            <span>Personalized from {events.length} recommended events</span>
           </footer>
         </>
       )}
