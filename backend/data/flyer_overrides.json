@@ -1,0 +1,31 @@
+{
+  "flyer_011": {
+    "title": "Philosophy Cafe",
+    "location": "Athentic Brewing Co., 108 Park Ave, Athens, GA 30601",
+    "organizer": "UGA Department of Philosophy",
+    "description": "A philosophy cafe hosted by UGA Philosophy at Athentic Brewing Co."
+  },
+  "flyer_012": {
+    "title": "2026 Election Recap",
+    "location": "Richard B. Russell Library",
+    "organizer": "Richard B. Russell Library for Political Research and Studies",
+    "description": "A panel recapping the 2026 election, moderated by Bill Crane of WSB-TV with remarks by Dr. Charles Bullock."
+  },
+  "flyer_015": {
+    "title": "Athens, GA: Inside/Out 40th Anniversary Restoration",
+    "location": "UGA Special Collections Auditorium, 300 South Hull Street",
+    "organizer": "UGA University Libraries",
+    "description": "A free public screening of the 40th anniversary restoration of Athens, GA: Inside/Out."
+  },
+  "flyer_016": {
+    "title": "Comics Workshop",
+    "location": "Gilbert Hall, Room 113",
+    "organizer": "UGA Portuguese Program",
+    "description": "Explore Brazilian comics and their impact on culture and society, then create your own. Use the back door by the parking lot."
+  },
+  "flyer_017": {
+    "title": "EY & WIA Weekly Meeting",
+    "location": "Correll 222",
+    "description": "A weekly meeting with EY and WIA."
+  }
+}

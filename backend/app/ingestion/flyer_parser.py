@@ -12,7 +12,8 @@ instead of a guessed event. Someone can fix it by hand in data/flyer_overrides.j
 
     {
       "flyer_003": {"date": "2026-10-30", "start_time": "18:00", "end_time": "19:30",
-                    "title": "Halloween Social", "location": "Tate Plaza"}
+                    "title": "Halloween Social", "location": "Tate Plaza",
+                    "description": "Costume contest and music on Tate Plaza."}
     }
 
 Every field is optional. A field that is given replaces what was found on the flyer.
@@ -41,11 +42,11 @@ CACHE_PATH = "data/cache/parse_cache.json"
 OVERRIDES_PATH = "data/flyer_overrides.json"
 CAMPUS_TZ = ZoneInfo("America/New_York")
 
-PARSER_VERSION = "1"  # change when the prompt changes, so old cached answers are not reused
+PARSER_VERSION = "2"  # change when the prompt changes, so old cached answers are not reused
 DEFAULT_BATCH_SIZE = 5
 MAX_TEXT_CHARS = 1500
 MAX_TITLE_CHARS = 120
-MAX_DESCRIPTION_CHARS = 600
+MAX_DESCRIPTION_CHARS = 300
 NONE = "none"  # what the AI answers when no listed time fits
 
 # ---------------------------------------------------------------- finding times
@@ -155,8 +156,15 @@ def _choose_date(dates: list[date], today: date) -> date | None:
 
 _PROMPT = """You read University of Georgia campus event flyers and pull out basic details.
 
+The flyer text comes from OCR, so it can have typos, broken words, stray symbols and ALL CAPS.
+
 For each flyer return:
-- title: the name of the event, short, without dates or times
+- title: the name of the event as a clean, readable title in normal Title Case, short, without dates or times.
+  Fix obvious OCR mistakes. If the flyer gives only a generic name like "Weekly Meeting", add the
+  organizer's name to it ("AI Club Weekly Meeting").
+- description: one or two plain sentences (under 250 characters) telling a student what the event is and
+  what happens there. Use only facts that are on the flyer. Do not repeat the date, time or location. Do not
+  invent details such as free food, speakers or prizes. Use "" if the flyer has no details beyond the title.
 - location: the building, room or address where it happens ("" if the flyer does not say)
 - organizer: the group hosting it ("" if the flyer does not say)
 - start_time: which of that flyer's TIMES FOUND is when the event starts, or "{none}"
@@ -175,12 +183,13 @@ def _schema(ids: list[str], all_times: list[str]) -> dict:
         "properties": {
             "id": {"type": "string", "enum": ids},
             "title": {"type": "string"},
+            "description": {"type": "string"},
             "location": {"type": "string"},
             "organizer": {"type": "string"},
             "start_time": time_choice,
             "end_time": time_choice,
         },
-        "required": ["id", "title", "location", "organizer", "start_time", "end_time"],
+        "required": ["id", "title", "description", "location", "organizer", "start_time", "end_time"],
     }
     return {"type": "object", "properties": {"results": {"type": "array", "items": item}}, "required": ["results"]}
 
@@ -257,6 +266,7 @@ class FlyerParser:
             if isinstance(item, dict) and item.get("id") in ids and item["id"] not in answers:
                 answers[item["id"]] = {
                     "title": _string(item.get("title"), MAX_TITLE_CHARS),
+                    "description": _string(item.get("description"), MAX_DESCRIPTION_CHARS),
                     "location": _string(item.get("location"), 200),
                     "organizer": _string(item.get("organizer"), 200),
                     "start_time": item.get("start_time") if isinstance(item.get("start_time"), str) else NONE,
@@ -348,7 +358,9 @@ class FlyerParser:
         end = datetime.combine(day, end_time, tzinfo=CAMPUS_TZ) if end_time else None
         try:
             outcome.events.append(Event(
-                id=flyer_id, title=title, description=_clean(flyer.text)[:MAX_DESCRIPTION_CHARS],
+                # Never fall back to the raw OCR text: no description is better than a garbled one.
+                id=flyer_id, title=title,
+                description=_string(fix.get("description"), MAX_DESCRIPTION_CHARS) or answer.get("description", ""),
                 start=start, end=end,
                 location=_string(fix.get("location"), 200) or answer.get("location", ""),
                 organizer=_string(fix.get("organizer"), 200) or answer.get("organizer", ""),

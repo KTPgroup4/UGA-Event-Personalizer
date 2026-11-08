@@ -113,6 +113,7 @@ changes. Overlapping or touching blocks are merged.
     {
       "id": "flyer-101",
       "title": "AI Club Kickoff",
+      "description": "Meet the club and see what members are building this semester.",
       "start": "2026-11-12T18:00:00-05:00",
       "end": "2026-11-12T19:00:00-05:00",
       "end_is_estimated": true,
@@ -130,6 +131,8 @@ changes. Overlapping or touching blocks are merged.
 
 `events` is the **swipe deck**: about 15 events, already in the order to show them.
 
+- **Description.** `description` is one or two short sentences written by the AI from the flyer,
+  or `""` when the flyer gave no details. Hide the description area when it is empty.
 - **Order and variety.** The backend orders the deck so the first cards cover different
   interests instead of 5 events about one topic. Show the cards in the order given.
 - **Clashes.** `conflicts_with` lists the ids of *other cards in this deck* that overlap in time.
