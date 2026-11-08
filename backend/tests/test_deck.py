@@ -29,7 +29,7 @@ def events_of(tag, count, prefix=None, first_hour=0):
 
 
 def deck_for(profile, events, **kwargs):
-    return build_deck(score_events(events, profile).scored, profile, **kwargs)
+    return build_deck(score_events(events, profile), profile, **kwargs)
 
 
 def topics(cards):
@@ -105,7 +105,7 @@ def test_unrelated_events_fill_a_thin_deck_and_say_so():
 
 def test_filler_does_not_change_the_callers_scored_events():
     profile = student(["music"])
-    scored = score_events(events_of("food-cooking", 12), profile).scored
+    scored = score_events(events_of("food-cooking", 12), profile)
     build_deck(scored, profile)
     assert all(s.reason == "" for s in scored)
 

@@ -145,8 +145,8 @@ changes. Overlapping or touching blocks are merged.
 - All times are ISO 8601 **with a UTC offset**. The frontend formats them for display (for example
   with `Intl.DateTimeFormat` and `timeZone: "America/New_York"`) and must not parse "Oct 24" style strings.
 - `end_is_estimated` is `true` when the flyer showed no end time and a default length was used.
-- Events during the student's busy blocks, events that are already over, and events limited to
-  other colleges are never in the deck.
+- Events during the student's busy blocks, events that are already over, and events outside the
+  week are never in the deck. A college named on a flyer never hides an event: every event is open to everyone.
 - If no events exist at all, `events` is an empty list (still a 200).
 
 ### Errors

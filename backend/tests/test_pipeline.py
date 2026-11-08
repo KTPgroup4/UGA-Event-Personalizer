@@ -52,11 +52,10 @@ def test_events_during_busy_blocks_are_dropped():
     assert [e.id for e in rec.busy] == ["class-time"]
 
 
-def test_events_for_other_colleges_are_dropped():
+def test_a_college_on_the_flyer_does_not_hide_the_event():
     cs = student(majors=["computer-science"])
     rec = recommend(cs, [event("terry", 10, colleges=["terry"]), event("open", 11)], NOW)
-    assert deck_ids(rec) == ["open"]
-    assert [e.id for e in rec.other_college] == ["terry"]
+    assert sorted(deck_ids(rec)) == ["open", "terry"]
 
 
 def test_the_deck_is_scored_and_the_best_event_comes_first():

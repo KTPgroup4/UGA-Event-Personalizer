@@ -14,15 +14,14 @@ The reasons, strongest first (the numbers are the points; change them below):
                 (a hackathon, or an event tagged only "Technology").
   major      3  The student's major lists a specialty the event has.
   major      2  The student's major lists the event's category.
-  college    2  The event is meant for the student's college.
+  college    2  The flyer names the student's college (a small nudge, never a filter).
 
 Small extras: an event that matches several different picks gets +1 for each
 extra pick (at most +2), so "AI career panel" beats "AI talk" for someone who
 picked both AI and Careers.
 
-Events meant only for certain colleges are dropped when the student's college
-is known and is not one of them. Students who chose Undecided or Other keep
-every event, because we can't tell which college they belong to.
+A college named on a flyer never hides the event: those events are open to
+everyone. The college only helps rank an event for students in that college.
 
 Save this file as: app/matching/scorer.py
 """
@@ -57,12 +56,6 @@ class ScoredEvent:
     reason: str = ""  # one plain sentence the frontend can show
 
 
-@dataclass
-class ScoringResult:
-    scored: list[ScoredEvent]  # best first; includes score-0 events
-    excluded: list[Event]  # dropped because they are meant for other colleges
-
-
 def category_of(tag: str) -> str:
     """The category a tag belongs to (a category is its own category)."""
     return taxonomy.PARENTS.get(tag, tag)
@@ -74,15 +67,8 @@ def _join(names: list[str]) -> str:
     return ", ".join(names[:-1]) + ", and " + names[-1]
 
 
-def meant_for_other_colleges(event: Event, user_colleges: set[str]) -> bool:
-    """True if the event is limited to colleges the student is not in."""
-    if not event.relevant_colleges or not user_colleges:
-        return False  # open to everyone, or we don't know the student's college
-    return not (set(event.relevant_colleges) & user_colleges)
-
-
 def score_event(event: Event, profile: UserProfile) -> ScoredEvent:
-    """Score one event for one student (no college filtering here)."""
+    """Score one event for one student."""
     event_tags = taxonomy.expand_with_parents(event.interest_tags)  # a specialty also counts for its category
     first_tag = event.interest_tags[0] if event.interest_tags else None
     fallback_topic = category_of(first_tag) if first_tag else "other"
@@ -115,24 +101,17 @@ def score_event(event: Event, profile: UserProfile) -> ScoredEvent:
     shared = [c for c in event.relevant_colleges if c in profile.colleges()]
     if shared:
         return ScoredEvent(event, COLLEGE_POINTS, "college", fallback_topic, shared,
-                           f"Hosted for {COLLEGE_NAMES.get(shared[0], shared[0])} students")
+                           f"Connected to your college, {COLLEGE_NAMES.get(shared[0], shared[0])}")
 
     return ScoredEvent(event, 0, "none", fallback_topic, [], "")
 
 
-def score_events(events: list[Event], profile: UserProfile) -> ScoringResult:
-    """Score every event; drop the ones limited to other colleges. Best first.
+def score_events(events: list[Event], profile: UserProfile) -> list[ScoredEvent]:
+    """Score every event for one student, best first.
 
     Ties are broken by the earlier start, then by id, so the same input always
-    gives the same order.
+    gives the same order. Nothing is dropped here, including events with score 0.
     """
-    colleges = profile.colleges()
-    kept: list[ScoredEvent] = []
-    excluded: list[Event] = []
-    for event in events:
-        if meant_for_other_colleges(event, colleges):
-            excluded.append(event)
-        else:
-            kept.append(score_event(event, profile))
-    kept.sort(key=lambda s: (-s.score, s.event.start.timestamp(), s.event.id))
-    return ScoringResult(scored=kept, excluded=excluded)
+    scored = [score_event(event, profile) for event in events]
+    scored.sort(key=lambda s: (-s.score, s.event.start.timestamp(), s.event.id))
+    return scored
