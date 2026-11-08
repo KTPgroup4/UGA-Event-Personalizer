@@ -20,6 +20,7 @@ def card_to_json(card: DeckCard) -> dict:
     return {
         "id": event.id,
         "title": event.title,
+        "description": event.description,
         "start": event.start.isoformat(),
         "end": event.effective_end().isoformat(),
         "end_is_estimated": event.end_is_estimated,
