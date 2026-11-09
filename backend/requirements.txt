@@ -15,6 +15,9 @@ python-dotenv>=1.0
 requests>=2.31   # talks to OCR.space and the AI services
 pillow>=10.0     # opens and shrinks flyer images
 
+# --- Accounts: only used when DATABASE_URL points at a Postgres database (the live site) ---
+psycopg[binary]>=3.1
+
 # --- Time zones (Windows has no built-in time zone database) ---
 tzdata>=2024.1
 

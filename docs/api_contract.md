@@ -12,9 +12,10 @@ decisions, listed at the bottom.
   `python -m uvicorn app.main:app --reload --port 3000`
   and try every endpoint at <http://localhost:3000/docs>.
 - Everything is JSON.
-- The backend stores nothing about users. Every request carries the full profile.
-- Do **not** send names or any personal details. Unknown fields are rejected (422).
-- Do not log request bodies on the backend.
+- `/api/schedules` stores nothing: every request carries the full profile. Accounts (section 3) are
+  optional and only remember a student's questionnaire answers so they don't have to retype them.
+- Do **not** send names or any personal details to `/api/schedules`. Unknown fields are rejected (422).
+- Do not log request bodies on the backend. Never log emails, passwords or tokens.
 
 ---
 
@@ -166,7 +167,105 @@ return **500** with `{"detail": "..."}` and never include the profile.
 
 ---
 
-## 3. Development helpers (temporary)
+## 3. Accounts
+
+Accounts are optional. A guest uses the whole app without one. An account remembers:
+
+- the student's questionnaire answers (majors, interests, busy times and an optional display name),
+  so they come back filled in. The week to plan is **not** saved, because every week is different.
+- the student's **calendar**: the UGA events they saved by swiping right, and the events they added
+  by hand.
+
+- Sign up and log in use an **email and password**. There is no email verification yet.
+- Passwords are stored only as salted scrypt hashes, and session tokens only as SHA-256 hashes.
+- Sign up and log in return a **session token** (valid 30 days). The frontend keeps it in
+  `localStorage` and sends it on later requests as the header `Authorization: Bearer <token>`.
+- Emails are trimmed and lowercased, so `Alex@UGA.edu` and `alex@uga.edu` are the same account.
+- Password: 8 to 128 characters.
+- Where accounts live: `data/accounts.db` (a local file) unless `DATABASE_URL` is set to a Postgres
+  database (see `app/database.py`). The live site must use `DATABASE_URL`, because Render's free plan
+  erases local files whenever the server restarts.
+
+The **user** object used below is
+`{"email": "alex@uga.edu", "preferences": <preferences or null>, "calendar": <calendar or null>}`
+and **preferences** looks like this (`name` may be `""`):
+
+```json
+{
+  "name": "Alex",
+  "majors": ["computer-science"],
+  "interests": ["technology-coding:ai", "music"],
+  "busy": [{"day": "mon", "start": "09:00", "end": "09:50"}]
+}
+```
+
+`majors`, `interests` and `busy` follow exactly the same rules as in section 2. `name` is at most 60
+characters. Unknown fields (for example `week_start`) are rejected with 422. If the questionnaire
+changes later (an interest is renamed), saved answers that no longer fit are returned as `null`
+and the student fills the questionnaire in again.
+
+The **calendar** holds two lists. Send the **whole** calendar every time; it replaces the old one
+(last save wins). Busy times are not in it: they are saved with the preferences.
+
+```json
+{
+  "saved": [
+    {
+      "id": "flyer-101", "title": "AI Club Kickoff", "description": "Meet the club.",
+      "start": "2026-11-12T18:00:00-05:00", "end": "2026-11-12T19:00:00-05:00",
+      "end_is_estimated": true, "location": "Boyd 328", "organizer": "AI Club",
+      "url": null, "interest_tags": ["technology-coding:ai"]
+    }
+  ],
+  "personal": [
+    {"id": "9f1c...", "title": "Study group", "date": "2026-11-11", "time": "15:30", "end_time": "16:30"}
+  ]
+}
+```
+
+- `saved[]` is a card from `POST /api/schedules` kept as it was received (`reason`, `match_kind` and
+  `conflicts_with` may be included and are ignored). Only `id`, `title` and `start` are required.
+  At most 300.
+- `personal[]` events: `date` is `YYYY-MM-DD`, `time` and `end_time` are 24-hour `HH:MM`, and
+  `end_time` is `""` when there is no end. At most 500. Unknown fields are rejected (422).
+
+| Endpoint | Needs token | Request | Success response |
+|---|---|---|---|
+| `POST /api/auth/signup` | no | `{"email", "password"}` | `{"token": "...", "user": {...}}` |
+| `POST /api/auth/login` | no | `{"email", "password"}` | `{"token": "...", "user": {...}}` |
+| `POST /api/auth/logout` | optional | none | `{"ok": true}` (always succeeds) |
+| `GET /api/me` | yes | none | `{"user": {...}}` |
+| `PUT /api/me/preferences` | yes | preferences (above) | `{"preferences": {...}}` |
+| `PUT /api/me/calendar` | yes | calendar (above) | `{"calendar": {...}}` |
+
+Errors always have a readable string in `detail` (except 422 from `PUT /api/me/preferences`, which
+uses FastAPI's list format like section 2). Show `detail` to the student as it is.
+
+| Status | When |
+|---|---|
+| 401 | Wrong email or password (the same message for both, on purpose), or a missing, unknown or expired token. On a 401 from `/api/me` or `/api/me/preferences`, clear the saved token and treat the student as a guest. |
+| 409 | Sign up with an email that already has an account. |
+| 422 | Not a valid email, or a password that is too short or too long. |
+| 429 | Too many wrong passwords for one email in 15 minutes. Wait and try again. |
+| 503 | The accounts database can't be reached. Try again in a minute. |
+
+Frontend behavior:
+
+- Sign up is two steps (email, then create a password). Log in is one page with both fields.
+- On page load, if a token is saved, call `GET /api/me`. On success, fill the questionnaire from
+  `preferences` (if not `null`).
+- After a successful "Find my events" while logged in, call `PUT /api/me/preferences`. The result
+  doesn't block the deck: if the save fails, the student still sees their events.
+- Log out calls `POST /api/auth/logout`, deletes the saved token and clears the questionnaire and calendar.
+- Swiping right adds the card to the calendar's `saved` list. It stays there across weeks until the
+  student removes it. Any change to the calendar (swipe right, add, remove) is sent with
+  `PUT /api/me/calendar` shortly afterwards.
+- Busy times are shown on the calendar once, on the next day that matches (today counts). They are
+  not stored as events.
+
+---
+
+## 4. Development helpers (temporary)
 
 These exist so the frontend has real data to work with before the matcher is built. They are
 not part of the final product flow and may be removed.

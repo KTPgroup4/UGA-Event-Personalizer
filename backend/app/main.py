@@ -9,12 +9,21 @@ Save this file as: app/main.py
 """
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app import event_store, flyer_listing, schedules_service, taxonomy
+from app import auth_routes, event_store, flyer_listing, schedules_service, taxonomy
+from app.database import DatabaseUnavailable
 from app.schemas.user_profile import UserProfile
 
 app = FastAPI(title="UGA Event Personalizer API")
+app.include_router(auth_routes.router)  # sign up, log in, saved preferences
+
+
+@app.exception_handler(DatabaseUnavailable)
+def database_unavailable(request, exc: DatabaseUnavailable):
+    """If the accounts database can't be reached, say so plainly instead of a vague 500."""
+    return JSONResponse(status_code=503, content={"detail": str(exc)})
 
 
 @app.get("/api/health")

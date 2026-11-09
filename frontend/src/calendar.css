@@ -1,0 +1,30 @@
+/* Busy times on the calendar: grey stripes, so they read as "blocked off" and not as events. */
+
+.calendar-event.busy {
+  color: #4d4b44;
+  background: repeating-linear-gradient(
+    135deg,
+    #e6e5e0,
+    #e6e5e0 5px,
+    #f1f0eb 5px,
+    #f1f0eb 10px
+  );
+  border-style: dashed;
+  border-color: #8b8a84;
+}
+
+.busy-dot {
+  background: repeating-linear-gradient(
+    135deg,
+    #c9c8c2,
+    #c9c8c2 2px,
+    #f1f0eb 2px,
+    #f1f0eb 4px
+  );
+}
+
+.calendar-legend-note {
+  margin: -4px 0 12px;
+  color: #6b6a64;
+  font-size: 12px;
+}
