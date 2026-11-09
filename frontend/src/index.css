@@ -2720,3 +2720,34 @@ footer {
     grid-column: 1 / -1;
   }
 }
+
+/* Phones: keep date, time and select boxes inside the card (does not affect desktop) */
+@media (max-width: 700px) {
+  .personalizer-card input,
+  .personalizer-card select,
+  .calendar-form input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .personalizer-card input[type="date"],
+  .personalizer-card input[type="time"],
+  .calendar-form input[type="date"],
+  .calendar-form input[type="time"] {
+    display: block;
+    min-height: 49px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .identity-grid > label,
+  .busy-form > label {
+    min-width: 0;
+  }
+
+  .busy-form {
+    align-items: start;
+  }
+}
