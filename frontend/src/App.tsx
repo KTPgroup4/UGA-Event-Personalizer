@@ -4,6 +4,7 @@ import CalendarView from "./CalendarView"
 import {
   getOptions,
   getSchedules,
+  type BusyBlock,
   type OptionsResponse,
   type RecommendedEvent,
 } from "./api"
@@ -11,11 +12,13 @@ import {
 export type CampusEvent = {
   id: string
   title: string
+  description: string
   organizer: string
   day: string
   date: string
   dateKey: string
   time: string
+  endTime: string
   period: "Morning" | "Afternoon" | "Evening"
   location: string
   category: string
@@ -120,6 +123,29 @@ function validMonday(date: string) {
     new Date(date + "T12:00:00Z").getUTCDay() === 1
 }
 
+const BUSY_DAYS: [BusyBlock["day"], string][] = [
+  ["mon", "Mon"],
+  ["tue", "Tue"],
+  ["wed", "Wed"],
+  ["thu", "Thu"],
+  ["fri", "Fri"],
+  ["sat", "Sat"],
+  ["sun", "Sun"],
+]
+
+// "15:30" -> "3:30 PM"
+function clockLabel(value: string) {
+  const [hour, minute] = value.split(":").map(Number)
+  return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${
+    hour < 12 ? "AM" : "PM"
+  }`
+}
+
+function busyLabel(block: BusyBlock) {
+  const day = BUSY_DAYS.find(([id]) => id === block.day)?.[1] ?? block.day
+  return `${day} ${clockLabel(block.start)}–${clockLabel(block.end)}`
+}
+
 function convertEvent(event: RecommendedEvent): CampusEvent {
   const date = new Date(event.start)
 
@@ -145,6 +171,7 @@ function convertEvent(event: RecommendedEvent): CampusEvent {
   return {
     id: event.id,
     title: event.title,
+    description: event.description ?? "",
     organizer: event.organizer ?? "Event organizer",
     day: formatAthens(event.start, { weekday: "long" }),
     date: formatAthens(event.start, {
@@ -156,6 +183,12 @@ function convertEvent(event: RecommendedEvent): CampusEvent {
       hour: "numeric",
       minute: "2-digit",
     }),
+    endTime: event.end
+      ? formatAthens(event.end, {
+          hour: "numeric",
+          minute: "2-digit",
+        })
+      : "",
     period: hour < 12
       ? "Morning"
       : hour < 17
@@ -193,6 +226,14 @@ export default function App() {
   const [reviewedIds, setReviewedIds] = useState<string[]>([])
   const [hiddenIds, setHiddenIds] = useState<string[]>([])
   const [targetPicks, setTargetPicks] = useState(5)
+
+  const [busyBlocks, setBusyBlocks] = useState<BusyBlock[]>([])
+  const [busyDraft, setBusyDraft] = useState<BusyBlock>({
+    day: "mon",
+    start: "09:00",
+    end: "09:50",
+  })
+  const [busyError, setBusyError] = useState("")
 
   const [loading, setLoading] = useState(false)
   const [loadingOptions, setLoadingOptions] = useState(true)
@@ -294,8 +335,8 @@ export default function App() {
       return
     }
 
-    if (selectedInterests.length < 1 || selectedInterests.length > 40) {
-      setError("Please select between 1 and 40 interests.")
+    if (selectedInterests.length < 1 || selectedInterests.length > 15) {
+      setError("Please select between 1 and 15 interests.")
       return
     }
 
@@ -312,7 +353,7 @@ export default function App() {
         week_start: weekStart,
         majors: selectedMajors,
         interests: selectedInterests,
-        busy: [],
+        busy: busyBlocks,
       })
 
       const cards =
@@ -382,6 +423,32 @@ export default function App() {
 
       setSwipeDirection(null)
     }, 280)
+  }
+
+  function addBusyBlock() {
+    if (!busyDraft.start || !busyDraft.end) {
+      setBusyError("Pick a start and an end time.")
+      return
+    }
+
+    if (busyDraft.end <= busyDraft.start) {
+      setBusyError("The end time has to be after the start time.")
+      return
+    }
+
+    setBusyError("")
+    setBusyBlocks(current =>
+      [...current, busyDraft].sort(
+        (a, b) =>
+          BUSY_DAYS.findIndex(([id]) => id === a.day) -
+            BUSY_DAYS.findIndex(([id]) => id === b.day) ||
+          a.start.localeCompare(b.start)
+      )
+    )
+  }
+
+  function removeBusyBlock(index: number) {
+    setBusyBlocks(current => current.filter((_, i) => i !== index))
   }
 
   function interestLabel(id: string) {
@@ -754,10 +821,81 @@ export default function App() {
               </div>
 
               <div className="form-section">
+                <span className="busy-title">
+                  Times you are busy (optional)
+                </span>
                 <p className="compact-hint">
-                  Busy-time scheduling is not available yet.
-                  Recommendations currently assume no busy blocks.
+                  Add your class or work times. We will not show events
+                  that clash with them. These repeat every week.
                 </p>
+
+                <div className="busy-form">
+                  <label>
+                    <span>Day</span>
+                    <select
+                      value={busyDraft.day}
+                      onChange={event =>
+                        setBusyDraft({
+                          ...busyDraft,
+                          day: event.target.value as BusyBlock["day"],
+                        })
+                      }
+                    >
+                      {BUSY_DAYS.map(([id, label]) => (
+                        <option key={id} value={id}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <label>
+                    <span>From</span>
+                    <input
+                      type="time"
+                      value={busyDraft.start}
+                      onChange={event =>
+                        setBusyDraft({ ...busyDraft, start: event.target.value })
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    <span>To</span>
+                    <input
+                      type="time"
+                      value={busyDraft.end}
+                      onChange={event =>
+                        setBusyDraft({ ...busyDraft, end: event.target.value })
+                      }
+                    />
+                  </label>
+
+                  <button
+                    className="busy-add"
+                    type="button"
+                    onClick={addBusyBlock}
+                  >
+                    Add
+                  </button>
+                </div>
+
+                {busyError && <p className="busy-error">{busyError}</p>}
+
+                {busyBlocks.length > 0 && (
+                  <div className="compact-selected">
+                    {busyBlocks.map((block, index) => (
+                      <button
+                        key={`${block.day}-${block.start}-${block.end}-${index}`}
+                        type="button"
+                        className="choice-chip selected"
+                        onClick={() => removeBusyBlock(index)}
+                      >
+                        {busyLabel(block)} ×
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="question-actions">
@@ -865,6 +1003,12 @@ export default function App() {
                           <p>{currentEvent.organizer}</p>
                           <h2>{currentEvent.title}</h2>
 
+                          {currentEvent.description && (
+                            <div className="swipe-description">
+                              {currentEvent.description}
+                            </div>
+                          )}
+
                           <div className="swipe-location">
                             <Icon name="location" size={18} />
                             <span>{currentEvent.location}</span>
@@ -873,7 +1017,7 @@ export default function App() {
                           <div className="tag-row">
                             {currentEvent.tags.map(tag => (
                               <span key={tag}>
-                                {tag}
+                                {interestLabel(tag)}
                               </span>
                             ))}
                           </div>

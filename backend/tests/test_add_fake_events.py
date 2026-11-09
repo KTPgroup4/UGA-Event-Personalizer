@@ -22,6 +22,14 @@ def test_every_fake_event_is_valid_with_real_tags():
     assert all(t in taxonomy.LABELS for e in events for t in e.interest_tags)
 
 
+def test_every_fake_event_has_its_own_real_sounding_description():
+    events = fake.fake_events()
+    assert {title for title, *_ in fake.FAKE} == set(fake.DESCRIPTIONS)  # none missing, none left over
+    assert all(20 <= len(e.description) <= 300 for e in events)
+    assert all("made-up" not in e.description.lower() and "test event" not in e.description.lower() for e in events)
+    assert len({e.description for e in events}) == len(events)  # no two the same
+
+
 def test_they_cover_every_day_of_the_week_and_many_different_times():
     events = fake.fake_events(date(2026, 11, 9))
     assert {e.start.date().weekday() for e in events} == set(range(7))
