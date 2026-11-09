@@ -67,6 +67,39 @@ FAKE = [
     ("Board Game Night", 6, "14:00", "17:00", ["board-games-tabletop-rpgs"], [], "Tate 4th Floor", "Tabletop Club"),
 ]
 
+# One or two plain sentences for each fake event, keyed by its title (shown on the swipe card).
+DESCRIPTIONS = {
+    "Intro to Machine Learning Workshop": "A hands-on beginner workshop on how machine learning models learn from data. No experience needed; bring a laptop.",
+    "Hackathon Team-Building Mixer": "Meet other students, pitch ideas and form a team before the next hackathon. Beginners and experienced coders welcome.",
+    "Lunch and Learn: AI Ethics": "A casual discussion over lunch about fairness, privacy and responsibility in the AI tools people use every day.",
+    "Python for Beginners": "Learn the basics of Python step by step, from variables to your first small program. No coding background required.",
+    "Cybersecurity CTF Night": "Solve security puzzles in teams in a friendly capture-the-flag competition. Great practice for beginners and veterans.",
+    "Resume Review for Tech Internships": "Get one-on-one feedback on your resume from career advisors, with tips for landing a tech internship.",
+    "Web Dev Bootcamp: Build a Portfolio Site": "Build and publish your own portfolio website in one evening using HTML, CSS and a little JavaScript.",
+    "Git and GitHub Crash Course": "Learn version control from scratch: commits, branches and pull requests, with practice exercises.",
+    "Computing Industry Mixer": "Meet students, alumni and industry guests from the computing world over light refreshments. A good place to start networking.",
+    "Data Structures Study Jam": "Work through data structures practice problems with other students and peer tutors. Bring your questions.",
+    "Game Dev Showcase": "See games built by UGA students, try them out and chat with the creators about how they were made.",
+    "Robotics Club Build Night": "Help build and test the club's robots. All skill levels are welcome, and no experience is needed.",
+    "Sunrise Yoga": "Start the day with a gentle outdoor yoga session on the lawn. Beginners welcome; bring a mat if you have one.",
+    "Mock Trial Open Practice": "Watch or join a practice round of mock trial and learn how student attorneys prepare and argue a case.",
+    "Pickup Basketball": "Casual pickup games open to all skill levels. Show up, join a team and play.",
+    "Investing 101": "A beginner-friendly introduction to stocks, funds and how to start investing on a student budget.",
+    "Pottery Wheel Intro": "Try the pottery wheel for the first time and make your own small bowl or cup, with instructors guiding you.",
+    "Terry Finance Society Networking": "Meet finance students and professionals, practice your introduction and make connections in the industry.",
+    "Improv Comedy Workshop": "Play improv games and learn the basics of thinking fast and being funny on stage. No experience needed.",
+    "Startup Pitch Practice": "Practice a three-minute startup pitch and get feedback from fellow founders before the next competition.",
+    "Pre-Med Society: MCAT Q and A": "Ask upperclassmen and advisors about MCAT prep, study schedules and the pre-med path.",
+    "Acoustic Guitar Circle": "Bring a guitar or just a song request. Players of every level trade songs and jam together outdoors.",
+    "Poetry Slam": "An open-mic night of original poetry. Sign up to perform or just come listen.",
+    "Midnight Movie: Sci-Fi Classics": "A late-night screening of a sci-fi classic for fans and first-timers alike.",
+    "Campus Cleanup and Compost": "Join other volunteers to clean up the quad and learn how campus composting works. Gloves and bags are provided.",
+    "Intramural Soccer Scrimmage": "A friendly scrimmage open to all skill levels. Teams are mixed on the spot, so you do not need to bring a group.",
+    "Stargazing at the Observatory": "Look at planets and stars through the club's telescopes, with members on hand to point out what you are seeing.",
+    "Sunday Brunch Cooking Class": "Cook a simple brunch recipe from start to finish with the Culinary Club, then eat what you make.",
+    "Board Game Night": "Pick from a big shelf of board games or learn a new one. Beginners and regulars welcome.",
+}
+
 
 def fake_events(week_start: date = FIRST_MONDAY) -> list[Event]:
     """The fake events, moved to the week starting on `week_start` (a Monday)."""
@@ -81,7 +114,7 @@ def fake_events(week_start: date = FIRST_MONDAY) -> list[Event]:
             return datetime(base.year, base.month, base.day, int(hour), int(minute), tzinfo=CAMPUS_TZ)
 
         event = Event(
-            id=f"{PREFIX}{number:02d}", title=title, description=f"Hosted by {organizer}.",
+            id=f"{PREFIX}{number:02d}", title=title, description=DESCRIPTIONS[title],
             start=at(start), end=at(end) if end else None,
             location=location, organizer=organizer,
             interest_tags=tags, relevant_colleges=colleges, source="fake",

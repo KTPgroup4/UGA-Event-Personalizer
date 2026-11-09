@@ -47,6 +47,7 @@ export interface ProfileRequest {
 export interface RecommendedEvent {
   id: string;
   title: string;
+  description: string | null;
   start: string;
   end: string;
   end_is_estimated: boolean;

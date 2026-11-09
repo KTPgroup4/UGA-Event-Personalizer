@@ -2280,7 +2280,7 @@ footer {
   margin: 18px 0;
   padding: 16px;
   display: grid;
-  grid-template-columns: minmax(150px, 1fr) 150px 120px auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   align-items: end;
   border: 2px solid #171717;
@@ -2585,4 +2585,138 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.swipe-description {
+  margin-top: 12px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.swipe-card-body > p.compact-hint {
+  margin-top: 18px;
+}
+
+.calendar-form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #c8102e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.calendar-form input {
+  width: 100%;
+  min-width: 0;
+}
+
+.calendar-form button[type="submit"] {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-width: 160px;
+}
+
+.calendar-event {
+  position: relative;
+}
+
+.calendar-event.personal {
+  padding-right: 20px;
+}
+
+.event-remove {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #171717;
+  font-size: 11px;
+  line-height: 14px;
+  cursor: pointer;
+}
+
+.event-remove:hover {
+  background: #c8102e;
+}
+
+.list-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.list-remove {
+  padding: 4px 8px;
+  border: 2px solid #171717;
+  border-radius: 6px;
+  color: #171717;
+  background: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.list-remove:hover {
+  color: #fff;
+  background: #171717;
+}
+
+.busy-title {
+  display: block;
+  font-weight: 700;
+}
+
+.busy-form {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.busy-form label span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.busy-form input,
+.busy-form select {
+  width: 100%;
+  min-width: 0;
+}
+
+.busy-add {
+  height: 49px;
+  padding: 0 20px;
+  border: 2px solid #171717;
+  border-radius: 10px;
+  color: #fff;
+  background: #c8102e;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.busy-error {
+  margin: 8px 0 0;
+  color: #c8102e;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .busy-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .busy-add {
+    grid-column: 1 / -1;
+  }
 }
