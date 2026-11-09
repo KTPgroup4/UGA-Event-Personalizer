@@ -1,0 +1,510 @@
+{
+  "built_at": "2026-11-09T04:46:55.070402+00:00",
+  "events": [
+    {
+      "id": "fake_01",
+      "title": "Intro to Machine Learning Workshop",
+      "description": "A hands-on beginner workshop on how machine learning models learn from data. No experience needed; bring a laptop.",
+      "start": "2026-11-09T10:15:00-05:00",
+      "end": "2026-11-09T11:45:00-05:00",
+      "location": "Boyd 302",
+      "organizer": "AI Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:ai"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_02",
+      "title": "Hackathon Team-Building Mixer",
+      "description": "Meet other students, pitch ideas and form a team before the next hackathon. Beginners and experienced coders welcome.",
+      "start": "2026-11-09T19:30:00-05:00",
+      "end": "2026-11-09T21:00:00-05:00",
+      "location": "Student Learning Center",
+      "organizer": "Hack Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:hackathons"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_03",
+      "title": "Lunch and Learn: AI Ethics",
+      "description": "A casual discussion over lunch about fairness, privacy and responsibility in the AI tools people use every day.",
+      "start": "2026-11-10T12:00:00-05:00",
+      "end": "2026-11-10T13:00:00-05:00",
+      "location": "Boyd 222",
+      "organizer": "Computing Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:ai"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_04",
+      "title": "Python for Beginners",
+      "description": "Learn the basics of Python step by step, from variables to your first small program. No coding background required.",
+      "start": "2026-11-10T13:15:00-05:00",
+      "end": "2026-11-10T14:30:00-05:00",
+      "location": "Boyd 328",
+      "organizer": "Code Dawgs",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:programming"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_05",
+      "title": "Cybersecurity CTF Night",
+      "description": "Solve security puzzles in teams in a friendly capture-the-flag competition. Great practice for beginners and veterans.",
+      "start": "2026-11-10T21:00:00-05:00",
+      "end": "2026-11-10T23:00:00-05:00",
+      "location": "Boyd 302",
+      "organizer": "Security Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:cybersecurity"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_06",
+      "title": "Resume Review for Tech Internships",
+      "description": "Get one-on-one feedback on your resume from career advisors, with tips for landing a tech internship.",
+      "start": "2026-11-11T11:30:00-05:00",
+      "end": "2026-11-11T12:30:00-05:00",
+      "location": "Career Center",
+      "organizer": "Career Center",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "career-leadership:resume-workshops",
+        "technology-coding"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_07",
+      "title": "Web Dev Bootcamp: Build a Portfolio Site",
+      "description": "Build and publish your own portfolio website in one evening using HTML, CSS and a little JavaScript.",
+      "start": "2026-11-11T16:45:00-05:00",
+      "end": "2026-11-11T18:45:00-05:00",
+      "location": "Boyd 222",
+      "organizer": "Code Dawgs",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:web-development"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_08",
+      "title": "Git and GitHub Crash Course",
+      "description": "Learn version control from scratch: commits, branches and pull requests, with practice exercises.",
+      "start": "2026-11-12T14:45:00-05:00",
+      "end": "2026-11-12T15:45:00-05:00",
+      "location": "Boyd 328",
+      "organizer": "Computing Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:software"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_09",
+      "title": "Computing Industry Mixer",
+      "description": "Meet students, alumni and industry guests from the computing world over light refreshments. A good place to start networking.",
+      "start": "2026-11-12T18:30:00-05:00",
+      "end": "2026-11-12T20:00:00-05:00",
+      "location": "Georgia Center",
+      "organizer": "School of Computing",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding",
+        "career-leadership:networking"
+      ],
+      "relevant_colleges": [
+        "computing"
+      ],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_10",
+      "title": "Data Structures Study Jam",
+      "description": "Work through data structures practice problems with other students and peer tutors. Bring your questions.",
+      "start": "2026-11-13T10:00:00-05:00",
+      "end": "2026-11-13T12:00:00-05:00",
+      "location": "Main Library, 3rd Floor",
+      "organizer": "Computing Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "technology-coding:computer-science",
+        "education-mentoring:tutoring"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_11",
+      "title": "Game Dev Showcase",
+      "description": "See games built by UGA students, try them out and chat with the creators about how they were made.",
+      "start": "2026-11-14T15:30:00-05:00",
+      "end": null,
+      "location": "Tate Student Center",
+      "organizer": "Game Dev Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "gaming-esports:video-games",
+        "technology-coding:software"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_12",
+      "title": "Robotics Club Build Night",
+      "description": "Help build and test the club's robots. All skill levels are welcome, and no experience is needed.",
+      "start": "2026-11-15T17:00:00-05:00",
+      "end": "2026-11-15T19:30:00-05:00",
+      "location": "Driftmier 1240",
+      "organizer": "Robotics Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "engineering-making:robotics"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_13",
+      "title": "Sunrise Yoga",
+      "description": "Start the day with a gentle outdoor yoga session on the lawn. Beginners welcome; bring a mat if you have one.",
+      "start": "2026-11-10T08:30:00-05:00",
+      "end": "2026-11-10T09:15:00-05:00",
+      "location": "Memorial Hall Lawn",
+      "organizer": "Wellness Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "fitness-wellness:yoga"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_14",
+      "title": "Mock Trial Open Practice",
+      "description": "Watch or join a practice round of mock trial and learn how student attorneys prepare and argue a case.",
+      "start": "2026-11-09T12:30:00-05:00",
+      "end": "2026-11-09T13:30:00-05:00",
+      "location": "Law School 105",
+      "organizer": "Mock Trial Team",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "law-government-policy:mock-trial"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_15",
+      "title": "Pickup Basketball",
+      "description": "Casual pickup games open to all skill levels. Show up, join a team and play.",
+      "start": "2026-11-09T17:15:00-05:00",
+      "end": null,
+      "location": "Ramsey Center",
+      "organizer": "Intramurals",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "sports-recreation:basketball"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_16",
+      "title": "Investing 101",
+      "description": "A beginner-friendly introduction to stocks, funds and how to start investing on a student budget.",
+      "start": "2026-11-10T15:45:00-05:00",
+      "end": "2026-11-10T16:45:00-05:00",
+      "location": "Correll 222",
+      "organizer": "Investment Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "finance-investing:investing"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_17",
+      "title": "Pottery Wheel Intro",
+      "description": "Try the pottery wheel for the first time and make your own small bowl or cup, with instructors guiding you.",
+      "start": "2026-11-11T14:00:00-05:00",
+      "end": "2026-11-11T15:30:00-05:00",
+      "location": "Lamar Dodd Annex",
+      "organizer": "Art Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "visual-art-design:pottery"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_18",
+      "title": "Terry Finance Society Networking",
+      "description": "Meet finance students and professionals, practice your introduction and make connections in the industry.",
+      "start": "2026-11-11T19:00:00-05:00",
+      "end": "2026-11-11T20:30:00-05:00",
+      "location": "Amos Hall",
+      "organizer": "Finance Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "finance-investing:finance",
+        "career-leadership:networking"
+      ],
+      "relevant_colleges": [
+        "terry"
+      ],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_19",
+      "title": "Improv Comedy Workshop",
+      "description": "Play improv games and learn the basics of thinking fast and being funny on stage. No experience needed.",
+      "start": "2026-11-11T20:00:00-05:00",
+      "end": "2026-11-11T21:30:00-05:00",
+      "location": "Fine Arts Theatre",
+      "organizer": "Improv Troupe",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "dance-performing-arts:improv"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_20",
+      "title": "Startup Pitch Practice",
+      "description": "Practice a three-minute startup pitch and get feedback from fellow founders before the next competition.",
+      "start": "2026-11-12T10:30:00-05:00",
+      "end": "2026-11-12T11:30:00-05:00",
+      "location": "Correll 301",
+      "organizer": "Entrepreneurship Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "business-entrepreneurship:pitch-competitions"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_21",
+      "title": "Pre-Med Society: MCAT Q and A",
+      "description": "Ask upperclassmen and advisors about MCAT prep, study schedules and the pre-med path.",
+      "start": "2026-11-12T12:15:00-05:00",
+      "end": "2026-11-12T13:15:00-05:00",
+      "location": "Science Library 120",
+      "organizer": "Pre-Med Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "healthcare-medicine:pre-med"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_22",
+      "title": "Acoustic Guitar Circle",
+      "description": "Bring a guitar or just a song request. Players of every level trade songs and jam together outdoors.",
+      "start": "2026-11-13T15:15:00-05:00",
+      "end": "2026-11-13T16:15:00-05:00",
+      "location": "Tate Plaza",
+      "organizer": "Guitar Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "music:guitar",
+        "music:jam-sessions"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_23",
+      "title": "Poetry Slam",
+      "description": "An open-mic night of original poetry. Sign up to perform or just come listen.",
+      "start": "2026-11-13T19:30:00-05:00",
+      "end": "2026-11-13T21:30:00-05:00",
+      "location": "Ciné",
+      "organizer": "Creative Writing Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "writing-literature:poetry"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_24",
+      "title": "Midnight Movie: Sci-Fi Classics",
+      "description": "A late-night screening of a sci-fi classic for fans and first-timers alike.",
+      "start": "2026-11-13T23:00:00-05:00",
+      "end": null,
+      "location": "Tate Theatre",
+      "organizer": "Film Society",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "film-photography:movie-nights"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_25",
+      "title": "Campus Cleanup and Compost",
+      "description": "Join other volunteers to clean up the quad and learn how campus composting works. Gloves and bags are provided.",
+      "start": "2026-11-14T09:30:00-05:00",
+      "end": "2026-11-14T12:00:00-05:00",
+      "location": "North Campus Quad",
+      "organizer": "Sustainability Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "community-service:volunteering",
+        "environment-sustainability:cleanup"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_26",
+      "title": "Intramural Soccer Scrimmage",
+      "description": "A friendly scrimmage open to all skill levels. Teams are mixed on the spot, so you do not need to bring a group.",
+      "start": "2026-11-14T11:00:00-05:00",
+      "end": "2026-11-14T13:00:00-05:00",
+      "location": "Intramural Fields",
+      "organizer": "Intramurals",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "sports-recreation:soccer"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_27",
+      "title": "Stargazing at the Observatory",
+      "description": "Look at planets and stars through the club's telescopes, with members on hand to point out what you are seeing.",
+      "start": "2026-11-14T20:15:00-05:00",
+      "end": null,
+      "location": "Physics Building Roof",
+      "organizer": "Astronomy Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "astronomy-space:stargazing"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_28",
+      "title": "Sunday Brunch Cooking Class",
+      "description": "Cook a simple brunch recipe from start to finish with the Culinary Club, then eat what you make.",
+      "start": "2026-11-15T11:00:00-05:00",
+      "end": "2026-11-15T12:30:00-05:00",
+      "location": "Hill Hall Kitchen",
+      "organizer": "Culinary Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "food-cooking:cooking"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    },
+    {
+      "id": "fake_29",
+      "title": "Board Game Night",
+      "description": "Pick from a big shelf of board games or learn a new one. Beginners and regulars welcome.",
+      "start": "2026-11-15T14:00:00-05:00",
+      "end": "2026-11-15T17:00:00-05:00",
+      "location": "Tate 4th Floor",
+      "organizer": "Tabletop Club",
+      "url": null,
+      "source": "fake",
+      "flyer_id": null,
+      "interest_tags": [
+        "board-games-tabletop-rpgs"
+      ],
+      "relevant_colleges": [],
+      "event_type": "other"
+    }
+  ],
+  "needs_review": []
+}
