@@ -1,0 +1,309 @@
+{
+  "9be94e286772ad9826ee8d8604131effc2dbddb157aff98f8007adcefb226358": {
+    "interest_tags": [
+      "community-service:volunteering",
+      "outdoors-adventure:outdoors",
+      "nature-wildlife:wildlife"
+    ],
+    "relevant_colleges": [
+      "franklin",
+      "odum",
+      "terry"
+    ]
+  },
+  "e1a365372e75c7a97b22069d8f601d71a2fe0202fd1f4178b29f8a1fe75f6806": {
+    "interest_tags": [
+      "music:concerts",
+      "dance-performing-arts:performing-arts",
+      "outdoors-adventure"
+    ],
+    "relevant_colleges": [
+      "franklin"
+    ]
+  },
+  "238c3a40b2003281bc95087b47af581bfbdb20143efa605868e39a261f2eabc8": {
+    "interest_tags": [
+      "dance-performing-arts:performing-arts"
+    ],
+    "relevant_colleges": [
+      "franklin",
+      "warnell"
+    ]
+  },
+  "92f0c03895d9386d8c140afcf5d78f53a00125f0599a6a2ad67a7575a441d5fb": {
+    "interest_tags": [
+      "social-campus-life:meeting-people",
+      "community-service:service"
+    ],
+    "relevant_colleges": [
+      "public-health"
+    ]
+  },
+  "70a5dbb4c7702e5f84fbfe9e2a9a74afca1ecfad1b6e256edc801a283b80842f": {
+    "interest_tags": [
+      "sports-recreation:badminton"
+    ],
+    "relevant_colleges": [
+      "franklin",
+      "computing",
+      "public-and-international-affairs"
+    ]
+  },
+  "09dcce1db11254526e328c3b0c17c3c6b3228d0ef8f58769645d004803198f50": {
+    "interest_tags": [
+      "nature-wildlife",
+      "animals-pets",
+      "social-campus-life"
+    ],
+    "relevant_colleges": [
+      "warnell"
+    ]
+  },
+  "c0d387a39ac0a65d2fc12dc7671898a221342b79d24c877f07f1dfe97450d17f": {
+    "interest_tags": [
+      "dance-performing-arts:dance",
+      "dance-performing-arts:performing-arts",
+      "african-cultures",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "0399cba980d9e66cf8e47f898ce0985db499340ee60ddce6fa218d13a8a3f96d": {
+    "interest_tags": [
+      "cultural-exchange:heritage-celebrations",
+      "cultural-exchange:cultural-festivals",
+      "african-cultures",
+      "dance-performing-arts"
+    ],
+    "relevant_colleges": []
+  },
+  "7ff6491ace5f8e0d2e734613e3f737bb0e68db8b7b71dd80f675786b0d9050a3": {
+    "interest_tags": [
+      "film-photography:film",
+      "film-photography:screenings",
+      "social-justice-advocacy:awareness",
+      "social-justice-advocacy:social-justice",
+      "community-service"
+    ],
+    "relevant_colleges": []
+  },
+  "5e1981a881bc8961d2f713c3877344f1405c829c3041e084148e145a34ae1669": {
+    "interest_tags": [
+      "sports-recreation:badminton",
+      "sports-recreation:sports",
+      "fitness-wellness",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "dbe5420c77717bf8f30219e86b5c676d7df557a92f2d129a71cabec87457810a": {
+    "interest_tags": [
+      "history-humanities:philosophy",
+      "history-humanities:public-lectures",
+      "psychology-human-behavior"
+    ],
+    "relevant_colleges": [
+      "franklin"
+    ]
+  },
+  "53c44d98eb5ce61778557c5bc98d6cabdbafde4eb88c6e965ee09bb7031b0bf8": {
+    "interest_tags": [
+      "technology-coding:ai",
+      "engineering-making",
+      "career-leadership"
+    ],
+    "relevant_colleges": [
+      "engineering"
+    ]
+  },
+  "29c81bf3bd75eef4c765e3af78f73b57c00b6578a8e85087985e033bb4b96d37": {
+    "interest_tags": [
+      "science-research:research",
+      "environment-sustainability:environment",
+      "technology-coding"
+    ],
+    "relevant_colleges": [
+      "franklin",
+      "environment-and-design"
+    ]
+  },
+  "4b8a3b3ee27fa10869e1211e4d752287d1ea45a382fdf04f47f0a182f19994d5": {
+    "interest_tags": [
+      "nature-wildlife:ecology",
+      "nature-wildlife:wildlife",
+      "environment-sustainability:conservation",
+      "science-research:research"
+    ],
+    "relevant_colleges": []
+  },
+  "4f36a3f053608122dbb76756f3e4bf2ff96d002824cfb809522be602a42239c8": {
+    "interest_tags": [
+      "career-leadership",
+      "languages-global-cultures"
+    ],
+    "relevant_colleges": []
+  },
+  "238bdb90908a3a19e7bcb7978b94c00590ec46f4577eba618d393369a3ac20d6": {
+    "interest_tags": [
+      "history-humanities:philosophy",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "a9ac401a506c022547c949c60d46aba283bab9940e045ced0dd8fcd938123f04": {
+    "interest_tags": [
+      "law-government-policy:politics",
+      "history-humanities:public-lectures",
+      "law-government-policy:government"
+    ],
+    "relevant_colleges": []
+  },
+  "f186d091157abbae16dfdfeec64b2a9b173bf0afe924f534425b5141ff54b290": {
+    "interest_tags": [
+      "film-photography:film",
+      "film-photography:screenings",
+      "music:music",
+      "history-humanities"
+    ],
+    "relevant_colleges": []
+  },
+  "2664f72c60f6232eb6dcc4e602431229121cb32a28730784dcb8bfb13660d012": {
+    "interest_tags": [
+      "latin-caribbean-cultures:brazilian-culture",
+      "languages-global-cultures:portuguese",
+      "visual-art-design:art",
+      "visual-art-design:drawing"
+    ],
+    "relevant_colleges": []
+  },
+  "d777cd9f6ce256b81b07853e6279ba4c8bff22d427eed877d1415a1334cb22f2": {
+    "interest_tags": [
+      "business-entrepreneurship",
+      "career-leadership",
+      "finance-investing"
+    ],
+    "relevant_colleges": [
+      "terry"
+    ]
+  },
+  "436910e08deb31c8fe7969a70d0bf9cb2cae95717fe05f545ef0da3cd3038aaf": {
+    "interest_tags": [
+      "visual-art-design:graphic-design",
+      "visual-art-design:digital-art",
+      "technology-coding"
+    ],
+    "relevant_colleges": []
+  },
+  "c1888875358906e4227357bd81953589e2fcc9bace96036da9e498f27f8edab6": {
+    "interest_tags": [
+      "south-asian-cultures:indian-culture",
+      "music:music",
+      "dance-performing-arts:performing-arts"
+    ],
+    "relevant_colleges": []
+  },
+  "cefee0b6e0b26d9f748ea1ca12c5864a9f0d127c1269fe0b5b9a38c3a10d5957": {
+    "interest_tags": [
+      "dance-performing-arts:dance",
+      "music:music",
+      "social-campus-life:meeting-people"
+    ],
+    "relevant_colleges": []
+  },
+  "07115c7d64013e868a82339e2cd2347f7914cdc224e59de12a53ca3545b82646": {
+    "interest_tags": [
+      "east-asian-cultures:korean-culture",
+      "music:music",
+      "diy-crafts"
+    ],
+    "relevant_colleges": []
+  },
+  "3ff3d52cb5b14cc07772d9801499d6432b6d28510a4bd6b2d2d71a63b1f0ab6c": {
+    "interest_tags": [
+      "cultural-exchange:international-student-connections",
+      "food-cooking:food",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "f0c33cd4caf61734232e4f5cc7d70ae51dbaacaa9e6b80e0e035d3fe47155baf": {
+    "interest_tags": [
+      "food-cooking:food",
+      "social-campus-life",
+      "diy-crafts"
+    ],
+    "relevant_colleges": []
+  },
+  "c2e1f2ef261071e60fcd61ec0f5b9900136edefbb465c2eb8a1bc236dc88ca63": {
+    "interest_tags": [
+      "dance-performing-arts:performing-arts",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "d085e244b8d42c4dff7837e09723c789bbcb67ac16073d02652afef9a5303721": {
+    "interest_tags": [
+      "sports-recreation:pickleball",
+      "sports-recreation:sports",
+      "sports-recreation:recreation"
+    ],
+    "relevant_colleges": []
+  },
+  "0d1092585ab179f3c1112c34ac5b746d9c722391f827a7cb33240c1869e5b950": {
+    "interest_tags": [
+      "languages-global-cultures:mandarin-chinese",
+      "languages-global-cultures:languages",
+      "languages-global-cultures:language-exchange",
+      "east-asian-cultures:chinese-culture",
+      "cultural-exchange"
+    ],
+    "relevant_colleges": []
+  },
+  "6934c4b74b12236a8b7a19672b7d299a843ddd1cb0987f75ff13c3be9ad78c29": {
+    "interest_tags": [
+      "astronomy-space:stargazing",
+      "southeast-asian-cultures:vietnamese-culture",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "45c3f3c6cde47b5fa0e79ace85546c264322e4ffe4aad04f8f80840c4bcaac15": {
+    "interest_tags": [
+      "film-photography:film",
+      "film-photography:movie-nights",
+      "film-photography:screenings",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "c4f99a1dfa333ed0ec5215adf3aa7c1b9f5b3e783242c0fa10a68b9ff981951c": {
+    "interest_tags": [
+      "latin-caribbean-cultures:caribbean-cultures",
+      "music:music",
+      "history-humanities:history"
+    ],
+    "relevant_colleges": []
+  },
+  "3889662f1003b845ec59ad3aeca472923704e9a707fe7e2351d0340dc5a9e79b": {
+    "interest_tags": [
+      "food-cooking:food",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "ef62fd7635a04d0b29ecbe6d15b07fd619b0b45d573e081f0c0c27011b9c9da4": {
+    "interest_tags": [
+      "music:music",
+      "music:concerts",
+      "music:live-music",
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  },
+  "646ca5a5ad9bfc364c2271f4399a775e5725a009eb7c175ff967e81f898fccde": {
+    "interest_tags": [
+      "social-campus-life"
+    ],
+    "relevant_colleges": []
+  }
+}

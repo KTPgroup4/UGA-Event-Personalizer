@@ -21,3 +21,4 @@ data/cache/
 .idea/
 .DS_Store
 Thumbs.db
+backend/data/accounts.db*

@@ -1,20 +1,51 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react"
-import type { CampusEvent } from "./App"
+import { useMemo, useState, type FormEvent } from "react"
+import type { CampusEvent, PersonalEvent } from "./App"
+import type { BusyBlock } from "./api"
+import "./calendar.css"
 
 type CalendarViewProps = {
-  selectedEvents: CampusEvent[]
+  // UGA events the student saved by swiping right
+  savedEvents: CampusEvent[]
+  // Events the student added by hand
+  personalEvents: PersonalEvent[]
+  // Busy times from the questionnaire, shown in the week the student is planning
+  busyBlocks: BusyBlock[]
+  // The Monday of that week, "YYYY-MM-DD"
+  weekStart: string
   name: string
   major: string
   interests: string[]
   onBack: () => void
+  onAddPersonal: (event: PersonalEvent) => void
+  onRemovePersonal: (id: string) => void
+  onRemoveSaved: (id: string) => void
 }
 
-type PersonalEvent = {
-  id: string
-  title: string
-  date: string
-  time: string
-  endTime?: string // events saved before end times existed do not have one
+// Days of the week in the same order as the planned week, which starts on a Monday.
+const WEEK_ORDER: BusyBlock["day"][] = [
+  "mon",
+  "tue",
+  "wed",
+  "thu",
+  "fri",
+  "sat",
+  "sun",
+]
+
+// The date of `day` inside the week that starts on `weekStart` (a Monday), as "YYYY-MM-DD".
+function dateInWeek(weekStart: string, day: BusyBlock["day"]) {
+  const date = new Date(weekStart + "T12:00:00Z")
+  date.setUTCDate(date.getUTCDate() + WEEK_ORDER.indexOf(day))
+  return date.toISOString().slice(0, 10)
+}
+
+// "2026-11-09" -> "Nov 9"
+function weekLabel(weekStart: string) {
+  return new Date(weekStart + "T12:00:00Z").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  })
 }
 
 const monthNames = [
@@ -65,28 +96,22 @@ function toMinutes(value?: string) {
 }
 
 export default function CalendarView({
-  selectedEvents,
+  savedEvents,
+  personalEvents,
+  busyBlocks,
+  weekStart,
   name,
   major,
   interests,
   onBack,
+  onAddPersonal,
+  onRemovePersonal,
+  onRemoveSaved,
 }: CalendarViewProps) {
   const [displayDate, setDisplayDate] = useState(new Date())
   const [mode, setMode] = useState<"month" | "list">("month")
   const [showForm, setShowForm] = useState(false)
   const [formError, setFormError] = useState("")
-  const [personalEvents, setPersonalEvents] = useState<PersonalEvent[]>(() => {
-    try {
-      return JSON.parse(localStorage.getItem("uga-personal-events") || "[]")
-    } catch {
-      return []
-    }
-  })
-
-  useEffect(() => {
-    localStorage.setItem("uga-personal-events", JSON.stringify(personalEvents))
-  }, [personalEvents])
-
   const year = displayDate.getFullYear()
   const month = displayDate.getMonth()
   const daysInMonth = new Date(year, month + 1, 0).getDate()
@@ -94,9 +119,10 @@ export default function CalendarView({
 
   const savedCampusEvents = useMemo(
     () =>
-      selectedEvents.map((event) => {
+      savedEvents.map((event) => {
         return {
           id: `campus-${event.id}`,
+          eventId: event.id,
           title: event.title,
           date: event.dateKey,
           time: event.time,
@@ -105,19 +131,35 @@ export default function CalendarView({
           type: "campus" as const,
         }
       }),
-    [selectedEvents],
+    [savedEvents],
+  )
+
+  // Each busy block appears once, on its day of the week the student is planning.
+  const busyEvents = useMemo(
+    () =>
+      busyBlocks.map((block, index) => ({
+        id: `busy-${index}`,
+        title: "Busy",
+        date: dateInWeek(weekStart, block.day),
+        time: block.start,
+        endTime: block.end,
+        endEstimated: false,
+        type: "busy" as const,
+      })),
+    [busyBlocks, weekStart],
   )
 
   const allEvents = useMemo(
     () => [
       ...savedCampusEvents,
+      ...busyEvents,
       ...personalEvents.map((event) => ({
         ...event,
         endEstimated: false,
         type: "personal" as const,
       })),
     ],
-    [personalEvents, savedCampusEvents],
+    [personalEvents, savedCampusEvents, busyEvents],
   )
 
   const cells = Array.from({ length: 42 }, (_, index) => {
@@ -129,9 +171,10 @@ export default function CalendarView({
     setDisplayDate(new Date(year, month + direction, 1))
   }
 
-  // Only events you added yourself can be removed. Saved UGA events come from the swipe step.
-  const removePersonalEvent = (id: string) => {
-    setPersonalEvents((current) => current.filter((event) => event.id !== id))
+  // Personal and saved events can be removed. Busy times are changed in "Edit answers".
+  const removeEvent = (event: (typeof allEvents)[number]) => {
+    if (event.type === "personal") onRemovePersonal(event.id)
+    if (event.type === "campus") onRemoveSaved(event.eventId)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -147,16 +190,13 @@ export default function CalendarView({
     }
 
     setFormError("")
-    setPersonalEvents((current) => [
-      ...current,
-      {
-        id: crypto.randomUUID(),
-        title: String(form.get("title")),
-        date: String(form.get("date")),
-        time,
-        endTime,
-      },
-    ])
+    onAddPersonal({
+      id: crypto.randomUUID(),
+      title: String(form.get("title")).trim(),
+      date: String(form.get("date")),
+      time,
+      endTime,
+    })
     formElement.reset()
     setShowForm(false)
   }
@@ -187,8 +227,8 @@ export default function CalendarView({
         <hr />
         <p className="profile-label">Saved events</p>
         <div className="profile-event-list">
-          {selectedEvents.length ? (
-            selectedEvents.map((event) => (
+          {savedEvents.length ? (
+            savedEvents.map((event) => (
               <span key={event.id}>
                 <i />
                 {event.title}
@@ -228,7 +268,19 @@ export default function CalendarView({
           <span>
             <i className="campus-dot" /> Saved UGA events
           </span>
+          {busyBlocks.length > 0 && (
+            <span>
+              <i className="busy-dot" /> Busy
+            </span>
+          )}
         </div>
+
+        {busyBlocks.length > 0 && (
+          <p className="calendar-legend-note">
+            Busy times show in the week you are planning (the week of{" "}
+            {weekLabel(weekStart)}). Change them with Edit answers.
+          </p>
+        )}
 
         {showForm && (
           <form className="calendar-form" onSubmit={handleSubmit}>
@@ -317,13 +369,13 @@ export default function CalendarView({
                       >
                         {when && <small>{when}</small>}
                         {event.title}
-                        {event.type === "personal" && (
+                        {event.type !== "busy" && (
                           <button
                             className="event-remove"
                             type="button"
                             aria-label={`Remove ${event.title}`}
                             title="Remove this event"
-                            onClick={() => removePersonalEvent(event.id)}
+                            onClick={() => removeEvent(event)}
                           >
                             ×
                           </button>
@@ -360,12 +412,12 @@ export default function CalendarView({
                     </small>
                   </span>
                   <span className="list-actions">
-                    {event.type === "personal" && (
+                    {event.type !== "busy" && (
                       <button
                         className="list-remove"
                         type="button"
                         aria-label={`Remove ${event.title}`}
-                        onClick={() => removePersonalEvent(event.id)}
+                        onClick={() => removeEvent(event)}
                       >
                         Remove
                       </button>

@@ -73,6 +73,16 @@ export interface ScheduleResponse {
   target_picks: number;
 }
 
+// An error from the backend. `status` is the HTTP status (401 = not logged in, 409 = email taken...).
+export class ApiError extends Error {
+  status: number
+
+  constructor(message: string, status: number) {
+    super(message)
+    this.status = status
+  }
+}
+
 async function apiRequest<T>(
   path: string,
   options?: RequestInit
@@ -94,7 +104,7 @@ async function apiRequest<T>(
       message = error.detail;
     }
 
-    throw new Error(message);
+    throw new ApiError(message, response.status);
   }
 
   return response.json() as Promise<T>;
@@ -114,4 +124,105 @@ export function getSchedules(
     },
     body: JSON.stringify(profile),
   });
+}
+
+// ---------------------------------------------------------------- accounts
+
+// What an account remembers (the questionnaire answers; the week is chosen each time).
+export interface SavedPreferences {
+  name: string;
+  majors: string[];
+  interests: string[];
+  busy: BusyBlock[];
+}
+
+// An event the student added by hand ("end_time" is "" when there is no end).
+export interface SavedPersonalEvent {
+  id: string;
+  title: string;
+  date: string; // YYYY-MM-DD
+  time: string; // HH:MM
+  end_time: string;
+}
+
+// The calendar an account remembers. "saved" are cards from /api/schedules kept as received.
+export interface SavedCalendar {
+  saved: RecommendedEvent[];
+  personal: SavedPersonalEvent[];
+}
+
+export interface AccountUser {
+  email: string;
+  preferences: SavedPreferences | null;
+  calendar: SavedCalendar | null;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: AccountUser;
+}
+
+function postJson(body: unknown, token?: string): RequestInit {
+  return {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: JSON.stringify(body),
+  };
+}
+
+export function signUp(
+  email: string,
+  password: string
+): Promise<AuthResponse> {
+  return apiRequest<AuthResponse>(
+    "/api/auth/signup",
+    postJson({ email, password })
+  );
+}
+
+export function logIn(
+  email: string,
+  password: string
+): Promise<AuthResponse> {
+  return apiRequest<AuthResponse>(
+    "/api/auth/login",
+    postJson({ email, password })
+  );
+}
+
+export function logOut(token: string): Promise<{ ok: boolean }> {
+  return apiRequest<{ ok: boolean }>("/api/auth/logout", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function getMe(token: string): Promise<{ user: AccountUser }> {
+  return apiRequest<{ user: AccountUser }>("/api/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function savePreferences(
+  token: string,
+  preferences: SavedPreferences
+): Promise<{ preferences: SavedPreferences }> {
+  return apiRequest<{ preferences: SavedPreferences }>(
+    "/api/me/preferences",
+    { ...postJson(preferences, token), method: "PUT" }
+  );
+}
+
+// Sends the WHOLE calendar; the backend replaces the one it had.
+export function saveCalendar(
+  token: string,
+  calendar: SavedCalendar
+): Promise<{ calendar: SavedCalendar }> {
+  return apiRequest<{ calendar: SavedCalendar }>(
+    "/api/me/calendar",
+    { ...postJson(calendar, token), method: "PUT" }
+  );
 }

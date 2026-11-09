@@ -1,0 +1,232 @@
+/* Landing page: cream background, logo and short description on the left,
+   red call-to-action card on the right (stacked on phones). */
+
+.landing {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 104px 24px 40px; /* top room keeps the content clear of the Log in button */
+  display: grid;
+  place-items: center;
+  color: #171717;
+  background: #f1f0eb;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Log in: small red pill in the top right corner */
+.landing-top {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+}
+
+.landing-login {
+  height: 44px;
+  padding: 0 24px;
+  color: #fff;
+  background: #c8102e;
+  border: 2px solid #171717;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 #171717;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.landing-login:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #171717;
+}
+
+.landing-login:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #171717;
+}
+
+.landing-login:focus-visible {
+  outline: 3px solid #171717;
+  outline-offset: 3px;
+}
+
+.landing-inner {
+  width: min(1060px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.landing-about {
+  max-width: 460px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.landing-logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 210px;
+}
+
+.landing-about p {
+  margin: 0;
+}
+
+/* First sentence: the main message, big and bold */
+.landing-lead {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.landing-name {
+  color: #c8102e;
+}
+
+/* The rest: larger and a little heavier than normal body text */
+.landing-text {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.landing-card {
+  min-height: 440px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  background: #c8102e;
+  border: 2px solid #171717;
+  border-radius: 28px;
+  box-shadow: 8px 8px 0 #171717;
+}
+
+.landing-card h1 {
+  max-width: 11em;
+  margin: 0;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.landing-sub {
+  margin: 16px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.landing-actions {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 32px;
+  display: grid;
+  gap: 14px;
+}
+
+.landing-primary,
+.landing-secondary {
+  height: 56px;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Main action: solid cream button */
+.landing-primary {
+  color: #171717;
+  background: #f1f0eb;
+  border: 2px solid #171717;
+  box-shadow: 4px 4px 0 #171717;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.landing-primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #171717;
+}
+
+.landing-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #171717;
+}
+
+/* Second action: outlined, so Sign up stays the clear first choice */
+.landing-secondary {
+  color: #f1f0eb;
+  background: transparent;
+  border: 2px solid #f1f0eb;
+}
+
+.landing-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.landing-primary:focus-visible,
+.landing-secondary:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Reserve room for the message so the card does not jump when it appears */
+.landing-notice {
+  min-height: 22px;
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .landing {
+    padding: 80px 18px 32px;
+    place-items: start center;
+  }
+
+  .landing-top {
+    top: 16px;
+    right: 18px;
+  }
+
+  .landing-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .landing-about {
+    max-width: none;
+    gap: 14px;
+  }
+
+  .landing-logo {
+    height: 140px;
+  }
+
+  .landing-lead {
+    font-size: 23px;
+  }
+
+  .landing-text {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .landing-card {
+    min-height: 0;
+    padding: 34px 22px 26px;
+    border-radius: 22px;
+    box-shadow: 6px 6px 0 #171717;
+  }
+}

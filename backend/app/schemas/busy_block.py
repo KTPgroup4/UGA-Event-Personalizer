@@ -11,7 +11,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, field_serializer, model_validator
 
 # All UGA events happen in Athens, Georgia.
 CAMPUS_TZ = ZoneInfo("America/New_York")
@@ -32,6 +32,11 @@ class BusyBlockInput(BaseModel):
     day: Day
     start: time
     end: time
+
+    @field_serializer("start", "end")
+    def _as_hh_mm(self, value: time) -> str:
+        # When a saved account is read back, times look the way the frontend sends them: "09:00".
+        return value.strftime("%H:%M")
 
     @model_validator(mode="after")
     def _check_times(self):

@@ -1,60 +1,32 @@
 """The answers a student gives in the questionnaire.
 
 The frontend sends this as JSON in POST /api/schedules. The backend does not
-store it: every request carries the full profile.
+store it: every request carries the full profile. (Logged-in students also get their
+questionnaire answers remembered by their account: see app/schemas/preferences.py.)
+
+The rules for majors, interests and busy times live in app/schemas/preferences.py. This
+file only adds the week to plan, and what the matcher asks for.
 
 Save this file as: app/schemas/user_profile.py
 """
 
 from datetime import date
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import field_validator
 
 from app import taxonomy
-from app.schemas.busy_block import BusyBlock, BusyBlockInput, expand_busy_blocks
-
-MAX_INTERESTS = 15  # students pick about 2-7; this stops absurdly large requests
-MAX_BUSY_BLOCKS = 100
+from app.schemas.busy_block import BusyBlock, expand_busy_blocks
+from app.schemas.preferences import MAX_BUSY_BLOCKS, MAX_INTERESTS, Preferences  # noqa: F401  (re-exported)
 
 
-class UserProfile(BaseModel):
-    model_config = ConfigDict(extra="forbid")  # e.g. a stray "name" field is rejected
-
+class UserProfile(Preferences):
     week_start: date  # the Monday of the week to plan
-    majors: list[str]
-    interests: list[str]
-    busy: list[BusyBlockInput] = []
 
     @field_validator("week_start")
     @classmethod
     def _must_be_monday(cls, value: date) -> date:
         if value.weekday() != 0:
             raise ValueError("week_start must be a Monday.")
-        return value
-
-    @field_validator("majors")
-    @classmethod
-    def _check_majors(cls, value: list[str]) -> list[str]:
-        # Raises a readable error for unknown IDs, too many majors, a lone co-major, etc.
-        return taxonomy.check_majors(value)
-
-    @field_validator("interests")
-    @classmethod
-    def _check_interests(cls, value: list[str]) -> list[str]:
-        if len(value) > MAX_INTERESTS:
-            raise ValueError(f"Choose at most {MAX_INTERESTS} interests.")
-        tidy = [taxonomy.normalize_tag(v) if isinstance(v, str) else v for v in value]
-        if not tidy:
-            raise ValueError("Choose at least one interest.")
-        # When a specialty and its category are both chosen, only the specialty is kept.
-        kept = taxonomy.canonical_selection(tidy)
-        return [tag for tag in dict.fromkeys(tidy) if tag in kept]  # keep the user's order
-
-    @field_validator("busy")
-    @classmethod
-    def _limit_busy(cls, value: list[BusyBlockInput]) -> list[BusyBlockInput]:
-        if len(value) > MAX_BUSY_BLOCKS:
-            raise ValueError(f"At most {MAX_BUSY_BLOCKS} busy blocks.")
         return value
 
     # ---- what the rest of the backend asks for ----

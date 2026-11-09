@@ -1,0 +1,22 @@
+/* Questionnaire: display name on its own row, the week picker underneath it. */
+
+.form-section.stacked-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.stacked-fields input,
+.stacked-fields select {
+  width: 100%;
+}
+
+/* The explanation sits above the week picker, between its label and the box. */
+.stacked-fields .field-hint {
+  display: block;
+  margin: -3px 0 10px;
+  color: #6b6a64;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
