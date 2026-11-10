@@ -1,0 +1,120 @@
+/* The "start typing and suggestions appear" boxes for interests and majors.
+   Selectors start with .personalizer-card so they win over the older rules in index.css. */
+
+.personalizer-card .typeahead {
+  position: relative;
+}
+
+.personalizer-card .typeahead > input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 2px solid #222;
+  border-radius: 13px;
+  background: #fff;
+  color: #171717;
+  font: inherit;
+  font-weight: 500;
+}
+
+.personalizer-card .typeahead > input:focus {
+  outline: none;
+  border-color: #c8102e;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.18);
+}
+
+/* The suggestions float under the box, over whatever comes next. */
+.personalizer-card .typeahead-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: min(340px, 50vh);
+  overflow-y: auto;
+  border: 2px solid #171717;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  overscroll-behavior: contain;
+}
+
+.personalizer-card .typeahead-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: #171717;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.personalizer-card .typeahead-row.active {
+  background: #fbeaed;
+  box-shadow: inset 3px 0 0 #c8102e;
+}
+
+.personalizer-card .typeahead-row.selected .typeahead-name {
+  font-weight: 700;
+}
+
+.personalizer-card .typeahead-row.blocked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.personalizer-card .typeahead-check {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #171717;
+  border-radius: 6px;
+  color: #fff;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.personalizer-card .typeahead-row.selected .typeahead-check {
+  background: #c8102e;
+}
+
+.personalizer-card .typeahead-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.personalizer-card .typeahead-group {
+  max-width: 45%;
+  color: #7a7973;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.personalizer-card .typeahead-note,
+.personalizer-card .typeahead-empty {
+  padding: 10px 14px;
+  color: #6b6a64;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.personalizer-card .typeahead-note {
+  background: #f1f0eb;
+}
+
+.personalizer-card .picker-limit {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #7a3b00;
+  background: #fff1dd;
+  font-size: 13px;
+  line-height: 1.4;
+}
