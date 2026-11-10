@@ -1,8 +1,9 @@
 
-import { useEffect, useRef, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import Landing from "./Landing"
 import AuthPage, { type AuthMode } from "./AuthPage"
 import CalendarView from "./CalendarView"
+import Typeahead, { type SuggestionItem } from "./Typeahead"
 import {
   ApiError,
   getMe,
@@ -21,6 +22,7 @@ import {
 } from "./api"
 import { clearToken, loadToken, saveToken } from "./session"
 import "./form-layout.css"
+import "./typeahead.css"
 
 export type CampusEvent = {
   id: string
@@ -313,7 +315,6 @@ export default function App() {
   const [selectedInterests, setSelectedInterests] =
     useState<string[]>([])
 
-  const [activeCategory, setActiveCategory] = useState("")
   const [weekStart, setWeekStart] = useState(getMonday)
 
   const [events, setEvents] = useState<CampusEvent[]>([])
@@ -335,6 +336,7 @@ export default function App() {
   const [error, setError] = useState("")
 
   const [started, setStarted] = useState(false)
+  const [step, setStep] = useState<1 | 2>(1) // which questionnaire page is showing
   const [view, setView] =
     useState<"discover" | "calendar">("discover")
 
@@ -445,6 +447,38 @@ export default function App() {
     .map(id => majorChoices.find(major => major.id === id)?.name ?? id)
     .join(", ")
 
+  // What the two typing boxes suggest (built once, when the options arrive).
+  const interestItems = useMemo<SuggestionItem[]>(
+    () =>
+      sortByName(options?.interests ?? []).flatMap(category => [
+        { id: category.id, name: `All ${category.name} events`, group: category.name, strong: true },
+        ...sortByName(category.children).map(child => ({
+          id: child.id,
+          name: child.name,
+          group: category.name,
+        })),
+      ]),
+    [options]
+  )
+
+  const majorItems = useMemo<SuggestionItem[]>(
+    () => [
+      ...(options?.colleges ?? []).flatMap(college =>
+        college.majors.map(major => ({ id: major.id, name: major.name, group: college.name }))
+      ),
+      ...(options?.special_majors ?? []).map(major => ({
+        id: major.id,
+        name: major.name,
+        group: "Other options",
+      })),
+    ],
+    [options]
+  )
+
+  const majorRules = options?.major_rules
+  const majorsFull = !!majorRules && selectedMajors.length >= majorRules.max
+  const interestsFull = selectedInterests.length >= 15
+
   const availableEvents = events.filter(
     event =>
       !reviewedIds.includes(event.id) &&
@@ -493,29 +527,51 @@ export default function App() {
     })
   }
 
-  async function findEvents() {
-    if (!options || loading) return
-
+  // The checks for page 1. Returns the message to show, or "" when the answers are fine.
+  function answersProblem() {
+    if (!options) return "The lists haven't loaded yet."
     const rules = options.major_rules
 
-    if (
-      selectedMajors.length < rules.min ||
-      selectedMajors.length > rules.max
-    ) {
-      setError(`Please select ${rules.min} to ${rules.max} majors.`)
-      return
+    if (selectedMajors.length < rules.min || selectedMajors.length > rules.max) {
+      return `Please select ${rules.min} to ${rules.max} majors.`
     }
 
     if (
       selectedMajors.some(id => rules.co_major_ids.includes(id)) &&
       selectedMajors.length < 2
     ) {
-      setError("This co-major must be selected with another major.")
-      return
+      return "This co-major must be selected with another major."
     }
 
     if (selectedInterests.length < 1 || selectedInterests.length > 15) {
-      setError("Please select between 1 and 15 interests.")
+      return "Please select between 1 and 15 interests."
+    }
+
+    return ""
+  }
+
+  function goToWeekPage() {
+    const problem = answersProblem()
+    setError(problem)
+    if (problem) return
+    setStep(2)
+    window.scrollTo({ top: 0 })
+  }
+
+  function goBackToAnswers() {
+    setError("")
+    setStep(1)
+    window.scrollTo({ top: 0 })
+  }
+
+  async function findEvents() {
+    if (!options || loading) return
+
+    const problem = answersProblem()
+
+    if (problem) {
+      setError(problem)
+      setStep(1)
       return
     }
 
@@ -743,7 +799,6 @@ export default function App() {
     setSelectedMajors([])
     setSelectedInterests([])
     setBusyBlocks([])
-    setActiveCategory("")
     setEvents([])
     setFavorites([])
     setReviewedIds([])
@@ -752,6 +807,7 @@ export default function App() {
     setPersonalEvents(loadGuestPersonal())
     syncedCalendar.current = ""
     setStarted(false)
+    setStep(1)
     setError("")
     setSaveNote("")
     setView("discover")
@@ -984,36 +1040,46 @@ export default function App() {
             <aside className="personalizer-card">
               <div className="card-heading">
                 <div className="question-meta">
-                  <strong>Step 1 of 2</strong>
-                  <strong>About you</strong>
+                  <strong>Step {step} of 2</strong>
+                  <strong>{step === 1 ? "About you" : "Your week"}</strong>
                 </div>
 
                 <div className="question-progress">
-                  <span />
+                  <span style={{ width: step === 1 ? "50%" : "100%" }} />
                 </div>
 
-                <h2>What are you into?</h2>
-                <p>Pick anything that sounds like you.</p>
+                {step === 1 ? (
+                  <>
+                    <h2>What are you into?</h2>
+                    <p>Pick anything that sounds like you.</p>
+                  </>
+                ) : (
+                  <>
+                    <h2>When are you free?</h2>
+                    <p>Choose your week and add anything you are busy with.</p>
+                  </>
+                )}
               </div>
 
-              {account ? (
-                <p className="account-note">
-                  Logged in as <strong>{account.email}</strong>. Your
-                  answers are saved when you press Find my events.
-                </p>
-              ) : (
-                <p className="account-note">
-                  Want to skip this next time?{" "}
-                  <button
-                    className="link-button"
-                    type="button"
-                    onClick={() => openAuth("signup")}
-                  >
-                    Create an account
-                  </button>{" "}
-                  to save your answers.
-                </p>
-              )}
+              {step === 1 &&
+                (account ? (
+                  <p className="account-note">
+                    Logged in as <strong>{account.email}</strong>. Your
+                    answers are saved when you press Find my events.
+                  </p>
+                ) : (
+                  <p className="account-note">
+                    Want to skip this next time?{" "}
+                    <button
+                      className="link-button"
+                      type="button"
+                      onClick={() => openAuth("signup")}
+                    >
+                      Create an account
+                    </button>{" "}
+                    to save your answers.
+                  </p>
+                ))}
 
               {saveNote && (
                 <p className="account-note" role="status">
@@ -1031,291 +1097,250 @@ export default function App() {
                 </p>
               )}
 
-              <div className="form-section">
-                <div className="label-row">
-                  <span className="field-label">
-                    Interests <small>(choose 1–15)</small>
-                  </span>
-                  <span className="selection-count">
-                    {selectedInterests.length} selected
-                  </span>
-                </div>
+              {step === 1 && (
+                <>
+                  <div className="form-section stacked-fields">
+                    <label>
+                      <span>Display name (optional)</span>
+                      <input
+                        value={name}
+                        placeholder="Your name"
+                        maxLength={60}
+                        onChange={event => setName(event.target.value)}
+                      />
+                    </label>
+                  </div>
 
-                <label className="compact-field">
-                  <span>Explore an interest category</span>
+                  <div className="form-section">
+                    <div className="label-row">
+                      <span className="field-label">
+                        Add a major{" "}
+                        <small>
+                          (choose {options?.major_rules.min ?? 1}–
+                          {options?.major_rules.max ?? 2})
+                        </small>
+                      </span>
 
-                  <select
-                    className="compact-select"
-                    value={activeCategory}
-                    onChange={event =>
-                      setActiveCategory(event.target.value)
-                    }
-                  >
-                    <option value="">Choose a category...</option>
+                      <span className="selection-count">
+                        {selectedMajors.length} selected
+                      </span>
+                    </div>
 
-                    {sortByName(options?.interests ?? []).map(category => (
-                      <option
-                        key={category.id}
-                        value={category.id}
-                      >
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                    <Typeahead
+                      label="Search majors"
+                      placeholder="Start typing your major, like biology..."
+                      items={majorItems}
+                      selected={selectedMajors}
+                      onToggle={toggleMajor}
+                      isDisabled={id =>
+                        majorsFull && !majorRules?.exclusive_ids.includes(id)
+                      }
+                      closeOnPick
+                      emptyHint="No majors match. Try a shorter word, or pick “Other / not listed”."
+                    />
 
-                {options?.interests
-                  .filter(category => category.id === activeCategory)
-                  .map(category => (
-                    <div
-                      key={category.id}
-                      className="compact-picker"
-                    >
-                      <label className="compact-option">
-                        <input
-                          type="checkbox"
-                          checked={selectedInterests.includes(category.id)}
-                          onChange={() => toggleInterest(category.id)}
-                        />
+                    {majorsFull && (
+                      <p className="picker-limit" role="status">
+                        {`You picked ${majorRules?.max}, the most allowed. Remove one to choose a different major.`}
+                      </p>
+                    )}
 
-                        <strong>All {category.name} events</strong>
-                      </label>
-
-                      {category.children.length > 0 && (
-                        <p className="compact-hint">
-                          Or select specific interests:
-                        </p>
-                      )}
-
-                      <div className="compact-options-scroll">
-                        {sortByName(category.children).map(child => (
-                          <label
-                            key={child.id}
-                            className="compact-option"
+                    {selectedMajors.length > 0 && (
+                      <div className="compact-selected">
+                        {selectedMajors.map(id => (
+                          <button
+                            key={id}
+                            type="button"
+                            className="choice-chip selected"
+                            onClick={() => toggleMajor(id)}
                           >
-                            <input
-                              type="checkbox"
-                              checked={selectedInterests.includes(child.id)}
-                              onChange={() => toggleInterest(child.id)}
-                            />
-                            <span>{child.name}</span>
-                          </label>
+                            {majorChoices.find(major => major.id === id)?.name ?? id}
+                            {" "}×
+                          </button>
                         ))}
                       </div>
-                    </div>
-                  ))}
-
-                {selectedInterests.length > 0 && (
-                  <div className="compact-selected">
-                    {selectedInterests.map(id => (
-                      <button
-                        key={id}
-                        type="button"
-                        className="choice-chip selected"
-                        onClick={() => toggleInterest(id)}
-                      >
-                        {interestLabel(id)} ×
-                      </button>
-                    ))}
+                    )}
                   </div>
-                )}
-              </div>
 
-              <div className="form-section">
-                <div className="label-row">
-                  <span className="field-label">
-                    Majors{" "}
-                    <small>
-                      (choose {options?.major_rules.min ?? 1}–
-                      {options?.major_rules.max ?? 2})
-                    </small>
-                  </span>
+                  <div className="form-section">
+                    <div className="label-row">
+                      <span className="field-label">
+                        Search for interests <small>(choose 1–15)</small>
+                      </span>
+                      <span className="selection-count">
+                        {selectedInterests.length} selected
+                      </span>
+                    </div>
 
-                  <span className="selection-count">
-                    {selectedMajors.length} selected
-                  </span>
-                </div>
+                    <Typeahead
+                      label="Search interests"
+                      placeholder="Start typing, like music, coding or hiking..."
+                      items={interestItems}
+                      selected={selectedInterests}
+                      onToggle={toggleInterest}
+                      isDisabled={() => interestsFull}
+                      emptyHint="No interests match. Try a shorter word, like “art” or “sport”."
+                    />
 
-                <label className="compact-field">
-                  <span>Add a major</span>
+                    {interestsFull && (
+                      <p className="picker-limit" role="status">
+                        You picked 15, the most allowed. Remove one to add another.
+                      </p>
+                    )}
 
-                  <select
-                    className="compact-select"
-                    value=""
-                    onChange={event => {
-                      if (event.target.value) {
-                        toggleMajor(event.target.value)
-                      }
-                    }}
-                  >
-                    <option value="">Choose your major...</option>
-
-                    {options?.colleges.map(college => (
-                      <optgroup
-                        key={college.id}
-                        label={college.name}
-                      >
-                        {college.majors.map(major => (
-                          <option
-                            key={major.id}
-                            value={major.id}
+                    {selectedInterests.length > 0 && (
+                      <div className="compact-selected">
+                        {selectedInterests.map(id => (
+                          <button
+                            key={id}
+                            type="button"
+                            className="choice-chip selected"
+                            onClick={() => toggleInterest(id)}
                           >
-                            {major.name}
+                            {interestLabel(id)} ×
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="question-actions">
+                    <button
+                      className="primary-button"
+                      type="button"
+                      disabled={loadingOptions || !options}
+                      onClick={goToWeekPage}
+                    >
+                      Next
+                      <Icon name="arrow" size={17} />
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <div className="form-section stacked-fields">
+                    <label>
+                      <span>Week starting Monday</span>
+                      <small className="field-hint">
+                        Pick the Monday of the week you are planning. We show
+                        events from that Monday through Sunday.
+                      </small>
+                      <select
+                        className="compact-select"
+                        value={weekStart}
+                        onChange={event => setWeekStart(event.target.value)}
+                      >
+                        {mondayOptions(getMonday()).map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
                           </option>
                         ))}
-                      </optgroup>
-                    ))}
-
-                    <optgroup label="Other options">
-                      {options?.special_majors.map(major => (
-                        <option
-                          key={major.id}
-                          value={major.id}
-                        >
-                          {major.name}
-                        </option>
-                      ))}
-                    </optgroup>
-                  </select>
-                </label>
-
-                {selectedMajors.length > 0 && (
-                  <div className="compact-selected">
-                    {selectedMajors.map(id => (
-                      <button
-                        key={id}
-                        type="button"
-                        className="choice-chip selected"
-                        onClick={() => toggleMajor(id)}
-                      >
-                        {majorChoices.find(major => major.id === id)?.name ?? id}
-                        {" "}×
-                      </button>
-                    ))}
+                      </select>
+                    </label>
                   </div>
-                )}
-              </div>
 
-              <div className="form-section stacked-fields">
-                <label>
-                  <span>Display name (optional)</span>
-                  <input
-                    value={name}
-                    placeholder="Your name"
-                    onChange={event => setName(event.target.value)}
-                  />
-                </label>
+                <div className="form-section">
+                  <span className="busy-title">
+                    Times you are busy (optional)
+                  </span>
+                  <p className="compact-hint">
+                    Add your class or work times. We will not show events
+                    that clash with them, and they appear on your calendar
+                    in the week you picked above.
+                  </p>
 
-                <label>
-                  <span>Week starting Monday</span>
-                  <small className="field-hint">
-                    Pick the Monday of the week you are planning. We show
-                    events from that Monday through Sunday.
-                  </small>
-                  <select
-                    className="compact-select"
-                    value={weekStart}
-                    onChange={event => setWeekStart(event.target.value)}
-                  >
-                    {mondayOptions(getMonday()).map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
+                  <div className="busy-form">
+                    <label>
+                      <span>Day</span>
+                      <select
+                        value={busyDraft.day}
+                        onChange={event =>
+                          setBusyDraft({
+                            ...busyDraft,
+                            day: event.target.value as BusyBlock["day"],
+                          })
+                        }
+                      >
+                        {BUSY_DAYS.map(([id, label]) => (
+                          <option key={id} value={id}>
+                            {label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
 
-              <div className="form-section">
-                <span className="busy-title">
-                  Times you are busy (optional)
-                </span>
-                <p className="compact-hint">
-                  Add your class or work times. We will not show events
-                  that clash with them, and they appear on your calendar
-                  in the week you picked above.
-                </p>
+                    <label>
+                      <span>From</span>
+                      <input
+                        type="time"
+                        value={busyDraft.start}
+                        onChange={event =>
+                          setBusyDraft({ ...busyDraft, start: event.target.value })
+                        }
+                      />
+                    </label>
 
-                <div className="busy-form">
-                  <label>
-                    <span>Day</span>
-                    <select
-                      value={busyDraft.day}
-                      onChange={event =>
-                        setBusyDraft({
-                          ...busyDraft,
-                          day: event.target.value as BusyBlock["day"],
-                        })
-                      }
+                    <label>
+                      <span>To</span>
+                      <input
+                        type="time"
+                        value={busyDraft.end}
+                        onChange={event =>
+                          setBusyDraft({ ...busyDraft, end: event.target.value })
+                        }
+                      />
+                    </label>
+
+                    <button
+                      className="busy-add"
+                      type="button"
+                      onClick={addBusyBlock}
                     >
-                      {BUSY_DAYS.map(([id, label]) => (
-                        <option key={id} value={id}>
-                          {label}
-                        </option>
+                      Add
+                    </button>
+                  </div>
+
+                  {busyError && <p className="busy-error">{busyError}</p>}
+
+                  {busyBlocks.length > 0 && (
+                    <div className="compact-selected">
+                      {busyBlocks.map((block, index) => (
+                        <button
+                          key={`${block.day}-${block.start}-${block.end}-${index}`}
+                          type="button"
+                          className="choice-chip selected"
+                          onClick={() => removeBusyBlock(index)}
+                        >
+                          {busyLabel(block)} ×
+                        </button>
                       ))}
-                    </select>
-                  </label>
-
-                  <label>
-                    <span>From</span>
-                    <input
-                      type="time"
-                      value={busyDraft.start}
-                      onChange={event =>
-                        setBusyDraft({ ...busyDraft, start: event.target.value })
-                      }
-                    />
-                  </label>
-
-                  <label>
-                    <span>To</span>
-                    <input
-                      type="time"
-                      value={busyDraft.end}
-                      onChange={event =>
-                        setBusyDraft({ ...busyDraft, end: event.target.value })
-                      }
-                    />
-                  </label>
-
-                  <button
-                    className="busy-add"
-                    type="button"
-                    onClick={addBusyBlock}
-                  >
-                    Add
-                  </button>
+                    </div>
+                  )}
                 </div>
 
-                {busyError && <p className="busy-error">{busyError}</p>}
+                  <div className="question-actions">
+                    <button
+                      className="back-button"
+                      type="button"
+                      onClick={goBackToAnswers}
+                    >
+                      Back
+                    </button>
 
-                {busyBlocks.length > 0 && (
-                  <div className="compact-selected">
-                    {busyBlocks.map((block, index) => (
-                      <button
-                        key={`${block.day}-${block.start}-${block.end}-${index}`}
-                        type="button"
-                        className="choice-chip selected"
-                        onClick={() => removeBusyBlock(index)}
-                      >
-                        {busyLabel(block)} ×
-                      </button>
-                    ))}
+                    <button
+                      className="primary-button"
+                      type="button"
+                      disabled={loading || loadingOptions || !options}
+                      onClick={findEvents}
+                    >
+                      {loading ? "Finding events..." : "Find my events"}
+                      <Icon name="arrow" size={17} />
+                    </button>
                   </div>
-                )}
-              </div>
-
-              <div className="question-actions">
-                <button
-                  className="primary-button"
-                  type="button"
-                  disabled={loading || loadingOptions || !options}
-                  onClick={findEvents}
-                >
-                  {loading ? "Finding events..." : "Find my events"}
-                  <Icon name="arrow" size={17} />
-                </button>
-              </div>
+                </>
+              )}
             </aside>
 
             {started && (
@@ -1327,7 +1352,10 @@ export default function App() {
                   <button
                     className="edit-preferences"
                     type="button"
-                    onClick={() => setStarted(false)}
+                    onClick={() => {
+                      setStarted(false)
+                      setStep(1)
+                    }}
                   >
                     <Icon name="chevron" size={15} />
                     Edit preferences
